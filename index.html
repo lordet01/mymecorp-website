@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+햐<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -48,7 +48,7 @@
         }
         
         .logo {
-            height: 32px;
+            height: 128px;
             display: inline-block;
             vertical-align: middle;
         }
@@ -291,8 +291,8 @@
         }
 
         .store-btn img {
-            width: 20px;
-            height: 20px;
+            width: 80px;
+            height: 80px;
             flex-shrink: 0;
         }
 
@@ -315,6 +315,93 @@
             letter-spacing: -0.01em;
         }
 
+        .promo-rotation-section {
+            padding: 0 0 80px;
+        }
+
+        .promo-rotation-card {
+            position: relative;
+            width: 100%;
+            max-width: 640px;
+            aspect-ratio: 1 / 1;
+            margin: 0 auto;
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid #F3F4F6;
+            background-color: #FFFFFF;
+            box-shadow: 0 24px 44px -30px rgba(17, 24, 39, 0.35);
+        }
+
+        .promo-showcase {
+            z-index: 0;
+            pointer-events: none;
+            background: none;
+            justify-content: center;
+            align-items: center;
+            display: flex;
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+        }
+
+        .promo-showcase__layer {
+            opacity: 0;
+            transition: opacity var(--promo-fade-ms, 0.6s) ease-in-out;
+            justify-content: center;
+            align-items: center;
+            display: flex;
+            position: absolute;
+            inset: 0;
+        }
+
+        .promo-showcase__layer--visible {
+            opacity: 1;
+        }
+
+        .promo-showcase__logo-layer {
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.32) 55%, rgba(255, 255, 255, 0) 75%);
+        }
+
+        .promo-showcase__logo {
+            object-fit: contain;
+            opacity: 0.9;
+            mix-blend-mode: multiply;
+            filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.08));
+            width: min(72%, 360px);
+            height: auto;
+        }
+
+        .promo-showcase__grid-layer {
+            backdrop-filter: blur(2px);
+            background: rgba(255, 255, 255, 0.35);
+        }
+
+        .promo-showcase__grid {
+            grid-template-columns: repeat(var(--promo-grid-size, 3), minmax(0, 1fr));
+            grid-template-rows: repeat(var(--promo-grid-size, 3), minmax(0, 1fr));
+            gap: 10px;
+            width: 100%;
+            height: 100%;
+            padding: 16px;
+            display: grid;
+        }
+
+        .promo-showcase__cell {
+            background: rgba(255, 255, 255, 0.62);
+            border-radius: 18px;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .promo-showcase__cell img {
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
         /* Footer */
         footer {
             padding: 60px 20px;
@@ -325,7 +412,7 @@
         }
 
         .footer-logo {
-            height: 24px;
+            height: 96px;
             margin-bottom: 24px;
             opacity: 0.5;
             filter: grayscale(100%);
@@ -380,10 +467,20 @@
             .store-links { gap: 10px; }
             .store-btn { width: 100%; max-width: 310px; justify-content: center; }
             .store-text { text-align: center; }
+            .promo-rotation-section { padding: 0 0 56px; }
+            .promo-rotation-card { border-radius: 18px; }
+            .promo-showcase__grid { gap: 8px; padding: 12px; }
+            .promo-showcase__cell { border-radius: 12px; }
             footer { padding: 44px 16px; font-size: 0.82rem; }
-            .footer-logo { height: 20px; margin-bottom: 16px; }
+            .footer-logo { height: 80px; margin-bottom: 16px; }
             .contact-info { margin-bottom: 14px; font-size: 0.9rem; }
             .company-note { font-size: 0.68rem; margin-top: 12px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .promo-showcase__layer {
+                transition: none;
+            }
         }
     </style>
 </head>
@@ -536,14 +633,14 @@
                 <div class="cta-desc">Build your personal studio for the price of a cup of coffee.</div>
                 <div class="store-links">
                     <a class="store-btn" href="https://apps.apple.com/kr/" target="_blank" rel="noopener noreferrer" aria-label="Go to App Store">
-                        <img src="./myme_Design Asset/svg/myme_symbol(white).svg" alt="" aria-hidden="true">
+                        <img src="./myme_Design Asset/svg/apple-store.svg" alt="" aria-hidden="true">
                         <span class="store-text">
                             <span class="store-label">Download now</span>
                             <span class="store-name">App Store</span>
                         </span>
                     </a>
                     <a class="store-btn" href="https://play.google.com/store" target="_blank" rel="noopener noreferrer" aria-label="Go to Google Play">
-                        <img src="./myme_Design Asset/svg/myme_symbol(white).svg" alt="" aria-hidden="true">
+                        <img src="./myme_Design Asset/svg/google-play.svg" alt="" aria-hidden="true">
                         <span class="store-text">
                             <span class="store-label">Download now</span>
                             <span class="store-name">Google Play</span>
@@ -552,6 +649,21 @@
                 </div>
             </div>
         </div>
+
+        <section class="promo-rotation-section">
+            <div class="container">
+                <div class="promo-rotation-card">
+                    <div class="promo-showcase" style="--promo-fade-ms: 600ms; --promo-grid-size: 3;" aria-hidden="true">
+                        <div class="promo-showcase__layer promo-showcase__logo-layer promo-showcase__layer--visible" data-promo-layer="logo">
+                            <img class="promo-showcase__logo" src="./myme_Design Asset/svg/myme_portrait(primary).svg" alt="MYME symbol">
+                        </div>
+                        <div class="promo-showcase__layer promo-showcase__grid-layer" data-promo-layer="grid">
+                            <div class="promo-showcase__grid" data-promo-grid></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <footer>
@@ -566,5 +678,138 @@
         </div>
     </footer>
 
+    <script>
+        (function () {
+            var promoRoot = document.querySelector(".promo-showcase");
+            if (!promoRoot) return;
+
+            var logoLayer = promoRoot.querySelector('[data-promo-layer="logo"]');
+            var gridLayer = promoRoot.querySelector('[data-promo-layer="grid"]');
+            var grid = promoRoot.querySelector("[data-promo-grid]");
+            if (!logoLayer || !gridLayer || !grid) return;
+
+            var fadeMs = 600;
+            var holdMs = 3000;
+            var gridSize = 3;
+            var gridCount = gridSize * gridSize;
+            var imagePool = [];
+            var stage = "logoIn";
+            var timeoutId = null;
+            var endpoint = "https://myme.serveftp.com/promo-images";
+            var imageBase = "https://myme.serveftp.com/promo-images/";
+
+            var fallbackPool = [
+                "gen_000001_adult__passport_변경_없음_na_변경_없음_na_bg_wht_858445764_db7cf1.png",
+                "gen_000003_adult__profile_화이트_셔츠_beig_숏컷_dbrn_bg_na_420438132_0b83aa.png",
+                "gen_000006_adult__passport_변경_없음_na_변경_없음_na_bg_wht_1292318260_56f4e1.png",
+                "gen_000009_adult__profile_변경_없음_na_변경_없음_na_bg_wht_113301753_a77ec6.png",
+                "gen_000011_adult__profile_오피스룩_owht_변경_없음_na_bg_pstblu_1527876400_089dd2.png",
+                "gen_000015_adult__passport_이브닝_드레스_beig_변경_없음_na_bg_wht_1971903939_928dd6.png",
+                "gen_000020_adult__id_변경_없음_na_변경_없음_na_bg_wht_994701731_fdfcae.png",
+                "gen_000023_adult__id_변경_없음_na_변경_없음_na_bg_wht_192176371_51b85e.png",
+                "gen_000028_adult__profile_오피스룩_dbrn_숏컷_blk_bg_pstpnk_874937982_bfa5f7.png",
+                "gen_000032_adult__id_오피스룩_gry_웨이브_헤어_blk_bg_wht_1655368511_d3a945.png",
+                "gen_000039_adult__passport_변경_없음_na_로우번_묶음머리_blk_bg_wht_1980746839_dfa9ac.png",
+                "gen_000045_adult__passport_라운드넥_navy_변경_없음_na_bg_wht_1605694940_2baf9b.png"
+            ];
+
+            function setVisibility(showLogo) {
+                logoLayer.classList.toggle("promo-showcase__layer--visible", showLogo);
+                gridLayer.classList.toggle("promo-showcase__layer--visible", !showLogo);
+            }
+
+            function shuffle(items) {
+                var copy = items.slice();
+                for (var i = copy.length - 1; i > 0; i -= 1) {
+                    var j = Math.floor(Math.random() * (i + 1));
+                    var t = copy[i];
+                    copy[i] = copy[j];
+                    copy[j] = t;
+                }
+                return copy;
+            }
+
+            function pickImages(pool, count) {
+                if (!pool.length || count <= 0) return [];
+                var selections = [];
+                var remaining = shuffle(pool);
+                while (selections.length < count) {
+                    if (!remaining.length) remaining = shuffle(pool);
+                    selections.push(remaining.pop());
+                }
+                return selections;
+            }
+
+            function renderGrid(images) {
+                grid.innerHTML = "";
+                for (var i = 0; i < images.length; i += 1) {
+                    var cell = document.createElement("div");
+                    cell.className = "promo-showcase__cell";
+
+                    var img = document.createElement("img");
+                    img.loading = "lazy";
+                    img.alt = "promo profile";
+                    img.src = imageBase + encodeURIComponent(images[i]);
+
+                    cell.appendChild(img);
+                    grid.appendChild(cell);
+                }
+            }
+
+            function schedule(ms) {
+                if (timeoutId) clearTimeout(timeoutId);
+                timeoutId = setTimeout(tick, ms);
+            }
+
+            function tick() {
+                if (stage === "logoIn") {
+                    setVisibility(true);
+                    stage = "logoHold";
+                    schedule(fadeMs);
+                } else if (stage === "logoHold") {
+                    stage = "logoOut";
+                    schedule(holdMs);
+                } else if (stage === "logoOut") {
+                    if (!imagePool.length) {
+                        stage = "logoIn";
+                        schedule(fadeMs);
+                        return;
+                    }
+                    renderGrid(pickImages(imagePool, gridCount));
+                    setVisibility(false);
+                    stage = "gridIn";
+                    schedule(fadeMs);
+                } else if (stage === "gridIn") {
+                    stage = "gridHold";
+                    schedule(fadeMs);
+                } else if (stage === "gridHold") {
+                    stage = "gridOut";
+                    schedule(holdMs);
+                } else {
+                    setVisibility(true);
+                    stage = "logoIn";
+                    schedule(fadeMs);
+                }
+            }
+
+            fetch(endpoint, { cache: "no-store" })
+                .then(function (res) { return res.ok ? res.json() : null; })
+                .then(function (data) {
+                    if (data && Array.isArray(data.images) && data.images.length) {
+                        imagePool = data.images;
+                    } else {
+                        imagePool = fallbackPool.slice();
+                    }
+                })
+                .catch(function () {
+                    imagePool = fallbackPool.slice();
+                })
+                .finally(function () {
+                    stage = "logoIn";
+                    setVisibility(true);
+                    schedule(fadeMs);
+                });
+        })();
+    </script>
 </body>
 </html>
