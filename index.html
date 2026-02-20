@@ -1,4 +1,4 @@
-햐<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -34,23 +34,6 @@
 
         .highlight {
             color: var(--primary-color);
-        }
-
-        /* Header */
-        header {
-            padding: 24px 20px;
-            text-align: center;
-            border-bottom: 1px solid #F3F4F6;
-            background-color: var(--bg-white);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        
-        .logo {
-            height: 128px;
-            display: inline-block;
-            vertical-align: middle;
         }
 
         /* Hero section */
@@ -413,9 +396,17 @@
 
         .footer-logo {
             height: 96px;
+            margin-bottom: 0;
+        }
+
+        .footer-logo-wrap {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #111827;
+            border-radius: 16px;
+            padding: 14px 20px;
             margin-bottom: 24px;
-            opacity: 0.5;
-            filter: grayscale(100%);
         }
 
         .contact-info {
@@ -472,7 +463,8 @@
             .promo-showcase__grid { gap: 8px; padding: 12px; }
             .promo-showcase__cell { border-radius: 12px; }
             footer { padding: 44px 16px; font-size: 0.82rem; }
-            .footer-logo { height: 80px; margin-bottom: 16px; }
+            .footer-logo { height: 80px; }
+            .footer-logo-wrap { margin-bottom: 16px; padding: 10px 14px; border-radius: 12px; }
             .contact-info { margin-bottom: 14px; font-size: 0.9rem; }
             .company-note { font-size: 0.68rem; margin-top: 12px; }
         }
@@ -486,12 +478,6 @@
 </head>
 <body>
 
-    <header>
-        <div class="container">
-            <img src="./myme_Design Asset/svg/myme_logo(primary).svg" alt="MYME logo" class="logo">
-        </div>
-    </header>
-
     <main>
         <!-- Hero section -->
         <section class="hero">
@@ -502,6 +488,21 @@
                     <strong>MYME</strong> transforms your everyday photos into polished ID photos, passport photos, and profile portraits with advanced AI.<br>
                     No complicated Photoshop, no expensive studio costs. Create your best ID photo in just a few taps.
                 </p>
+            </div>
+        </section>
+
+        <section class="promo-rotation-section">
+            <div class="container">
+                <div class="promo-rotation-card">
+                    <div class="promo-showcase" style="--promo-fade-ms: 600ms; --promo-grid-size: 3;" aria-hidden="true">
+                        <div class="promo-showcase__layer promo-showcase__logo-layer promo-showcase__layer--visible" data-promo-layer="logo">
+                            <img class="promo-showcase__logo" src="./myme_Design Asset/svg/myme_portrait(primary).svg" alt="MYME symbol">
+                        </div>
+                        <div class="promo-showcase__layer promo-showcase__grid-layer" data-promo-layer="grid">
+                            <div class="promo-showcase__grid" data-promo-grid></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -650,25 +651,13 @@
             </div>
         </div>
 
-        <section class="promo-rotation-section">
-            <div class="container">
-                <div class="promo-rotation-card">
-                    <div class="promo-showcase" style="--promo-fade-ms: 600ms; --promo-grid-size: 3;" aria-hidden="true">
-                        <div class="promo-showcase__layer promo-showcase__logo-layer promo-showcase__layer--visible" data-promo-layer="logo">
-                            <img class="promo-showcase__logo" src="./myme_Design Asset/svg/myme_portrait(primary).svg" alt="MYME symbol">
-                        </div>
-                        <div class="promo-showcase__layer promo-showcase__grid-layer" data-promo-layer="grid">
-                            <div class="promo-showcase__grid" data-promo-grid></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
     </main>
 
     <footer>
         <div class="container">
-            <img src="./myme_Design Asset/svg/myme_logo(primary).svg" alt="MYME logo" class="footer-logo">
+            <div class="footer-logo-wrap">
+                <img src="./myme_Design Asset/png/myme_landscape(white).png" alt="MYME logo" class="footer-logo">
+            </div>
             <div class="contact-info">
                 For support requests or product suggestions, feel free to contact us anytime.<br>
                 Email: <a href="mailto:lordet01@gmail.com">lordet01@gmail.com</a>
