@@ -204,6 +204,11 @@
             font-size: 2rem;
         }
 
+        .target-text {
+            min-width: 0;
+            flex: 1;
+        }
+
         .target-text strong {
             display: block;
             font-size: 1.1rem;
@@ -510,6 +515,20 @@
             .footer-logo-wrap { margin-bottom: 16px; }
             .contact-info { margin-bottom: 14px; font-size: 0.9rem; }
             .company-note { font-size: 0.68rem; margin-top: 12px; }
+        }
+
+        @media (max-width: 380px) {
+            .container { padding: 0 14px; }
+            .hero { padding: 40px 0 32px; }
+            .hero h1 { font-size: 1.65rem; margin-bottom: 12px; }
+            .hero-badge { font-size: 0.78rem; padding: 6px 12px; margin-bottom: 14px; }
+            .feature-card { padding: 20px 16px; }
+            .feature-title { font-size: 1rem; }
+            .target-text strong { font-size: 0.95rem; }
+            .cta-title { font-size: 1.35rem; }
+            .store-btn { padding: 10px 14px; }
+            /* 아주 좁은 화면에서는 단어 중간 줄바꿈을 더 적극적으로 허용 */
+            body { word-break: break-all; }
         }
 
         @media (prefers-reduced-motion: reduce) {
