@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MYME | AI ID Photos & Profiles</title>
+    <title data-i18n-key="meta.title">myme | AI ID Photos & Profiles</title>
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
     <style>
         :root {
@@ -34,6 +34,42 @@
 
         .highlight {
             color: var(--primary-color);
+        }
+
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        .lang-switcher {
+            position: fixed;
+            top: 12px;
+            right: 12px;
+            z-index: 1000;
+        }
+
+        .lang-switcher select {
+            font-size: 11px;
+            line-height: 1;
+            color: #374151;
+            background-color: rgba(255, 255, 255, 0.92);
+            border: 1px solid rgba(17, 24, 39, 0.15);
+            border-radius: 10px;
+            padding: 6px 24px 6px 8px;
+            cursor: pointer;
+            box-shadow: 0 8px 16px -14px rgba(0, 0, 0, 0.45);
+        }
+
+        .lang-switcher select:focus-visible {
+            outline: 2px solid rgba(255, 95, 95, 0.45);
+            outline-offset: 1px;
         }
 
         /* Hero section */
@@ -299,7 +335,7 @@
         }
 
         .promo-rotation-section {
-            padding: 0 0 80px;
+            padding: 22px 0 18px;
         }
 
         .promo-rotation-card {
@@ -431,6 +467,8 @@
         }
 
         @media (max-width: 768px) {
+            .lang-switcher { top: 8px; right: 8px; }
+            .lang-switcher select { font-size: 10px; border-radius: 9px; padding: 5px 20px 5px 7px; }
             .container { padding: 0 16px; }
             .hero { padding: 56px 0 44px; }
             .hero h1 { font-size: 1.85rem; line-height: 1.3; margin-bottom: 16px; }
@@ -458,7 +496,7 @@
             .store-links { gap: 10px; }
             .store-btn { width: 100%; max-width: 310px; justify-content: center; }
             .store-text { text-align: center; }
-            .promo-rotation-section { padding: 0 0 56px; }
+            .promo-rotation-section { padding: 12px 0 14px; }
             .promo-rotation-card { border-radius: 18px; }
             .promo-showcase__grid { gap: 8px; padding: 12px; }
             .promo-showcase__cell { border-radius: 12px; }
@@ -478,43 +516,49 @@
 </head>
 <body>
 
+    <div class="lang-switcher">
+        <label class="visually-hidden" for="lang-select" data-i18n-key="lang.select.label">Language</label>
+        <select id="lang-select" aria-label="Language selector" data-i18n-aria-key="lang.select.aria">
+            <option value="en">EN</option>
+            <option value="ko">KO</option>
+            <option value="ja">JA</option>
+        </select>
+    </div>
+
     <main>
         <!-- Hero section -->
         <section class="hero">
             <div class="container">
-                <div class="hero-badge">📸 Need an ID photo in a rush? Still booking a studio?</div>
-                <h1>Your room selfie becomes a<br><span class="highlight">high-quality studio portrait in 30 seconds</span></h1>
-                <p>
-                    <strong>MYME</strong> transforms your everyday photos into polished ID photos, passport photos, and profile portraits with advanced AI.<br>
+                <div class="hero-badge" data-i18n-key="hero.badge">📸 Need an ID photo in a rush? Still booking a studio?</div>
+                <h1 data-i18n-key="hero.title">Your room selfie becomes a<br><span class="highlight">high-quality studio portrait in 30 seconds</span></h1>
+                <section class="promo-rotation-section">
+                    <div class="promo-rotation-card">
+                        <div class="promo-showcase" style="--promo-fade-ms: 600ms; --promo-grid-size: 3;" aria-hidden="true">
+                            <div class="promo-showcase__layer promo-showcase__logo-layer promo-showcase__layer--visible" data-promo-layer="logo">
+                                <img class="promo-showcase__logo" src="./myme_Design Asset/svg/myme_portrait(primary).svg" alt="myme symbol" data-i18n-alt-key="hero.logo.alt">
+                            </div>
+                            <div class="promo-showcase__layer promo-showcase__grid-layer" data-promo-layer="grid">
+                                <div class="promo-showcase__grid" data-promo-grid></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <p data-i18n-key="hero.desc">
+                    <strong>myme</strong> transforms your everyday photos into polished ID photos, passport photos, and profile portraits with advanced AI.<br>
                     No complicated Photoshop, no expensive studio costs. Create your best ID photo in just a few taps.
                 </p>
             </div>
         </section>
 
-        <section class="promo-rotation-section">
-            <div class="container">
-                <div class="promo-rotation-card">
-                    <div class="promo-showcase" style="--promo-fade-ms: 600ms; --promo-grid-size: 3;" aria-hidden="true">
-                        <div class="promo-showcase__layer promo-showcase__logo-layer promo-showcase__layer--visible" data-promo-layer="logo">
-                            <img class="promo-showcase__logo" src="./myme_Design Asset/svg/myme_portrait(primary).svg" alt="MYME symbol">
-                        </div>
-                        <div class="promo-showcase__layer promo-showcase__grid-layer" data-promo-layer="grid">
-                            <div class="promo-showcase__grid" data-promo-grid></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <!-- Feature section -->
         <section class="container">
-            <h2>✨ Why MYME stands out</h2>
+            <h2 data-i18n-key="feature.heading">✨ Why myme stands out</h2>
             <div class="feature-grid">
                 <div class="feature-card">
                     <div class="feature-icon">👔</div>
-                    <div class="feature-title">Seamless AI Outfit Change</div>
-                    <div class="feature-desc">
-                        Even if you took the photo in pajamas, you are good to go. MYME AI applies outfits that match your body shape and pose naturally.
+                    <div class="feature-title" data-i18n-key="feature.outfit.title">Seamless AI Outfit Change</div>
+                    <div class="feature-desc" data-i18n-key="feature.outfit.desc">
+                        Even if you took the photo in pajamas, you are good to go. myme AI applies outfits that match your body shape and pose naturally.
                         <ul>
                             <li><strong>Interview Suits:</strong> Clean black or navy suit looks for a professional first impression</li>
                             <li><strong>Uniform & Casual:</strong> Multiple styles suitable for student and employee ID photos</li>
@@ -524,8 +568,8 @@
 
                 <div class="feature-card">
                     <div class="feature-icon">🎨</div>
-                    <div class="feature-title">One-Tap Background Color by Purpose</div>
-                    <div class="feature-desc">
+                    <div class="feature-title" data-i18n-key="feature.bg.title">One-Tap Background Color by Purpose</div>
+                    <div class="feature-desc" data-i18n-key="feature.bg.desc">
                         No more guessing background colors at a studio. Try multiple options instantly and choose what works best.
                         <ul>
                             <li><strong>ID Card / Driver License / Passport:</strong> Clean white backgrounds that fit official requirements</li>
@@ -537,16 +581,16 @@
 
                 <div class="feature-card">
                     <div class="feature-icon">✨</div>
-                    <div class="feature-title">Natural AI Facial Retouching</div>
-                    <div class="feature-desc">
+                    <div class="feature-title" data-i18n-key="feature.face.title">Natural AI Facial Retouching</div>
+                    <div class="feature-desc" data-i18n-key="feature.face.desc">
                         No over-editing. Keep your unique facial features while refining skin tone and contour for a clean, natural result.
                     </div>
                 </div>
 
                 <div class="feature-card">
                     <div class="feature-icon">📱</div>
-                    <div class="feature-title">Save to Phone, Done: High-Resolution Download</div>
-                    <div class="feature-desc">
+                    <div class="feature-title" data-i18n-key="feature.download.title">Save to Phone, Done: High-Resolution Download</div>
+                    <div class="feature-desc" data-i18n-key="feature.download.desc">
                         From web application uploads to print-ready files, save sharp high-resolution results instantly to your gallery.
                     </div>
                 </div>
@@ -556,34 +600,34 @@
         <!-- Recommended users section -->
         <section class="target-section">
             <div class="container">
-                <h2>🎯 Perfect for these users</h2>
+                <h2 data-i18n-key="target.heading">🎯 Perfect for these users</h2>
                 <div class="target-list">
                     <div class="target-item">
                         <div class="target-emoji">💼</div>
                         <div class="target-text">
-                            <strong>Job Seekers</strong>
-                            <p>Need to submit a resume tomorrow but have no time for a studio shoot</p>
+                            <strong data-i18n-key="target.job.title">Job Seekers</strong>
+                            <p data-i18n-key="target.job.desc">Need to submit a resume tomorrow but have no time for a studio shoot</p>
                         </div>
                     </div>
                     <div class="target-item">
                         <div class="target-emoji">✈️</div>
                         <div class="target-text">
-                            <strong>Travelers</strong>
-                            <p>Need a passport photo urgently but cannot visit a photo studio</p>
+                            <strong data-i18n-key="target.travel.title">Travelers</strong>
+                            <p data-i18n-key="target.travel.desc">Need a passport photo urgently but cannot visit a photo studio</p>
                         </div>
                     </div>
                     <div class="target-item">
                         <div class="target-emoji">🆔</div>
                         <div class="target-text">
-                            <strong>ID Renewals</strong>
-                            <p>Want to refresh old ID or license photos after many years</p>
+                            <strong data-i18n-key="target.id.title">ID Renewals</strong>
+                            <p data-i18n-key="target.id.desc">Want to refresh old ID or license photos after many years</p>
                         </div>
                     </div>
                     <div class="target-item">
                         <div class="target-emoji">🤳</div>
                         <div class="target-text">
-                            <strong>Profile Creators</strong>
-                            <p>Need stylish AI portraits for social profiles and messaging apps</p>
+                            <strong data-i18n-key="target.profile.title">Profile Creators</strong>
+                            <p data-i18n-key="target.profile.desc">Need stylish AI portraits for social profiles and messaging apps</p>
                         </div>
                     </div>
                 </div>
@@ -593,34 +637,34 @@
         <!-- How it works section -->
         <section class="how-to">
             <div class="container">
-                <h2>💡 How it works</h2>
+                <h2 data-i18n-key="how.heading">💡 How it works</h2>
                 <div class="step-container">
                     <div class="step">
                         <div class="step-number">1</div>
                         <div class="step-content">
-                            <div class="step-title">Capture / Upload</div>
-                            <div class="step-desc">Choose a clear front-facing photo from your gallery or take one right away.</div>
+                            <div class="step-title" data-i18n-key="how.step1.title">Capture / Upload</div>
+                            <div class="step-desc" data-i18n-key="how.step1.desc">Choose a clear front-facing photo from your gallery or take one right away.</div>
                         </div>
                     </div>
                     <div class="step">
                         <div class="step-number">2</div>
                         <div class="step-content">
-                            <div class="step-title">AI Generation</div>
-                            <div class="step-desc">In moments, AI analyzes your photo and creates a clean base ID portrait.</div>
+                            <div class="step-title" data-i18n-key="how.step2.title">AI Generation</div>
+                            <div class="step-desc" data-i18n-key="how.step2.desc">In moments, AI analyzes your photo and creates a clean base ID portrait.</div>
                         </div>
                     </div>
                     <div class="step">
                         <div class="step-number">3</div>
                         <div class="step-content">
-                            <div class="step-title">Choose Options (Unlock)</div>
-                            <div class="step-desc">Select outfits, hair, and backgrounds to complete your style. <br><small>(🔒 Try it free first, then unlock all options at a reasonable price.)</small></div>
+                            <div class="step-title" data-i18n-key="how.step3.title">Choose Options (Unlock)</div>
+                            <div class="step-desc" data-i18n-key="how.step3.desc">Select outfits, hair, and backgrounds to complete your style. <br><small>(🔒 Try it free first, then unlock all options at a reasonable price.)</small></div>
                         </div>
                     </div>
                     <div class="step">
                         <div class="step-number">4</div>
                         <div class="step-content">
-                            <div class="step-title">Save</div>
-                            <div class="step-desc">Download your finished photo. That is it.</div>
+                            <div class="step-title" data-i18n-key="how.step4.title">Save</div>
+                            <div class="step-desc" data-i18n-key="how.step4.desc">Download your finished photo. That is it.</div>
                         </div>
                     </div>
                 </div>
@@ -630,21 +674,21 @@
         <!-- CTA section -->
         <div class="container">
             <div class="cta-section">
-                <div class="cta-title">Get started with <span class="highlight">MYME</span> now</div>
-                <div class="cta-desc">Build your personal studio for the price of a cup of coffee.</div>
+                <div class="cta-title" data-i18n-key="cta.title">Get started with <span class="highlight">myme</span> now</div>
+                <div class="cta-desc" data-i18n-key="cta.desc">Build your personal studio for the price of a cup of coffee.</div>
                 <div class="store-links">
-                    <a class="store-btn" href="https://apps.apple.com/kr/" target="_blank" rel="noopener noreferrer" aria-label="Go to App Store">
+                    <a class="store-btn" href="https://apps.apple.com/kr/" target="_blank" rel="noopener noreferrer" aria-label="Go to App Store" data-i18n-aria-key="store.app.aria">
                         <img src="./myme_Design Asset/svg/apple-store.svg" alt="" aria-hidden="true">
                         <span class="store-text">
-                            <span class="store-label">Download now</span>
-                            <span class="store-name">App Store</span>
+                            <span class="store-label" data-i18n-key="store.download">Download now</span>
+                            <span class="store-name" data-i18n-key="store.app.name">App Store</span>
                         </span>
                     </a>
-                    <a class="store-btn" href="https://play.google.com/store" target="_blank" rel="noopener noreferrer" aria-label="Go to Google Play">
+                    <a class="store-btn" href="https://play.google.com/store" target="_blank" rel="noopener noreferrer" aria-label="Go to Google Play" data-i18n-aria-key="store.google.aria">
                         <img src="./myme_Design Asset/svg/google-play.svg" alt="" aria-hidden="true">
                         <span class="store-text">
-                            <span class="store-label">Download now</span>
-                            <span class="store-name">Google Play</span>
+                            <span class="store-label" data-i18n-key="store.download">Download now</span>
+                            <span class="store-name" data-i18n-key="store.google.name">Google Play</span>
                         </span>
                     </a>
                 </div>
@@ -656,16 +700,287 @@
     <footer>
         <div class="container">
             <div class="footer-logo-wrap">
-                <img src="./myme_Design Asset/png/myme_landscape(white).png" alt="MYME logo" class="footer-logo">
+                <img src="./myme_Design Asset/png/myme_landscape(primary).png" alt="myme logo" class="footer-logo" data-i18n-alt-key="footer.logo.alt">
             </div>
-            <div class="contact-info">
+            <div class="contact-info" data-i18n-key="footer.contact">
                 For support requests or product suggestions, feel free to contact us anytime.<br>
                 Email: <a href="mailto:lordet01@gmail.com">lordet01@gmail.com</a>
             </div>
-            <div class="footer-meta">© 2026 myme. All rights reserved.</div>
+            <div class="footer-meta" data-i18n-key="footer.meta">© 2026 myme. All rights reserved.</div>
             <div class="company-note">myme Corp. OÜ</div>
         </div>
     </footer>
+
+    <script>
+        (function () {
+            var copy = {
+                en: {
+                    "meta.title": "myme | AI ID Photos & Profiles",
+                    "lang.select.label": "Language",
+                    "hero.badge": "📸 Need an ID photo in a rush? Still booking a studio?",
+                    "hero.title": "Your room selfie becomes a<br><span class=\"highlight\">high-quality studio portrait in 30 seconds</span>",
+                    "hero.logo.alt": "myme symbol",
+                    "hero.desc": "<strong>myme</strong> transforms your everyday photos into polished ID photos, passport photos, and profile portraits with advanced AI.<br>No complicated Photoshop, no expensive studio costs. Create your best ID photo in just a few taps.",
+                    "feature.heading": "✨ Why myme stands out",
+                    "feature.outfit.title": "Seamless AI Outfit Change",
+                    "feature.outfit.desc": "Even if you took the photo in pajamas, you are good to go. myme AI applies outfits that match your body shape and pose naturally.<ul><li><strong>Interview Suits:</strong> Clean black or navy suit looks for a professional first impression</li><li><strong>Uniform & Casual:</strong> Multiple styles suitable for student and employee ID photos</li></ul>",
+                    "feature.bg.title": "One-Tap Background Color by Purpose",
+                    "feature.bg.desc": "No more guessing background colors at a studio. Try multiple options instantly and choose what works best.<ul><li><strong>ID Card / Driver License / Passport:</strong> Clean white backgrounds that fit official requirements</li><li><strong>Resume / Portfolio:</strong> Trust-building gradient blue and gray backgrounds</li><li><strong>Personal Color:</strong> Soft pastel tones that brighten your face naturally</li></ul>",
+                    "feature.face.title": "Natural AI Facial Retouching",
+                    "feature.face.desc": "No over-editing. Keep your unique facial features while refining skin tone and contour for a clean, natural result.",
+                    "feature.download.title": "Save to Phone, Done: High-Resolution Download",
+                    "feature.download.desc": "From web application uploads to print-ready files, save sharp high-resolution results instantly to your gallery.",
+                    "target.heading": "🎯 Perfect for these users",
+                    "target.job.title": "Job Seekers",
+                    "target.job.desc": "Need to submit a resume tomorrow but have no time for a studio shoot",
+                    "target.travel.title": "Travelers",
+                    "target.travel.desc": "Need a passport photo urgently but cannot visit a photo studio",
+                    "target.id.title": "ID Renewals",
+                    "target.id.desc": "Want to refresh old ID or license photos after many years",
+                    "target.profile.title": "Profile Creators",
+                    "target.profile.desc": "Need stylish AI portraits for social profiles and messaging apps",
+                    "how.heading": "💡 How it works",
+                    "how.step1.title": "Capture / Upload",
+                    "how.step1.desc": "Choose a clear front-facing photo from your gallery or take one right away.",
+                    "how.step2.title": "AI Generation",
+                    "how.step2.desc": "In moments, AI analyzes your photo and creates a clean base ID portrait.",
+                    "how.step3.title": "Choose Options (Unlock)",
+                    "how.step3.desc": "Select outfits, hair, and backgrounds to complete your style.<br><small>(🔒 Try it free first, then unlock all options at a reasonable price.)</small>",
+                    "how.step4.title": "Save",
+                    "how.step4.desc": "Download your finished photo. That is it.",
+                    "cta.title": "Get started with <span class=\"highlight\">myme</span> now",
+                    "cta.desc": "Build your personal studio for the price of a cup of coffee.",
+                    "store.download": "Download now",
+                    "store.app.name": "App Store",
+                    "store.google.name": "Google Play",
+                    "lang.select.aria": "Language selector",
+                    "store.app.aria": "Go to App Store",
+                    "store.google.aria": "Go to Google Play",
+                    "footer.contact": "For support requests or product suggestions, feel free to contact us anytime.<br>Email: <a href=\"mailto:lordet01@gmail.com\">lordet01@gmail.com</a>",
+                    "footer.meta": "© 2026 myme. All rights reserved.",
+                    "footer.logo.alt": "myme logo"
+                },
+                ko: {
+                    "meta.title": "myme (마이미) | AI 증명사진 & 프로필",
+                    "lang.select.label": "언어",
+                    "hero.badge": "📸 급하게 증명사진이 필요하신가요? 아직도 사진관을 예약하시나요?",
+                    "hero.title": "방에서 찍은 셀카가<br><span class=\"highlight\">30초 만에 고퀄리티 스튜디오 프로필로</span>",
+                    "hero.logo.alt": "myme (마이미) 심볼",
+                    "hero.desc": "<strong>myme (마이미)</strong>는 일상 사진을 AI로 보정해 깔끔한 증명사진, 여권사진, 프로필 사진으로 바꿔드립니다.<br>복잡한 포토샵도, 비싼 스튜디오 비용도 필요 없어요. 몇 번의 터치만으로 최고의 증명사진을 완성하세요.",
+                    "feature.heading": "✨ myme (마이미)가 특별한 이유",
+                    "feature.outfit.title": "자연스러운 AI 의상 변경",
+                    "feature.outfit.desc": "잠옷 차림으로 찍은 사진도 괜찮아요. myme (마이미) AI가 체형과 포즈에 맞는 의상을 자연스럽게 적용해줍니다.<ul><li><strong>면접 정장:</strong> 첫인상에 좋은 블랙/네이비 정장 스타일</li><li><strong>교복/캐주얼:</strong> 학생증, 사원증에 어울리는 다양한 스타일</li></ul>",
+                    "feature.bg.title": "용도별 원탭 배경색 변경",
+                    "feature.bg.desc": "사진관에서 배경색을 고민할 필요 없이, 여러 옵션을 바로 비교하고 선택하세요.<ul><li><strong>ID 카드 / 운전면허 / 여권:</strong> 공식 규격에 맞는 깔끔한 화이트 배경</li><li><strong>이력서 / 포트폴리오:</strong> 신뢰감을 주는 그라데이션 블루/그레이 배경</li><li><strong>퍼스널 컬러:</strong> 얼굴을 화사하게 살려주는 소프트 파스텔 톤</li></ul>",
+                    "feature.face.title": "자연스러운 AI 얼굴 보정",
+                    "feature.face.desc": "과한 보정 없이, 본연의 인상은 유지하고 피부 톤과 윤곽만 깔끔하게 다듬습니다.",
+                    "feature.download.title": "폰 저장까지 한 번에: 고해상도 다운로드",
+                    "feature.download.desc": "웹 업로드용부터 인쇄용 파일까지, 선명한 고해상도 결과물을 즉시 저장할 수 있어요.",
+                    "target.heading": "🎯 이런 분들께 추천해요",
+                    "target.job.title": "취업 준비생",
+                    "target.job.desc": "내일 이력서 제출인데 사진관 갈 시간이 없는 분",
+                    "target.travel.title": "여행 준비 중인 분",
+                    "target.travel.desc": "여권사진이 급한데 사진관 방문이 어려운 분",
+                    "target.id.title": "증명사진 재발급",
+                    "target.id.desc": "오래된 신분증/면허증 사진을 새로 바꾸고 싶은 분",
+                    "target.profile.title": "프로필이 필요한 분",
+                    "target.profile.desc": "SNS와 메신저용 감각적인 AI 프로필이 필요한 분",
+                    "how.heading": "💡 이용 방법",
+                    "how.step1.title": "촬영 / 업로드",
+                    "how.step1.desc": "정면이 잘 보이는 사진을 갤러리에서 선택하거나 바로 촬영하세요.",
+                    "how.step2.title": "AI 생성",
+                    "how.step2.desc": "잠시 후 AI가 사진을 분석해 깔끔한 기본 증명사진을 만들어줍니다.",
+                    "how.step3.title": "옵션 선택 (잠금 해제)",
+                    "how.step3.desc": "의상, 헤어, 배경을 선택해 원하는 스타일을 완성하세요.<br><small>(🔒 먼저 무료로 체험하고, 합리적인 가격으로 전체 옵션을 열 수 있어요.)</small>",
+                    "how.step4.title": "저장",
+                    "how.step4.desc": "완성된 사진을 다운로드하면 끝입니다.",
+                    "cta.title": "<span class=\"highlight\">myme (마이미)</span>를 지금 시작해보세요",
+                    "cta.desc": "커피 한 잔 가격으로 나만의 개인 스튜디오를 만들어보세요.",
+                    "store.download": "지금 다운로드",
+                    "store.app.name": "앱 스토어",
+                    "store.google.name": "구글 플레이",
+                    "lang.select.aria": "언어 선택",
+                    "store.app.aria": "앱 스토어로 이동",
+                    "store.google.aria": "구글 플레이로 이동",
+                    "footer.contact": "지원 요청이나 서비스 제안은 언제든 편하게 연락해주세요.<br>이메일: <a href=\"mailto:lordet01@gmail.com\">lordet01@gmail.com</a>",
+                    "footer.meta": "© 2026 myme (마이미). 모든 권리 보유.",
+                    "footer.logo.alt": "myme (마이미) 로고"
+                },
+                ja: {
+                    "meta.title": "myme | AI証明写真・プロフィール",
+                    "lang.select.label": "言語",
+                    "hero.badge": "📸 証明写真、急ぎで必要？まだ写真館を予約してる？",
+                    "hero.title": "部屋で撮ったセルフィーが<br><span class=\"highlight\">30秒でスタジオ級の高品質ポートレートに</span>",
+                    "hero.logo.alt": "myme シンボル",
+                    "hero.desc": "<strong>myme</strong>なら、ふだんの写真をAIでサッと整えて、証明写真・パスポート写真・プロフィール写真に仕上げられます。<br>面倒なPhotoshopも高いスタジオ代も不要。数回タップするだけで、納得の1枚が完成します。",
+                    "feature.heading": "✨ mymeの推しポイント",
+                    "feature.outfit.title": "AIで服を自然にチェンジ",
+                    "feature.outfit.desc": "部屋着で撮った写真でもOK。myme AIが体型とポーズに合わせて、服装を自然に切り替えます。<ul><li><strong>面接スーツ:</strong> 第一印象をぐっと良くするブラック/ネイビーのスーツスタイル</li><li><strong>制服・カジュアル:</strong> 学生証・社員証にも使いやすい、いろんなスタイル</li></ul>",
+                    "feature.bg.title": "用途に合わせて背景色をワンタップ変更",
+                    "feature.bg.desc": "写真館で背景色に迷わなくて大丈夫。候補をその場で見比べて、ぴったりの背景を選べます。<ul><li><strong>IDカード / 運転免許証 / パスポート:</strong> 公式用途に合わせやすい、すっきり白背景</li><li><strong>履歴書 / ポートフォリオ:</strong> 信頼感が出るブルー/グレーのグラデ背景</li><li><strong>パーソナルカラー:</strong> 顔色を自然に明るく見せる、やさしいパステルトーン</li></ul>",
+                    "feature.face.title": "ナチュラルAI顔レタッチ",
+                    "feature.face.desc": "やりすぎ加工はしません。あなたらしさはそのままに、肌トーンと輪郭を整えて清潔感のある仕上がりにします。",
+                    "feature.download.title": "スマホ保存まで一気に：高解像度ダウンロード",
+                    "feature.download.desc": "Web提出用から印刷用まで、くっきり高解像度のデータをすぐ保存できます。",
+                    "target.heading": "🎯 こんな方におすすめ",
+                    "target.job.title": "就活中の方",
+                    "target.job.desc": "明日履歴書を出すのに、写真館へ行く時間がない方",
+                    "target.travel.title": "旅行前の方",
+                    "target.travel.desc": "パスポート写真が急ぎで必要だけど、写真館へ行けない方",
+                    "target.id.title": "身分証を更新したい方",
+                    "target.id.desc": "何年も前の身分証・免許証写真を新しくしたい方",
+                    "target.profile.title": "プロフィールを作りたい方",
+                    "target.profile.desc": "SNSやメッセージアプリ用に、おしゃれなAIプロフィール写真が欲しい方",
+                    "how.heading": "💡 使い方はかんたん",
+                    "how.step1.title": "撮影 / アップロード",
+                    "how.step1.desc": "正面がはっきり写った写真をギャラリーから選ぶか、その場で撮影します。",
+                    "how.step2.title": "AI生成",
+                    "how.step2.desc": "AIが写真を分析して、ベースになる証明写真をすぐ作成。",
+                    "how.step3.title": "オプション選択（アンロック）",
+                    "how.step3.desc": "服装・ヘア・背景を選んで、好みのスタイルに仕上げます。<br><small>(🔒 まずは無料で試して、必要なら手頃な価格で全オプションをアンロックできます。)</small>",
+                    "how.step4.title": "保存",
+                    "how.step4.desc": "完成した写真をダウンロードしたら完了です。",
+                    "cta.title": "今すぐ <span class=\"highlight\">myme</span> をはじめよう",
+                    "cta.desc": "コーヒー1杯分の価格で、自分だけのスタジオを。",
+                    "store.download": "今すぐダウンロード",
+                    "store.app.name": "App Store",
+                    "store.google.name": "Google Play",
+                    "lang.select.aria": "言語を選択",
+                    "store.app.aria": "App Storeへ移動",
+                    "store.google.aria": "Google Playへ移動",
+                    "footer.contact": "サポートやサービスの提案は、いつでも気軽にご連絡ください。<br>Email: <a href=\"mailto:lordet01@gmail.com\">lordet01@gmail.com</a>",
+                    "footer.meta": "© 2026 myme. All rights reserved.",
+                    "footer.logo.alt": "myme ロゴ"
+                }
+            };
+
+            function applyLanguage(lang) {
+                var normalized = (lang === "ko" || lang === "ja") ? lang : "en";
+                var dict = copy[normalized] || copy.en;
+                var nodes = document.querySelectorAll("[data-i18n-key]");
+                var i;
+                var selector = document.getElementById("lang-select");
+
+                document.documentElement.setAttribute("lang", normalized);
+                if (selector) selector.value = normalized;
+
+                for (i = 0; i < nodes.length; i += 1) {
+                    var key = nodes[i].getAttribute("data-i18n-key");
+                    if (dict[key]) {
+                        nodes[i].innerHTML = dict[key];
+                    }
+                }
+
+                var ariaNodes = document.querySelectorAll("[data-i18n-aria-key]");
+                for (i = 0; i < ariaNodes.length; i += 1) {
+                    var ariaKey = ariaNodes[i].getAttribute("data-i18n-aria-key");
+                    if (dict[ariaKey]) {
+                        ariaNodes[i].setAttribute("aria-label", dict[ariaKey]);
+                    }
+                }
+
+                var altNodes = document.querySelectorAll("[data-i18n-alt-key]");
+                for (i = 0; i < altNodes.length; i += 1) {
+                    var altKey = altNodes[i].getAttribute("data-i18n-alt-key");
+                    if (dict[altKey]) {
+                        altNodes[i].setAttribute("alt", dict[altKey]);
+                    }
+                }
+            }
+
+            function getStoredLanguage() {
+                try {
+                    var stored = (localStorage.getItem("myme_lang") || "").toLowerCase();
+                    if (stored === "ko" || stored === "ja" || stored === "en") return stored;
+                } catch (e) {}
+                return null;
+            }
+
+            function setStoredLanguage(lang) {
+                try {
+                    localStorage.setItem("myme_lang", (lang === "ko" || lang === "ja") ? lang : "en");
+                } catch (e) {}
+            }
+
+            function getForcedLanguage() {
+                var params = new URLSearchParams(window.location.search);
+                var lang = (params.get("lang") || "").toLowerCase();
+                if (lang === "ko" || lang === "ja" || lang === "en") return lang;
+                return null;
+            }
+
+            function getBrowserLanguage() {
+                var browserLang = (navigator.language || "").toLowerCase();
+                if (browserLang.indexOf("ko") === 0) return "ko";
+                if (browserLang.indexOf("ja") === 0) return "ja";
+                return "en";
+            }
+
+            function fetchCountryCodeWithTimeout() {
+                var timeoutMs = 1800;
+                var timeout = new Promise(function (resolve) {
+                    setTimeout(function () { resolve(null); }, timeoutMs);
+                });
+
+                var request = fetch("https://ipapi.co/json/", { cache: "no-store" })
+                    .then(function (res) {
+                        if (!res.ok) return null;
+                        return res.json();
+                    })
+                    .then(function (data) {
+                        if (!data || !data.country_code) return null;
+                        return String(data.country_code).toUpperCase();
+                    })
+                    .catch(function () {
+                        return null;
+                    });
+
+                return Promise.race([request, timeout]);
+            }
+
+            var langSelector = document.getElementById("lang-select");
+            if (langSelector) {
+                langSelector.addEventListener("change", function (event) {
+                    var selected = event.target.value;
+                    var nextLang = (selected === "ko" || selected === "ja") ? selected : "en";
+                    setStoredLanguage(nextLang);
+                    applyLanguage(nextLang);
+                });
+            }
+
+            var forcedLang = getForcedLanguage();
+            if (forcedLang) {
+                applyLanguage(forcedLang);
+                return;
+            }
+
+            var storedLang = getStoredLanguage();
+            if (storedLang) {
+                applyLanguage(storedLang);
+                return;
+            }
+
+            fetchCountryCodeWithTimeout()
+                .then(function (countryCode) {
+                    if (countryCode === "KR") {
+                        applyLanguage("ko");
+                        return;
+                    }
+                    if (countryCode === "JP") {
+                        applyLanguage("ja");
+                        return;
+                    }
+                    if (countryCode) {
+                        applyLanguage("en");
+                        return;
+                    }
+                    applyLanguage(getBrowserLanguage());
+                })
+                .catch(function () {
+                    applyLanguage(getBrowserLanguage());
+                });
+        })();
+    </script>
 
     <script>
         (function () {
