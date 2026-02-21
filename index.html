@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-i18n-key="meta.title">myme | AI ID Photos & Profiles</title>
+    
+    <!-- Favicon and Icons -->
+    <link rel="icon" type="image/x-icon" href="./myme_Design Asset/favicon/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="./myme_Design Asset/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./myme_Design Asset/favicon/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="./myme_Design Asset/favicon/apple-touch-icon.png">
+    <link rel="manifest" href="./site.webmanifest">
+
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
     <style>
         :root {
@@ -76,9 +84,15 @@
 
         /* Hero section */
         .hero {
-            padding: 80px 0 60px;
+            padding: 24px 0 60px;
             text-align: center;
             background: linear-gradient(180deg, var(--primary-light) 0%, var(--bg-white) 100%);
+        }
+
+        .hero-logo {
+            height: 38px;
+            margin-bottom: 24px;
+            width: auto;
         }
 
         .hero-badge {
@@ -302,43 +316,45 @@
         .store-btn {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            min-width: 220px;
-            padding: 12px 18px;
-            border-radius: 14px;
+            gap: 8px;
+            min-width: 150px;
+            padding: 8px 16px;
+            border-radius: 10px;
             background-color: #111111;
             color: #FFFFFF;
             text-decoration: none;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
-            box-shadow: 0 10px 18px -10px rgba(0, 0, 0, 0.65);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
         .store-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 16px 22px -12px rgba(0, 0, 0, 0.7);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+            border-color: rgba(255,255,255,0.2);
         }
 
         .store-btn img {
-            width: 80px;
-            height: 80px;
+            width: 28px;
+            height: 28px;
             flex-shrink: 0;
         }
 
         .store-text {
             text-align: left;
-            line-height: 1.2;
+            line-height: 1.1;
         }
 
         .store-label {
             display: block;
-            font-size: 0.72rem;
-            color: #D1D5DB;
+            font-size: 0.65rem;
+            color: #9CA3AF;
             margin-bottom: 2px;
         }
 
         .store-name {
             display: block;
-            font-size: 1rem;
+            font-size: 0.9rem;
             font-weight: 700;
             letter-spacing: -0.01em;
         }
@@ -440,17 +456,7 @@
         }
 
         .footer-logo {
-            height: 96px;
-            margin-bottom: 0;
-        }
-
-        .footer-logo-wrap {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #111827;
-            border-radius: 16px;
-            padding: 14px 20px;
+            height: 42px;
             margin-bottom: 24px;
         }
 
@@ -476,10 +482,11 @@
         }
 
         @media (max-width: 768px) {
-            .lang-switcher { top: 8px; right: 8px; }
+            .lang-switcher { top: 16px; right: 16px; }
             .lang-switcher select { font-size: 10px; border-radius: 9px; padding: 5px 20px 5px 7px; }
             .container { padding: 0 16px; }
-            .hero { padding: 56px 0 44px; }
+            .hero { padding: 20px 0 44px; }
+            .hero-logo { height: 32px; margin-bottom: 20px; }
             .hero h1 { font-size: 1.85rem; line-height: 1.3; margin-bottom: 16px; }
             .hero p { font-size: 1rem; margin-bottom: 28px; }
             .hero-badge { font-size: 0.82rem; padding: 7px 14px; margin-bottom: 18px; }
@@ -503,16 +510,15 @@
             .cta-section { margin: 0 0 56px; border-radius: 20px; padding: 48px 16px; }
             .cta-title { font-size: 1.5rem; }
             .cta-desc { font-size: 1rem; margin-bottom: 24px; }
-            .store-links { gap: 10px; }
-            .store-btn { width: 100%; max-width: 310px; justify-content: center; }
-            .store-text { text-align: center; }
+            .store-links { gap: 8px; flex-direction: row; }
+            .store-btn { min-width: auto; flex: 1; max-width: 180px; justify-content: flex-start; padding: 10px 14px; }
+            .store-text { text-align: left; }
             .promo-rotation-section { padding: 12px 0 14px; }
             .promo-rotation-card { border-radius: 18px; }
             .promo-showcase__grid { gap: 8px; padding: 12px; }
             .promo-showcase__cell { border-radius: 12px; }
             footer { padding: 44px 16px; font-size: 0.82rem; }
-            .footer-logo { height: 80px; }
-            .footer-logo-wrap { margin-bottom: 16px; }
+            .footer-logo { height: 34px; margin-bottom: 16px; }
             .contact-info { margin-bottom: 14px; font-size: 0.9rem; }
             .company-note { font-size: 0.68rem; margin-top: 12px; }
         }
@@ -531,6 +537,11 @@
             body { word-break: break-all; }
         }
 
+        /* 일본어는 띄어쓰기가 없으므로 강제 줄바꿈 허용 */
+        :lang(ja) {
+            word-break: break-all !important;
+        }
+
         @media (prefers-reduced-motion: reduce) {
             .promo-showcase__layer {
                 transition: none;
@@ -544,8 +555,8 @@
         <label class="visually-hidden" for="lang-select" data-i18n-key="lang.select.label">Language</label>
         <select id="lang-select" aria-label="Language selector" data-i18n-aria-key="lang.select.aria">
             <option value="en">EN</option>
-            <option value="ko">KO</option>
-            <option value="ja">JA</option>
+            <option value="ko">KR</option>
+            <option value="ja">JP</option>
         </select>
     </div>
 
@@ -553,8 +564,9 @@
         <!-- Hero section -->
         <section class="hero">
             <div class="container">
+                <img class="hero-logo" src="./myme_Design Asset/png/myme_landscape(primary)_footer.png" alt="myme logo" data-i18n-alt-key="hero.logo.alt">
                 <div class="hero-badge" data-i18n-key="hero.badge">📸 Need an ID photo in a rush? Still booking a studio?</div>
-                <h1 data-i18n-key="hero.title">Your room selfie becomes a<br><span class="highlight">high-quality studio portrait in 30 seconds</span></h1>
+                <h1 data-i18n-key="hero.title">Your selfie becomes a<br><span class="highlight">high-quality studio portrait in 30 seconds</span></h1>
                 <section class="promo-rotation-section">
                     <div class="promo-rotation-card">
                         <div class="promo-showcase" style="--promo-fade-ms: 600ms; --promo-grid-size: 3;" aria-hidden="true">
@@ -702,14 +714,14 @@
                 <div class="cta-desc" data-i18n-key="cta.desc">Build your personal studio for the price of a cup of coffee.</div>
                 <div class="store-links">
                     <a class="store-btn" href="https://apps.apple.com/kr/" target="_blank" rel="noopener noreferrer" aria-label="Go to App Store" data-i18n-aria-key="store.app.aria">
-                        <img src="./myme_Design Asset/svg/apple-store.svg" alt="" aria-hidden="true">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/6/67/App_Store_%28iOS%29.svg" alt="" aria-hidden="true">
                         <span class="store-text">
                             <span class="store-label" data-i18n-key="store.download">Download now</span>
                             <span class="store-name" data-i18n-key="store.app.name">App Store</span>
                         </span>
                     </a>
                     <a class="store-btn" href="https://play.google.com/store" target="_blank" rel="noopener noreferrer" aria-label="Go to Google Play" data-i18n-aria-key="store.google.aria">
-                        <img src="./myme_Design Asset/svg/google-play.svg" alt="" aria-hidden="true">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Google_Play_Arrow_logo.svg" alt="" aria-hidden="true">
                         <span class="store-text">
                             <span class="store-label" data-i18n-key="store.download">Download now</span>
                             <span class="store-name" data-i18n-key="store.google.name">Google Play</span>
@@ -723,9 +735,7 @@
 
     <footer>
         <div class="container">
-            <div class="footer-logo-wrap">
-                <img src="./myme_Design Asset/png/myme_landscape(primary).png" alt="myme logo" class="footer-logo" data-i18n-alt-key="footer.logo.alt">
-            </div>
+            <img src="./myme_Design Asset/png/myme_landscape(primary)_footer.png" alt="myme logo" class="footer-logo" data-i18n-alt-key="footer.logo.alt">
             <div class="contact-info" data-i18n-key="footer.contact">
                 For support requests or product suggestions, feel free to contact us anytime.<br>
                 Email: <a href="mailto:lordet01@gmail.com">lordet01@gmail.com</a>
@@ -742,7 +752,7 @@
                     "meta.title": "myme | AI ID Photos & Profiles",
                     "lang.select.label": "Language",
                     "hero.badge": "📸 Need an ID photo in a rush? Still booking a studio?",
-                    "hero.title": "Your room selfie becomes a<br><span class=\"highlight\">high-quality studio portrait in 30 seconds</span>",
+                    "hero.title": "Your selfie becomes a<br><span class=\"highlight\">high-quality studio portrait in 30 seconds</span>",
                     "hero.logo.alt": "myme symbol",
                     "hero.desc": "<strong>myme</strong> transforms your everyday photos into polished ID photos, passport photos, and profile portraits with advanced AI.<br>No complicated Photoshop, no expensive studio costs. Create your best ID photo in just a few taps.",
                     "feature.heading": "✨ Why myme stands out",
@@ -827,7 +837,7 @@
                     "store.app.aria": "앱 스토어로 이동",
                     "store.google.aria": "구글 플레이로 이동",
                     "footer.contact": "지원 요청이나 서비스 제안은 언제든 편하게 연락해주세요.<br>이메일: <a href=\"mailto:lordet01@gmail.com\">lordet01@gmail.com</a>",
-                    "footer.meta": "© 2026 myme (마이미). 모든 권리 보유.",
+                    "footer.meta": "© 2026 myme. All rights reserved.",
                     "footer.logo.alt": "myme (마이미) 로고"
                 },
                 ja: {
