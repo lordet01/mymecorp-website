@@ -120,10 +120,13 @@
         .hero p {
             font-size: 1.15rem;
             color: var(--text-regular);
-            margin-bottom: 40px;
+            margin-bottom: 24px;
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
+        }
+        .hero-store-links {
+            margin-bottom: 28px;
         }
 
         /* Shared section styles */
@@ -321,6 +324,9 @@
             color: var(--text-regular);
             margin-bottom: 32px;
         }
+        .cta-desc:empty {
+            display: none;
+        }
 
         .store-links {
             display: flex;
@@ -462,6 +468,70 @@
             display: block;
         }
 
+        /* Support (chips) section */
+        .support-section {
+            padding: 56px 0;
+            background-color: var(--bg-white);
+        }
+        .support-heading {
+            font-size: 1.35rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 32px;
+            color: var(--text-dark);
+        }
+        .chip-group {
+            max-width: 560px;
+            margin: 0 auto 24px;
+        }
+        .chip-group:last-of-type { margin-bottom: 0; }
+        .chip-group-label {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text-regular);
+            margin-bottom: 12px;
+            text-align: center;
+        }
+        .chip-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 18px;
+            border-radius: 50px;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            font-size: 0.95rem;
+            font-weight: 600;
+            border: 1px solid rgba(17, 24, 39, 0.08);
+        }
+        .chip:hover {
+            background-color: var(--primary-light);
+            border-color: rgba(255, 95, 95, 0.25);
+        }
+
+        /* Target section (hashtag style) */
+        .target-hashtag-line {
+            text-align: center;
+            font-size: 1rem;
+            color: #D1D5DB;
+            line-height: 1.8;
+            max-width: 640px;
+            margin: 0 auto;
+            word-break: keep-all;
+        }
+        .target-hashtag-line .tag {
+            display: inline-block;
+            margin: 2px 6px 2px 0;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
         /* Footer */
         footer {
             padding: 60px 20px;
@@ -537,6 +607,9 @@
             .footer-logo { height: 34px; margin-bottom: 16px; }
             .contact-info { margin-bottom: 14px; font-size: 0.9rem; }
             .company-note { font-size: 0.68rem; margin-top: 12px; }
+            .support-heading { font-size: 1.2rem; margin-bottom: 24px; }
+            .chip { padding: 8px 14px; font-size: 0.88rem; }
+            .target-hashtag-line { font-size: 0.92rem; }
         }
 
         @media (max-width: 380px) {
@@ -596,10 +669,50 @@
                         </div>
                     </div>
                 </section>
-                <p data-i18n-key="hero.desc">
+                <p data-i18n-key="hero.desc" class="hero-desc">
                     <strong>myme</strong> transforms your everyday photos into polished ID photos, passport photos, and profile portraits with advanced AI.<br>
                     No complicated Photoshop, no expensive studio costs. Create your best ID photo in just a few taps.
                 </p>
+                <div class="store-links hero-store-links">
+                    <a class="store-btn" href="https://apps.apple.com/kr/" target="_blank" rel="noopener noreferrer" aria-label="Go to App Store" data-i18n-aria-key="store.app.aria">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/6/67/App_Store_%28iOS%29.svg" alt="" aria-hidden="true">
+                        <span class="store-text">
+                            <span class="store-label" data-i18n-key="store.download">Download now</span>
+                            <span class="store-name" data-i18n-key="store.app.name">App Store</span>
+                        </span>
+                    </a>
+                    <a class="store-btn" href="https://play.google.com/store" target="_blank" rel="noopener noreferrer" aria-label="Go to Google Play" data-i18n-aria-key="store.google.aria">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Google_Play_Arrow_logo.svg" alt="" aria-hidden="true">
+                        <span class="store-text">
+                            <span class="store-label" data-i18n-key="store.download">Download now</span>
+                            <span class="store-name" data-i18n-key="store.google.name">Google Play</span>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Support (chips) section -->
+        <section class="support-section">
+            <div class="container">
+                <h2 class="support-heading" data-i18n-key="support.heading">What we support</h2>
+                <div class="chip-group">
+                    <div class="chip-group-label" data-i18n-key="support.photoLabel">📌 지원 사진 종류</div>
+                    <div class="chip-row">
+                        <span class="chip" data-i18n-key="support.photo1">🪪 증명사진</span>
+                        <span class="chip" data-i18n-key="support.photo2">🛂 여권사진</span>
+                        <span class="chip" data-i18n-key="support.photo3">🖼️ AI 프로필</span>
+                        <span class="chip" data-i18n-key="support.photo4">🎨 애니화</span>
+                    </div>
+                </div>
+                <div class="chip-group">
+                    <div class="chip-group-label" data-i18n-key="support.audienceLabel">👨‍👩‍👧‍👦 지원 대상</div>
+                    <div class="chip-row">
+                        <span class="chip" data-i18n-key="support.audience1">👨‍💼 남 / 👩‍💼 녀</span>
+                        <span class="chip" data-i18n-key="support.audience2">👶 아기</span>
+                        <span class="chip" data-i18n-key="support.audience3">🐶 반려동물</span>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -650,40 +763,11 @@
             </div>
         </section>
 
-        <!-- Recommended users section -->
+        <!-- Target users (hashtag style) -->
         <section class="target-section">
             <div class="container">
                 <h2 data-i18n-key="target.heading">🎯 Perfect for these users</h2>
-                <div class="target-list">
-                    <div class="target-item">
-                        <img class="target-emoji" src="./myme_Design Asset/myme_pic/business.png" alt="Job seekers" data-i18n-alt-key="target.job.icon.alt">
-                        <div class="target-text">
-                            <strong data-i18n-key="target.job.title">Job Seekers</strong>
-                            <p data-i18n-key="target.job.desc">Need to submit a resume tomorrow but have no time for a studio shoot</p>
-                        </div>
-                    </div>
-                    <div class="target-item">
-                        <img class="target-emoji" src="./myme_Design Asset/myme_pic/passport.png" alt="Travelers" data-i18n-alt-key="target.travel.icon.alt">
-                        <div class="target-text">
-                            <strong data-i18n-key="target.travel.title">Travelers</strong>
-                            <p data-i18n-key="target.travel.desc">Need a passport photo urgently but cannot visit a photo studio</p>
-                        </div>
-                    </div>
-                    <div class="target-item">
-                        <img class="target-emoji" src="./myme_Design Asset/myme_pic/ID.png" alt="ID renewals" data-i18n-alt-key="target.id.icon.alt">
-                        <div class="target-text">
-                            <strong data-i18n-key="target.id.title">ID Renewals</strong>
-                            <p data-i18n-key="target.id.desc">Want to refresh old ID or license photos after many years</p>
-                        </div>
-                    </div>
-                    <div class="target-item">
-                        <img class="target-emoji" src="./myme_Design Asset/myme_pic/selfie.png" alt="Profile creators" data-i18n-alt-key="target.profile.icon.alt">
-                        <div class="target-text">
-                            <strong data-i18n-key="target.profile.title">Profile Creators</strong>
-                            <p data-i18n-key="target.profile.desc">Need stylish AI portraits for social profiles and messaging apps</p>
-                        </div>
-                    </div>
-                </div>
+                <p class="target-hashtag-line" data-i18n-key="target.hashtags">#Job_seekers #Passport #ID_renewal #Profile_photo</p>
             </div>
         </section>
 
@@ -768,216 +852,260 @@
                 en: {
                     "meta.title": "myme | AI ID Photos & Profiles",
                     "lang.select.label": "Language",
-                    "hero.badge": "📸 Need an ID photo in a rush? Still booking a studio?",
-                    "hero.title": "Your selfie becomes a<br><span class=\"highlight\">high-quality studio portrait in 30 seconds</span>",
+                    "hero.badge": "📸 Need an ID photo in a rush? Skip the studio—try myme",
+                    "hero.title": "From couch selfie to<br>perfect studio photo in 30 seconds <span class=\"highlight\">📸</span>",
                     "hero.logo.alt": "myme symbol",
-                    "hero.desc": "<strong>myme</strong> transforms your everyday photos into polished ID photos, passport photos, and profile portraits with advanced AI.<br>No complicated Photoshop, no expensive studio costs. Create your best ID photo in just a few taps.",
-                    "feature.heading": "✨ Why myme stands out",
-                    "feature.outfit.title": "Seamless AI Outfit Change",
-                    "feature.outfit.desc": "Even if you took the photo in pajamas, you are good to go. myme AI applies outfits that match your body shape and pose naturally.<ul><li><strong>Interview Suits:</strong> Clean black or navy suit looks for a professional first impression</li><li><strong>Office & Casual:</strong> Multiple styles suitable for employee and workplace ID photos</li></ul>",
-                    "feature.bg.title": "One-Tap Background Color by Purpose",
-                    "feature.bg.desc": "No more guessing background colors at a studio. Try multiple options instantly and choose what works best.<ul><li><strong>ID Card / Driver License / Passport:</strong> Clean white backgrounds that fit official requirements</li><li><strong>Resume / Portfolio:</strong> Trust-building gradient blue and gray backgrounds</li><li><strong>Personal Color:</strong> Soft pastel tones that brighten your face naturally</li></ul>",
-                    "feature.face.title": "Natural AI Facial Retouching",
-                    "feature.face.desc": "No over-editing. Keep your unique facial features while refining skin tone and contour for a clean, natural result.",
-                    "feature.download.title": "Save to Phone, Done: High-Resolution Download",
-                    "feature.download.desc": "From web application uploads to print-ready files, save sharp high-resolution results instantly to your gallery.",
+                    "hero.desc": "No complicated Photoshop, no pricey studio bookings.<br>AI dresses you up, retouches, and changes the background.",
+                    "support.heading": "Whatever, whoever—we make it perfect.",
+                    "support.photoLabel": "📌 Photo types",
+                    "support.photo1": "🪪 ID photo",
+                    "support.photo2": "🛂 Passport",
+                    "support.photo3": "🖼️ AI profile",
+                    "support.photo4": "🎨 Anime style",
+                    "support.audienceLabel": "👨‍👩‍👧‍👦 Who",
+                    "support.audience1": "👨‍💼 Men / 👩‍💼 Women",
+                    "support.audience2": "👶 Baby",
+                    "support.audience3": "🐶 Pet",
+                    "feature.heading": "💎 What makes myme special",
+                    "feature.outfit.title": "👔 AI suit fitting",
+                    "feature.outfit.desc": "Pajama selfie? Still get a perfect interview or office look.",
+                    "feature.bg.title": "🎨 One-tap background change",
+                    "feature.bg.desc": "Passport (white), resume (blue/gradient)—apply instantly.",
+                    "feature.face.title": "✨ Natural retouching",
+                    "feature.face.desc": "No over-editing. Your face, just cleaner skin and contour.",
+                    "feature.download.title": "🖨️ High-res download",
+                    "feature.download.desc": "From web uploads to real prints—crisp resolution every time.",
                     "feature.outfit.icon.alt": "Outfit change",
                     "feature.bg.icon.alt": "Background color",
                     "feature.face.icon.alt": "Facial retouching",
                     "feature.download.icon.alt": "Download",
-                    "target.heading": "🎯 Perfect for these users",
+                    "target.heading": "When you need a rescue, myme has you covered!",
+                    "target.hashtags": "#resume_due_tomorrow #passport_rush #license_renewal #profile_pic_vibes #baby_first_passport #pet_id_photo",
                     "target.job.title": "Job Seekers",
-                    "target.job.desc": "Need to submit a resume tomorrow but have no time for a studio shoot",
+                    "target.job.desc": "Resume due tomorrow, no time for a studio",
                     "target.travel.title": "Travelers",
-                    "target.travel.desc": "Need a passport photo urgently but cannot visit a photo studio",
+                    "target.travel.desc": "Need a passport photo urgently, can’t visit a studio",
                     "target.id.title": "ID Renewals",
-                    "target.id.desc": "Want to refresh old ID or license photos after many years",
-                    "target.profile.title": "Profile Creators",
-                    "target.profile.desc": "Need stylish AI portraits for social profiles and messaging apps",
+                    "target.id.desc": "Refresh old ID or license photo",
+                    "target.profile.title": "Profile need",
+                    "target.profile.desc": "AI profile for social & messaging",
                     "target.job.icon.alt": "Job seekers",
                     "target.travel.icon.alt": "Travelers",
                     "target.id.icon.alt": "ID renewals",
-                    "target.profile.icon.alt": "Profile creators",
+                    "target.profile.icon.alt": "Profile",
                     "how.heading": "💡 How it works",
-                    "how.step1.title": "Capture / Upload",
-                    "how.step1.desc": "Choose a clear front-facing photo from your gallery or take one right away.",
-                    "how.step2.title": "AI Generation",
-                    "how.step2.desc": "In moments, AI analyzes your photo and creates a clean base ID portrait.",
-                    "how.step3.title": "Choose Options (Unlock)",
-                    "how.step3.desc": "Select outfits, hair, and backgrounds to complete your style.<br><small>(🔒 Try it free first, then unlock all options at a reasonable price.)</small>",
-                    "how.step4.title": "Save",
-                    "how.step4.desc": "Download your finished photo. That is it.",
-                    "cta.title": "Get started with <span class=\"highlight\">myme</span> now",
-                    "cta.desc": "Build your personal studio for the price of a cup of coffee.",
+                    "how.step1.title": "1️⃣ Snap",
+                    "how.step1.desc": "Take a photo with your phone or pick one from your album.",
+                    "how.step2.title": "2️⃣ AI retouch",
+                    "how.step2.desc": "In 30 seconds, your base ID photo is ready!",
+                    "how.step3.title": "3️⃣ Style it",
+                    "how.step3.desc": "Change outfit, hair, and background as you like. (🔒 Unlock all options with premium.)",
+                    "how.step4.title": "4️⃣ Save",
+                    "how.step4.desc": "Download in high resolution. Done!",
+                    "cta.title": "For the price of a coffee,<br>open a personal studio in your pocket.",
+                    "cta.desc": "",
                     "store.download": "Download now",
                     "store.app.name": "App Store",
                     "store.google.name": "Google Play",
                     "lang.select.aria": "Language selector",
                     "store.app.aria": "Go to App Store",
                     "store.google.aria": "Go to Google Play",
-                    "footer.contact": "For support requests or product suggestions, feel free to contact us anytime.<br>Email: <a href=\"mailto:lordet01@gmail.com\">lordet01@gmail.com</a>",
+                    "footer.contact": "Need help?<br>Suggestions & support: <a href=\"mailto:lordet01@gmail.com\">lordet01@gmail.com</a>",
                     "footer.meta": "© 2026 myme. All rights reserved.",
                     "footer.logo.alt": "myme logo"
                 },
                 ko: {
                     "meta.title": "myme (마이미) | AI 증명사진 & 프로필",
                     "lang.select.label": "언어",
-                    "hero.badge": "📸 급하게 증명사진이 필요하신가요? 아직도 사진관을 예약하시나요?",
-                    "hero.title": "방에서 찍은 셀카가<br><span class=\"highlight\">30초 만에 고퀄리티 스튜디오 프로필로</span>",
+                    "hero.badge": "📸 급한 증명사진? 사진관 말고 myme",
+                    "hero.title": "방구석 셀카가 30초 만에<br>완벽한 스튜디오 사진으로 <span class=\"highlight\">📸</span>",
                     "hero.logo.alt": "myme (마이미) 심볼",
-                    "hero.desc": "<strong>myme (마이미)</strong>는 일상 사진을 AI로 보정해 깔끔한 증명사진, 여권사진, 프로필 사진으로 바꿔드립니다.<br>복잡한 포토샵도, 비싼 스튜디오 비용도 필요 없어요. 몇 번의 터치만으로 최고의 증명사진을 완성하세요.",
-                    "feature.heading": "✨ myme (마이미)가 특별한 이유",
-                    "feature.outfit.title": "자연스러운 AI 의상 변경",
-                    "feature.outfit.desc": "잠옷 차림으로 찍은 사진도 괜찮아요. myme (마이미) AI가 체형과 포즈에 맞는 의상을 자연스럽게 적용해줍니다.<ul><li><strong>면접 정장:</strong> 첫인상에 좋은 블랙/네이비 정장 스타일</li><li><strong>오피스룩/캐주얼:</strong> 사원증, 출입증에 어울리는 다양한 스타일</li></ul>",
-                    "feature.bg.title": "용도별 원탭 배경색 변경",
-                    "feature.bg.desc": "사진관에서 배경색을 고민할 필요 없이, 여러 옵션을 바로 비교하고 선택하세요.<ul><li><strong>ID 카드 / 운전면허 / 여권:</strong> 공식 규격에 맞는 깔끔한 화이트 배경</li><li><strong>이력서 / 포트폴리오:</strong> 신뢰감을 주는 그라데이션 블루/그레이 배경</li><li><strong>퍼스널 컬러:</strong> 얼굴을 화사하게 살려주는 소프트 파스텔 톤</li></ul>",
-                    "feature.face.title": "자연스러운 AI 얼굴 보정",
-                    "feature.face.desc": "과한 보정 없이, 본연의 인상은 유지하고 피부 톤과 윤곽만 깔끔하게 다듬습니다.",
-                    "feature.download.title": "폰 저장까지 한 번에: 고해상도 다운로드",
-                    "feature.download.desc": "웹 업로드용부터 인쇄용 파일까지, 선명한 고해상도 결과물을 즉시 저장할 수 있어요.",
+                    "hero.desc": "복잡한 포토샵도, 비싼 사진관 예약도 필요 없습니다.<br>AI가 알아서 입혀주고, 보정하고, 배경까지 바꿔줍니다.",
+                    "support.heading": "무엇이든, 누구든 완벽하게 만들어 드립니다.",
+                    "support.photoLabel": "📌 지원 사진 종류",
+                    "support.photo1": "🪪 증명사진",
+                    "support.photo2": "🛂 여권사진",
+                    "support.photo3": "🖼️ AI 프로필",
+                    "support.photo4": "🎨 애니화",
+                    "support.audienceLabel": "👨‍👩‍👧‍👦 지원 대상",
+                    "support.audience1": "👨‍💼 남 / 👩‍💼 녀",
+                    "support.audience2": "👶 아기",
+                    "support.audience3": "🐶 반려동물",
+                    "feature.heading": "💎 myme만의 특별함",
+                    "feature.outfit.title": "👔 AI 정장 피팅",
+                    "feature.outfit.desc": "잠옷 셀카도 완벽한 면접/오피스룩으로.",
+                    "feature.bg.title": "🎨 원탭 배경 체인지",
+                    "feature.bg.desc": "여권(화이트), 이력서(블루/그라데이션) 즉시 적용.",
+                    "feature.face.title": "✨ 자연스러운 보정",
+                    "feature.face.desc": "과보정 NO! 내 얼굴 그대로 피부와 윤곽만 깔끔하게.",
+                    "feature.download.title": "🖨️ 고화질 다운로드",
+                    "feature.download.desc": "웹 제출부터 실제 인화까지 깨짐 없는 해상도.",
                     "feature.outfit.icon.alt": "의상 변경",
                     "feature.bg.icon.alt": "배경색",
                     "feature.face.icon.alt": "얼굴 보정",
                     "feature.download.icon.alt": "다운로드",
-                    "target.heading": "🎯 이런 분들께 추천해요",
+                    "target.heading": "이런 순간, myme가 구출해 드립니다!",
+                    "target.hashtags": "#내일_면접_이력서 #급한_여권_발급 #운전면허증_갱신 #카톡_감성_프사 #우리아이_첫_여권 #반려동물_증명사진",
                     "target.job.title": "취업 준비생",
-                    "target.job.desc": "내일 이력서 제출인데 사진관 갈 시간이 없는 분",
-                    "target.travel.title": "여행 준비 중인 분",
-                    "target.travel.desc": "여권사진이 급한데 사진관 방문이 어려운 분",
+                    "target.job.desc": "이력서 급한데 사진관 못 가는 분",
+                    "target.travel.title": "여행 준비",
+                    "target.travel.desc": "여권사진 급한데 사진관 어려운 분",
                     "target.id.title": "증명사진 재발급",
-                    "target.id.desc": "오래된 신분증/면허증 사진을 새로 바꾸고 싶은 분",
-                    "target.profile.title": "프로필이 필요한 분",
-                    "target.profile.desc": "SNS와 메신저용 감각적인 AI 프로필이 필요한 분",
+                    "target.id.desc": "신분증·면허증 사진 갱신",
+                    "target.profile.title": "프로필 필요",
+                    "target.profile.desc": "SNS·메신저용 AI 프로필",
                     "target.job.icon.alt": "취업 준비생",
                     "target.travel.icon.alt": "여행 준비",
                     "target.id.icon.alt": "증명사진 재발급",
                     "target.profile.icon.alt": "프로필",
                     "how.heading": "💡 이용 방법",
-                    "how.step1.title": "촬영 / 업로드",
-                    "how.step1.desc": "정면이 잘 보이는 사진을 갤러리에서 선택하거나 바로 촬영하세요.",
-                    "how.step2.title": "AI 생성",
-                    "how.step2.desc": "잠시 후 AI가 사진을 분석해 깔끔한 기본 증명사진을 만들어줍니다.",
-                    "how.step3.title": "옵션 선택 (잠금 해제)",
-                    "how.step3.desc": "의상, 헤어, 배경을 선택해 원하는 스타일을 완성하세요.<br><small>(🔒 먼저 무료로 체험하고, 합리적인 가격으로 전체 옵션을 열 수 있어요.)</small>",
-                    "how.step4.title": "저장",
-                    "how.step4.desc": "완성된 사진을 다운로드하면 끝입니다.",
-                    "cta.title": "<span class=\"highlight\">myme (마이미)</span>를 지금 시작해보세요",
-                    "cta.desc": "커피 한 잔 가격으로 나만의 개인 스튜디오를 만들어보세요.",
+                    "how.step1.title": "1️⃣ 찰칵",
+                    "how.step1.desc": "폰으로 찍거나 앨범에서 선택하세요.",
+                    "how.step2.title": "2️⃣ AI 보정",
+                    "how.step2.desc": "단 30초면 기본 증명사진 완성!",
+                    "how.step3.title": "3️⃣ 스타일링",
+                    "how.step3.desc": "의상, 머리, 배경을 마음대로 바꿔보세요. (🔒 프리미엄 결제 시 모든 옵션 해제)",
+                    "how.step4.title": "4️⃣ 저장",
+                    "how.step4.desc": "고화질 원본 다운로드 끝!",
+                    "cta.title": "커피 한 잔 가격으로<br>내 폰 안에 개인 스튜디오를 열어보세요.",
+                    "cta.desc": "",
                     "store.download": "지금 다운로드",
                     "store.app.name": "앱 스토어",
                     "store.google.name": "구글 플레이",
                     "lang.select.aria": "언어 선택",
                     "store.app.aria": "앱 스토어로 이동",
                     "store.google.aria": "구글 플레이로 이동",
-                    "footer.contact": "지원 요청이나 서비스 제안은 언제든 편하게 연락해주세요.<br>이메일: <a href=\"mailto:lordet01@gmail.com\">lordet01@gmail.com</a>",
+                    "footer.contact": "도움이 필요하신가요?<br>서비스 제안 및 지원: <a href=\"mailto:lordet01@gmail.com\">lordet01@gmail.com</a>",
                     "footer.meta": "© 2026 myme. All rights reserved.",
                     "footer.logo.alt": "myme (마이미) 로고"
                 },
                 ja: {
                     "meta.title": "myme | AI証明写真・プロフィール",
                     "lang.select.label": "言語",
-                    "hero.badge": "📸 証明写真、急ぎで必要？まだ写真館を予約してる？",
-                    "hero.title": "部屋で撮ったセルフィーが<br><span class=\"highlight\">30秒でスタジオ級の高品質ポートレートに</span>",
+                    "hero.badge": "📸 証明写真、急いでる？写真館じゃなくてmyme",
+                    "hero.title": "部屋のセルフィーが30秒で<br>完璧なスタジオ写真に <span class=\"highlight\">📸</span>",
                     "hero.logo.alt": "myme シンボル",
-                    "hero.desc": "<strong>myme</strong>なら、ふだんの写真をAIでサッと整えて、証明写真・パスポート写真・プロフィール写真に仕上げられます。<br>面倒なPhotoshopも高いスタジオ代も不要。数回タップするだけで、納得の1枚が完成します。",
-                    "feature.heading": "✨ mymeの推しポイント",
-                    "feature.outfit.title": "AIで服を自然にチェンジ",
-                    "feature.outfit.desc": "部屋着で撮った写真でもOK。myme AIが体型とポーズに合わせて、服装を自然に切り替えます。<ul><li><strong>面接スーツ:</strong> 第一印象をぐっと良くするブラック/ネイビーのスーツスタイル</li><li><strong>オフィス・カジュアル:</strong> 社員証・勤務証にも使いやすい、いろんなスタイル</li></ul>",
-                    "feature.bg.title": "用途に合わせて背景色をワンタップ変更",
-                    "feature.bg.desc": "写真館で背景色に迷わなくて大丈夫。候補をその場で見比べて、ぴったりの背景を選べます。<ul><li><strong>IDカード / 運転免許証 / パスポート:</strong> 公式用途に合わせやすい、すっきり白背景</li><li><strong>履歴書 / ポートフォリオ:</strong> 信頼感が出るブルー/グレーのグラデ背景</li><li><strong>パーソナルカラー:</strong> 顔色を自然に明るく見せる、やさしいパステルトーン</li></ul>",
-                    "feature.face.title": "ナチュラルAI顔レタッチ",
-                    "feature.face.desc": "やりすぎ加工はしません。あなたらしさはそのままに、肌トーンと輪郭を整えて清潔感のある仕上がりにします。",
-                    "feature.download.title": "スマホ保存まで一気に：高解像度ダウンロード",
-                    "feature.download.desc": "Web提出用から印刷用まで、くっきり高解像度のデータをすぐ保存できます。",
+                    "hero.desc": "面倒なPhotoshopも、高い写真館の予約も不要。<br>AIが服を着せて、補正して、背景まで変えます。",
+                    "support.heading": "何でも、誰でも、完璧に仕上げます。",
+                    "support.photoLabel": "📌 対応写真の種類",
+                    "support.photo1": "🪪 証明写真",
+                    "support.photo2": "🛂 パスポート写真",
+                    "support.photo3": "🖼️ AIプロフィール",
+                    "support.photo4": "🎨 アニメ化",
+                    "support.audienceLabel": "👨‍👩‍👧‍👦 対象",
+                    "support.audience1": "👨‍💼 男性 / 👩‍💼 女性",
+                    "support.audience2": "👶 ベビー",
+                    "support.audience3": "🐶 ペット",
+                    "feature.heading": "💎 mymeだけの特別なところ",
+                    "feature.outfit.title": "👔 AIスーツフィッティング",
+                    "feature.outfit.desc": "パジャマのセルフィーも、完璧な面接・オフィスルックに。",
+                    "feature.bg.title": "🎨 ワンタップ背景チェンジ",
+                    "feature.bg.desc": "パスポート(白)、履歴書(ブルー/グラデ)すぐ適用。",
+                    "feature.face.title": "✨ 自然な補正",
+                    "feature.face.desc": "過補正NO！自分の顔のまま、肌と輪郭だけきれいに。",
+                    "feature.download.title": "🖨️ 高画質ダウンロード",
+                    "feature.download.desc": "Web提出から実際の印刷まで、崩れない解像度。",
                     "feature.outfit.icon.alt": "服装チェンジ",
                     "feature.bg.icon.alt": "背景色",
                     "feature.face.icon.alt": "顔レタッチ",
                     "feature.download.icon.alt": "ダウンロード",
-                    "target.heading": "🎯 こんな方におすすめ",
+                    "target.heading": "そんな時、mymeが助けます！",
+                    "target.hashtags": "#明日_履歴書_面接 #急ぎ_パスポート #免許証_更新 #カカオ_プロフ #赤ちゃん_初パスポート #ペット_証明写真",
                     "target.job.title": "就活中の方",
-                    "target.job.desc": "明日履歴書を出すのに、写真館へ行く時間がない方",
+                    "target.job.desc": "履歴書が明日なのに写真館に行けない方",
                     "target.travel.title": "旅行前の方",
-                    "target.travel.desc": "パスポート写真が急ぎで必要だけど、写真館へ行けない方",
-                    "target.id.title": "身分証を更新したい方",
-                    "target.id.desc": "何年も前の身分証・免許証写真を新しくしたい方",
-                    "target.profile.title": "プロフィールを作りたい方",
-                    "target.profile.desc": "SNSやメッセージアプリ用に、おしゃれなAIプロフィール写真が欲しい方",
+                    "target.travel.desc": "パスポート写真が急なのに写真館が難しい方",
+                    "target.id.title": "身分証の更新",
+                    "target.id.desc": "身分証・免許証の写真を新しくしたい方",
+                    "target.profile.title": "プロフィールが必要な方",
+                    "target.profile.desc": "SNS・メッセージ用のAIプロフィール",
                     "target.job.icon.alt": "就活",
                     "target.travel.icon.alt": "旅行",
                     "target.id.icon.alt": "身分証",
                     "target.profile.icon.alt": "プロフィール",
-                    "how.heading": "💡 使い方はかんたん",
-                    "how.step1.title": "撮影 / アップロード",
-                    "how.step1.desc": "正面がはっきり写った写真をギャラリーから選ぶか、その場で撮影します。",
-                    "how.step2.title": "AI生成",
-                    "how.step2.desc": "AIが写真を分析して、ベースになる証明写真をすぐ作成。",
-                    "how.step3.title": "オプション選択（アンロック）",
-                    "how.step3.desc": "服装・ヘア・背景を選んで、好みのスタイルに仕上げます。<br><small>(🔒 まずは無料で試して、必要なら手頃な価格で全オプションをアンロックできます。)</small>",
-                    "how.step4.title": "保存",
-                    "how.step4.desc": "完成した写真をダウンロードしたら完了です。",
-                    "cta.title": "今すぐ <span class=\"highlight\">myme</span> をはじめよう",
-                    "cta.desc": "コーヒー1杯分の価格で、自分だけのスタジオを。",
+                    "how.heading": "💡 使い方",
+                    "how.step1.title": "1️⃣ パシャリ",
+                    "how.step1.desc": "スマホで撮るか、アルバムから選びましょう。",
+                    "how.step2.title": "2️⃣ AI補正",
+                    "how.step2.desc": "たった30秒で基本の証明写真が完成！",
+                    "how.step3.title": "3️⃣ スタイリング",
+                    "how.step3.desc": "服・髪・背景を自由に変えられます。（🔒 プレミアムで全オプション解除）",
+                    "how.step4.title": "4️⃣ 保存",
+                    "how.step4.desc": "高画質でダウンロードして完了！",
+                    "cta.title": "コーヒー1杯の価格で、<br>スマホに個人スタジオを。",
+                    "cta.desc": "",
                     "store.download": "今すぐダウンロード",
                     "store.app.name": "App Store",
                     "store.google.name": "Google Play",
                     "lang.select.aria": "言語を選択",
                     "store.app.aria": "App Storeへ移動",
                     "store.google.aria": "Google Playへ移動",
-                    "footer.contact": "サポートやサービスの提案は、いつでも気軽にご連絡ください。<br>Email: <a href=\"mailto:lordet01@gmail.com\">lordet01@gmail.com</a>",
+                    "footer.contact": "お困りですか？<br>サービス提案・サポート: <a href=\"mailto:lordet01@gmail.com\">lordet01@gmail.com</a>",
                     "footer.meta": "© 2026 myme. All rights reserved.",
                     "footer.logo.alt": "myme ロゴ"
                 },
                 et: {
                     "meta.title": "myme | AI Dokumendifotod ja Profiilid",
                     "lang.select.label": "Keel",
-                    "hero.badge": "📸 Vajad kiiresti dokumendifotot? Broneerid ikka veel fotostuudiot?",
-                    "hero.title": "Sinu selfiest saab<br><span class=\"highlight\">kõrgekvaliteediline stuudioportree 30 sekundiga</span>",
+                    "hero.badge": "📸 Dokumendifoto kiiresti? Stuudio asemel proovi myme",
+                    "hero.title": "Diivani selfiest<br>täiuslik stuudofoto 30 sekundiga <span class=\"highlight\">📸</span>",
                     "hero.logo.alt": "myme sümbol",
-                    "hero.desc": "<strong>myme</strong> muudab sinu igapäevased fotod täiustatud tehisintellekti abil viimistletud dokumendifotodeks, passipiltideks ja profiiliportreedeks.<br>Ei mingit keerulist Photoshopi ega kalleid stuudiokulusid. Loo oma parim dokumendifoto vaid mõne nupuvajutusega.",
-                    "feature.heading": "✨ Miks myme silma paistab",
-                    "feature.outfit.title": "Sujuv AI riietuse vahetus",
-                    "feature.outfit.desc": "Isegi kui tegid pildi pidžaamas, pole probleemi. myme AI lisab riietuse, mis sobib loomulikult sinu kehakuju ja poosiga.<ul><li><strong>Intervjuu ülikonnad:</strong> Puhtad mustad või tumesinised ülikonnad professionaalse esmamulje jätmiseks</li><li><strong>Kontoririietus ja vabaaja riided:</strong> Mitmed stiilid, mis sobivad töötõendite ja töökohtade piltide jaoks</li></ul>",
-                    "feature.bg.title": "Ühe puudutusega taustavärv vastavalt eesmärgile",
-                    "feature.bg.desc": "Enam pole vaja stuudios taustavärve arvata. Proovi kohe mitmeid valikuid ja vali parim.<ul><li><strong>ID-kaart / Juhiluba / Pass:</strong> Puhtad valged taustad, mis vastavad ametlikele nõuetele</li><li><strong>CV / Portfoolio:</strong> Usaldust äratavad sinise ja halli gradiendiga taustad</li><li><strong>Isiklik värv:</strong> Pehmed pastelsed toonid, mis muudavad su näo loomulikult säravamaks</li></ul>",
-                    "feature.face.title": "Loomulik AI näo viimistlus",
-                    "feature.face.desc": "Ei mingit ületöötlemist. Säilita oma unikaalsed näojooned, viimistledes samal ajal nahatooni ja kontuure puhta ning loomuliku tulemuse saavutamiseks.",
-                    "feature.download.title": "Salvesta telefoni ja valmis: Kõrgresolutsiooniga allalaadimine",
-                    "feature.download.desc": "Alates veebirakendustesse üleslaadimisest kuni trükivalmis failideni – salvesta teravad kõrgresolutsiooniga tulemused kohe oma galeriisse.",
+                    "hero.desc": "Pole vaja keerulist Photoshopi ega kallilt stuudio broneerimist.<br>AI riietab sind, viimistleb ja vahetab tausta.",
+                    "support.heading": "Mis iganes, kes iganes—teeme täiuslikuks.",
+                    "support.photoLabel": "📌 Toetatud foto tüübid",
+                    "support.photo1": "🪪 Dokumendifoto",
+                    "support.photo2": "🛂 Passifoto",
+                    "support.photo3": "🖼️ AI-profiil",
+                    "support.photo4": "🎨 Anime stiil",
+                    "support.audienceLabel": "👨‍👩‍👧‍👦 Sihtgrupp",
+                    "support.audience1": "👨‍💼 Mehed / 👩‍💼 Naised",
+                    "support.audience2": "👶 Beebi",
+                    "support.audience3": "🐶 Lemmikloom",
+                    "feature.heading": "💎 Mida teeb myme eriliseks",
+                    "feature.outfit.title": "👔 AI ülikonna sobitus",
+                    "feature.outfit.desc": "Pidžaama selfie? Siiski täiuslik intervjuu- või kontorilook.",
+                    "feature.bg.title": "🎨 Ühe puudutusega taust",
+                    "feature.bg.desc": "Pass (valge), CV (sinine/gradient)—kohaldub kohe.",
+                    "feature.face.title": "✨ Loomulik viimistlus",
+                    "feature.face.desc": "Mitte üle töötlemine. Sinu nägu, lihtsalt puhtam nahk ja kontuur.",
+                    "feature.download.title": "🖨️ Kõrge eraldusvõime allalaadimine",
+                    "feature.download.desc": "Veebi üleslaadimist kuni trükini—terav eraldusvõime.",
                     "feature.outfit.icon.alt": "Riietuse vahetus",
                     "feature.bg.icon.alt": "Taustavärv",
                     "feature.face.icon.alt": "Näo viimistlus",
                     "feature.download.icon.alt": "Allalaadimine",
-                    "target.heading": "🎯 Ideaalne neile kasutajatele",
+                    "target.heading": "Sellisel hetkel päästab myme sind!",
+                    "target.hashtags": "#CV_homme #pass_kiire #juhiluba_uuendus #profiilipilt #beebi_esimene_pass #lemmiklooma_foto",
                     "target.job.title": "Tööotsijad",
-                    "target.job.desc": "Peavad homme CV esitama, kuid stuudios pildistamiseks pole aega",
+                    "target.job.desc": "CV homme, stuudiosse pole aega",
                     "target.travel.title": "Reisijad",
-                    "target.travel.desc": "Vajavad kiiresti passipilti, kuid ei saa fotostuudiot külastada",
-                    "target.id.title": "Dokumentide uuendajad",
-                    "target.id.desc": "Soovivad pärast paljusid aastaid värskendada vanu ID- või juhiloa fotosid",
-                    "target.profile.title": "Profiili loojad",
-                    "target.profile.desc": "Vajavad stiilseid AI portreesid sotsiaalmeedia profiilidele ja sõnumirakendustesse",
+                    "target.travel.desc": "Passifoto kiiresti vaja, stuudiot külastada ei saa",
+                    "target.id.title": "Dokumentide uuendamine",
+                    "target.id.desc": "Vana ID või juhiloa foto värskendus",
+                    "target.profile.title": "Profiil vajalik",
+                    "target.profile.desc": "Sotsiaalmeedia ja sõnumite jaoks AI-profiil",
                     "target.job.icon.alt": "Tööotsijad",
                     "target.travel.icon.alt": "Reisijad",
                     "target.id.icon.alt": "Dokumendid",
                     "target.profile.icon.alt": "Profiil",
                     "how.heading": "💡 Kuidas see töötab",
-                    "how.step1.title": "Pildista / Laadi üles",
-                    "how.step1.desc": "Vali galeriist selge otsevaates foto või tee see kohe.",
-                    "how.step2.title": "AI genereerimine",
-                    "how.step2.desc": "Mõne hetkega analüüsib AI sinu fotot ja loob puhta baas-dokumendifoto.",
-                    "how.step3.title": "Vali lisad (Ava)",
-                    "how.step3.desc": "Vali riietus, soeng ja taust oma stiili täiustamiseks.<br><small>(🔒 Proovi alguses tasuta, seejärel ava kõik valikud mõistliku hinna eest.)</small>",
-                    "how.step4.title": "Salvesta",
-                    "how.step4.desc": "Laadi oma valmis foto alla. See ongi kõik.",
-                    "cta.title": "Alusta <span class=\"highlight\">myme</span> kasutamist kohe",
-                    "cta.desc": "Loo oma isiklik stuudio vaid kohvitassi hinna eest.",
+                    "how.step1.title": "1️⃣ Pildista",
+                    "how.step1.desc": "Tee pilt telefoniga või vali albumist.",
+                    "how.step2.title": "2️⃣ AI viimistlus",
+                    "how.step2.desc": "30 sekundiga on põhidokumendifoto valmis!",
+                    "how.step3.title": "3️⃣ Stiil",
+                    "how.step3.desc": "Vaheta riietust, soengut ja tausta. (🔒 Premiumiga kõik valikud avatud.)",
+                    "how.step4.title": "4️⃣ Salvesta",
+                    "how.step4.desc": "Laadi alla kõrge eraldusvõimega. Valmis!",
+                    "cta.title": "Kohvitassi hinna eest<br>isiklik stuudio taskus.",
+                    "cta.desc": "",
                     "store.download": "Laadi kohe alla",
                     "store.app.name": "App Store",
                     "store.google.name": "Google Play",
                     "lang.select.aria": "Keelevalik",
                     "store.app.aria": "Mine App Store'i",
                     "store.google.aria": "Mine Google Play'sse",
-                    "footer.contact": "Klienditoe ja tootesoovituste saamiseks võtke meiega igal ajal ühendust.<br>Email: <a href=\"mailto:lordet01@gmail.com\">lordet01@gmail.com</a>",
+                    "footer.contact": "Vajad abi?<br>Teenuse ettepanekud ja tugi: <a href=\"mailto:lordet01@gmail.com\">lordet01@gmail.com</a>",
                     "footer.meta": "© 2026 myme. Kõik õigused kaitstud.",
                     "footer.logo.alt": "myme logo"
                 }
