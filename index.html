@@ -160,9 +160,18 @@
         }
 
         .feature-icon {
-            font-size: 2.5rem;
+            width: 64px;
+            height: 64px;
+            object-fit: cover;
             margin-bottom: 20px;
-            display: inline-block;
+            display: block;
+            border-radius: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 8px 24px -4px rgba(0, 0, 0, 0.06);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+        }
+
+        .feature-card:hover .feature-icon {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1), 0 12px 28px -4px rgba(0, 0, 0, 0.08);
         }
 
         .feature-title {
@@ -216,7 +225,13 @@
         }
 
         .target-emoji {
-            font-size: 2rem;
+            width: 48px;
+            height: 48px;
+            object-fit: cover;
+            flex-shrink: 0;
+            border-radius: 14px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3), 0 2px 6px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.15);
         }
 
         .target-text {
@@ -495,13 +510,13 @@
             section h2 { font-size: 1.55rem; margin-bottom: 32px; }
             .feature-grid { grid-template-columns: 1fr; gap: 14px; }
             .feature-card { padding: 26px 20px; border-radius: 18px; }
-            .feature-icon { font-size: 2rem; margin-bottom: 12px; }
+            .feature-icon { width: 52px; height: 52px; margin-bottom: 12px; border-radius: 16px; }
             .feature-title { font-size: 1.05rem; margin-bottom: 10px; }
             .feature-desc { font-size: 0.95rem; }
             .target-list { gap: 10px; }
             .target-section { margin-top: 60px; padding-top: 50px; }
             .target-item { padding: 16px; gap: 12px; border-radius: 14px; }
-            .target-emoji { font-size: 1.55rem; }
+            .target-emoji { width: 40px; height: 40px; border-radius: 12px; }
             .target-text strong { font-size: 1rem; }
             .target-text p { font-size: 0.92rem; line-height: 1.5; }
             .step { margin-bottom: 20px; }
@@ -593,7 +608,7 @@
             <h2 data-i18n-key="feature.heading">✨ Why myme stands out</h2>
             <div class="feature-grid">
                 <div class="feature-card">
-                    <div class="feature-icon">👔</div>
+                    <img class="feature-icon" src="./myme_Design Asset/myme_pic/suits.png" alt="Outfit change" data-i18n-alt-key="feature.outfit.icon.alt">
                     <div class="feature-title" data-i18n-key="feature.outfit.title">Seamless AI Outfit Change</div>
                     <div class="feature-desc" data-i18n-key="feature.outfit.desc">
                         Even if you took the photo in pajamas, you are good to go. myme AI applies outfits that match your body shape and pose naturally.
@@ -605,7 +620,7 @@
                 </div>
 
                 <div class="feature-card">
-                    <div class="feature-icon">🎨</div>
+                    <img class="feature-icon" src="./myme_Design Asset/myme_pic/color.png" alt="Background color" data-i18n-alt-key="feature.bg.icon.alt">
                     <div class="feature-title" data-i18n-key="feature.bg.title">One-Tap Background Color by Purpose</div>
                     <div class="feature-desc" data-i18n-key="feature.bg.desc">
                         No more guessing background colors at a studio. Try multiple options instantly and choose what works best.
@@ -618,7 +633,7 @@
                 </div>
 
                 <div class="feature-card">
-                    <div class="feature-icon">✨</div>
+                    <img class="feature-icon" src="./myme_Design Asset/myme_pic/beauty.png" alt="Facial retouching" data-i18n-alt-key="feature.face.icon.alt">
                     <div class="feature-title" data-i18n-key="feature.face.title">Natural AI Facial Retouching</div>
                     <div class="feature-desc" data-i18n-key="feature.face.desc">
                         No over-editing. Keep your unique facial features while refining skin tone and contour for a clean, natural result.
@@ -626,7 +641,7 @@
                 </div>
 
                 <div class="feature-card">
-                    <div class="feature-icon">📱</div>
+                    <img class="feature-icon" src="./myme_Design Asset/myme_pic/download.png" alt="Download" data-i18n-alt-key="feature.download.icon.alt">
                     <div class="feature-title" data-i18n-key="feature.download.title">Save to Phone, Done: High-Resolution Download</div>
                     <div class="feature-desc" data-i18n-key="feature.download.desc">
                         From web application uploads to print-ready files, save sharp high-resolution results instantly to your gallery.
@@ -641,28 +656,28 @@
                 <h2 data-i18n-key="target.heading">🎯 Perfect for these users</h2>
                 <div class="target-list">
                     <div class="target-item">
-                        <div class="target-emoji">💼</div>
+                        <img class="target-emoji" src="./myme_Design Asset/myme_pic/business.png" alt="Job seekers" data-i18n-alt-key="target.job.icon.alt">
                         <div class="target-text">
                             <strong data-i18n-key="target.job.title">Job Seekers</strong>
                             <p data-i18n-key="target.job.desc">Need to submit a resume tomorrow but have no time for a studio shoot</p>
                         </div>
                     </div>
                     <div class="target-item">
-                        <div class="target-emoji">✈️</div>
+                        <img class="target-emoji" src="./myme_Design Asset/myme_pic/passport.png" alt="Travelers" data-i18n-alt-key="target.travel.icon.alt">
                         <div class="target-text">
                             <strong data-i18n-key="target.travel.title">Travelers</strong>
                             <p data-i18n-key="target.travel.desc">Need a passport photo urgently but cannot visit a photo studio</p>
                         </div>
                     </div>
                     <div class="target-item">
-                        <div class="target-emoji">🆔</div>
+                        <img class="target-emoji" src="./myme_Design Asset/myme_pic/ID.png" alt="ID renewals" data-i18n-alt-key="target.id.icon.alt">
                         <div class="target-text">
                             <strong data-i18n-key="target.id.title">ID Renewals</strong>
                             <p data-i18n-key="target.id.desc">Want to refresh old ID or license photos after many years</p>
                         </div>
                     </div>
                     <div class="target-item">
-                        <div class="target-emoji">🤳</div>
+                        <img class="target-emoji" src="./myme_Design Asset/myme_pic/selfie.png" alt="Profile creators" data-i18n-alt-key="target.profile.icon.alt">
                         <div class="target-text">
                             <strong data-i18n-key="target.profile.title">Profile Creators</strong>
                             <p data-i18n-key="target.profile.desc">Need stylish AI portraits for social profiles and messaging apps</p>
@@ -766,6 +781,10 @@
                     "feature.face.desc": "No over-editing. Keep your unique facial features while refining skin tone and contour for a clean, natural result.",
                     "feature.download.title": "Save to Phone, Done: High-Resolution Download",
                     "feature.download.desc": "From web application uploads to print-ready files, save sharp high-resolution results instantly to your gallery.",
+                    "feature.outfit.icon.alt": "Outfit change",
+                    "feature.bg.icon.alt": "Background color",
+                    "feature.face.icon.alt": "Facial retouching",
+                    "feature.download.icon.alt": "Download",
                     "target.heading": "🎯 Perfect for these users",
                     "target.job.title": "Job Seekers",
                     "target.job.desc": "Need to submit a resume tomorrow but have no time for a studio shoot",
@@ -775,6 +794,10 @@
                     "target.id.desc": "Want to refresh old ID or license photos after many years",
                     "target.profile.title": "Profile Creators",
                     "target.profile.desc": "Need stylish AI portraits for social profiles and messaging apps",
+                    "target.job.icon.alt": "Job seekers",
+                    "target.travel.icon.alt": "Travelers",
+                    "target.id.icon.alt": "ID renewals",
+                    "target.profile.icon.alt": "Profile creators",
                     "how.heading": "💡 How it works",
                     "how.step1.title": "Capture / Upload",
                     "how.step1.desc": "Choose a clear front-facing photo from your gallery or take one right away.",
@@ -812,6 +835,10 @@
                     "feature.face.desc": "과한 보정 없이, 본연의 인상은 유지하고 피부 톤과 윤곽만 깔끔하게 다듬습니다.",
                     "feature.download.title": "폰 저장까지 한 번에: 고해상도 다운로드",
                     "feature.download.desc": "웹 업로드용부터 인쇄용 파일까지, 선명한 고해상도 결과물을 즉시 저장할 수 있어요.",
+                    "feature.outfit.icon.alt": "의상 변경",
+                    "feature.bg.icon.alt": "배경색",
+                    "feature.face.icon.alt": "얼굴 보정",
+                    "feature.download.icon.alt": "다운로드",
                     "target.heading": "🎯 이런 분들께 추천해요",
                     "target.job.title": "취업 준비생",
                     "target.job.desc": "내일 이력서 제출인데 사진관 갈 시간이 없는 분",
@@ -821,6 +848,10 @@
                     "target.id.desc": "오래된 신분증/면허증 사진을 새로 바꾸고 싶은 분",
                     "target.profile.title": "프로필이 필요한 분",
                     "target.profile.desc": "SNS와 메신저용 감각적인 AI 프로필이 필요한 분",
+                    "target.job.icon.alt": "취업 준비생",
+                    "target.travel.icon.alt": "여행 준비",
+                    "target.id.icon.alt": "증명사진 재발급",
+                    "target.profile.icon.alt": "프로필",
                     "how.heading": "💡 이용 방법",
                     "how.step1.title": "촬영 / 업로드",
                     "how.step1.desc": "정면이 잘 보이는 사진을 갤러리에서 선택하거나 바로 촬영하세요.",
@@ -858,6 +889,10 @@
                     "feature.face.desc": "やりすぎ加工はしません。あなたらしさはそのままに、肌トーンと輪郭を整えて清潔感のある仕上がりにします。",
                     "feature.download.title": "スマホ保存まで一気に：高解像度ダウンロード",
                     "feature.download.desc": "Web提出用から印刷用まで、くっきり高解像度のデータをすぐ保存できます。",
+                    "feature.outfit.icon.alt": "服装チェンジ",
+                    "feature.bg.icon.alt": "背景色",
+                    "feature.face.icon.alt": "顔レタッチ",
+                    "feature.download.icon.alt": "ダウンロード",
                     "target.heading": "🎯 こんな方におすすめ",
                     "target.job.title": "就活中の方",
                     "target.job.desc": "明日履歴書を出すのに、写真館へ行く時間がない方",
@@ -867,6 +902,10 @@
                     "target.id.desc": "何年も前の身分証・免許証写真を新しくしたい方",
                     "target.profile.title": "プロフィールを作りたい方",
                     "target.profile.desc": "SNSやメッセージアプリ用に、おしゃれなAIプロフィール写真が欲しい方",
+                    "target.job.icon.alt": "就活",
+                    "target.travel.icon.alt": "旅行",
+                    "target.id.icon.alt": "身分証",
+                    "target.profile.icon.alt": "プロフィール",
                     "how.heading": "💡 使い方はかんたん",
                     "how.step1.title": "撮影 / アップロード",
                     "how.step1.desc": "正面がはっきり写った写真をギャラリーから選ぶか、その場で撮影します。",
@@ -904,6 +943,10 @@
                     "feature.face.desc": "Ei mingit ületöötlemist. Säilita oma unikaalsed näojooned, viimistledes samal ajal nahatooni ja kontuure puhta ning loomuliku tulemuse saavutamiseks.",
                     "feature.download.title": "Salvesta telefoni ja valmis: Kõrgresolutsiooniga allalaadimine",
                     "feature.download.desc": "Alates veebirakendustesse üleslaadimisest kuni trükivalmis failideni – salvesta teravad kõrgresolutsiooniga tulemused kohe oma galeriisse.",
+                    "feature.outfit.icon.alt": "Riietuse vahetus",
+                    "feature.bg.icon.alt": "Taustavärv",
+                    "feature.face.icon.alt": "Näo viimistlus",
+                    "feature.download.icon.alt": "Allalaadimine",
                     "target.heading": "🎯 Ideaalne neile kasutajatele",
                     "target.job.title": "Tööotsijad",
                     "target.job.desc": "Peavad homme CV esitama, kuid stuudios pildistamiseks pole aega",
@@ -913,6 +956,10 @@
                     "target.id.desc": "Soovivad pärast paljusid aastaid värskendada vanu ID- või juhiloa fotosid",
                     "target.profile.title": "Profiili loojad",
                     "target.profile.desc": "Vajavad stiilseid AI portreesid sotsiaalmeedia profiilidele ja sõnumirakendustesse",
+                    "target.job.icon.alt": "Tööotsijad",
+                    "target.travel.icon.alt": "Reisijad",
+                    "target.id.icon.alt": "Dokumendid",
+                    "target.profile.icon.alt": "Profiil",
                     "how.heading": "💡 Kuidas see töötab",
                     "how.step1.title": "Pildista / Laadi üles",
                     "how.step1.desc": "Vali galeriist selge otsevaates foto või tee see kohe.",
