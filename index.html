@@ -1258,26 +1258,34 @@
             var holdMs = 3000;
             var gridSize = 3;
             var gridCount = gridSize * gridSize;
-            var imagePool = [];
             var stage = "logoIn";
             var timeoutId = null;
-            var endpoint = "https://myme.serveftp.com/promo-images";
-            var imageBase = "https://myme.serveftp.com/promo-images/";
+            var imageBase = "./myme_Design%20Asset/promo/profile_batch_200/";
 
-            var fallbackPool = [
-                "gen_000001_adult__passport_변경_없음_na_변경_없음_na_bg_wht_858445764_db7cf1.png",
-                "gen_000003_adult__profile_화이트_셔츠_beig_숏컷_dbrn_bg_na_420438132_0b83aa.png",
-                "gen_000006_adult__passport_변경_없음_na_변경_없음_na_bg_wht_1292318260_56f4e1.png",
-                "gen_000009_adult__profile_변경_없음_na_변경_없음_na_bg_wht_113301753_a77ec6.png",
-                "gen_000011_adult__profile_오피스룩_owht_변경_없음_na_bg_pstblu_1527876400_089dd2.png",
-                "gen_000015_adult__passport_이브닝_드레스_beig_변경_없음_na_bg_wht_1971903939_928dd6.png",
-                "gen_000020_adult__id_변경_없음_na_변경_없음_na_bg_wht_994701731_fdfcae.png",
-                "gen_000023_adult__id_변경_없음_na_변경_없음_na_bg_wht_192176371_51b85e.png",
-                "gen_000028_adult__profile_오피스룩_dbrn_숏컷_blk_bg_pstpnk_874937982_bfa5f7.png",
-                "gen_000032_adult__id_오피스룩_gry_웨이브_헤어_blk_bg_wht_1655368511_d3a945.png",
-                "gen_000039_adult__passport_변경_없음_na_로우번_묶음머리_blk_bg_wht_1980746839_dfa9ac.png",
-                "gen_000045_adult__passport_라운드넥_navy_변경_없음_na_bg_wht_1605694940_2baf9b.png"
+            var localPromoProfileImages = [
+                "gen_000001_adult__passport_셔츠_4a2c2c_변경_없음_na_bg_wht_1807086806_d67eb9_full.png",
+                "gen_000003_adult__anime_브이넥_f5f5f5_변경_없음_na_bg_pstblu_1258862570_dc4b87_full.png",
+                "gen_000004_adult__id_브이넥_000033_변경_없음_na_블루_그라데이션_na_840090580_141ba1_full.png",
+                "gen_000005_adult__sns_라운드넥_gry_변경_없음_na_그라데이션_na_1973655668_0fcc52_full.png",
+                "gen_000006_adult__id_수트_000033_시스루컷_4a2c2c_그라데이션_na_1663921032_1dae42_full.png",
+                "gen_000007_baby_f_passport_턱시도_아기_f5f5f5_웨이브_헤어_아_4a2c2c_bg_wht_218606526_033673_full.png",
+                "gen_000008_adult__anime_이브닝_드레스_000033_단발_4a2c2c_그라데이션_na_1031345204_877b47_full.png",
+                "gen_000009_baby_f_passport_변경_없음_na_숏컷_아기_4a2c2c_bg_wht_1447636555_372b60_full.png",
+                "gen_000010_adult__anime_라운드넥_4a2c2c_단발_4a2c2c_블루_그라데이션_na_1999778099_3f2cfe_full.png",
+                "gen_000011_adult__id_수트_dgry_시스루컷_4a2c2c_블루_그라데이션_na_2070856872_c49bc1_full.png",
+                "gen_000014_adult__sns_이브닝_드레스_f2ebe3_변경_없음_na_그라데이션_na_1614151394_5ca312_full.png",
+                "gen_000021_pet_passport_반려동물_정장_gry_변경_없음_na_bg_wht_1745220360_16ba96_full.png",
+                "gen_000026_baby_m_id_이브닝_드레스__4a2c2c_숏컷_아기_4a2c2c_컬러_그라데이션_na_1189305597_4d7edf_full.png",
+                "gen_000027_pet_passport_귀여운_후드티_dgry_변경_없음_na_bg_wht_1089769174_42ef7c_full.png",
+                "gen_000032_adult__passport_라운드넥_gry_세미_아이비리그_4a2c2c_bg_wht_1176085954_dee97d_full.png",
+                "gen_000039_baby_m_passport_수트_아기_f2ebe3_단발_아기_4a2c2c_bg_wht_1354802224_84fffb_full.png",
+                "gen_000046_baby_f_id_변경_없음_na_단발_아기_4a2c2c_그라데이션_na_480100857_b99478_full.png",
+                "gen_000048_baby_f_id_라운드넥_아기_000033_변경_없음_na_블루_그라데이션_na_284764225_964a1a_full.png",
+                "gen_000094_baby_m_id_수트_아기_f5f5f5_세미_아이비리그_4a2c2c_bg_pstpnk_1965665112_f5dea3_full.png",
+                "gen_000112_baby_m_passport_이브닝_드레스__4a2c2c_웨이브_헤어_아_blk_bg_wht_1592110364_34df36_full.png"
             ];
+
+            var imagePool = localPromoProfileImages.slice();
 
             function setVisibility(showLogo) {
                 logoLayer.classList.toggle("promo-showcase__layer--visible", showLogo);
@@ -1358,23 +1366,9 @@
                 }
             }
 
-            fetch(endpoint, { cache: "no-store" })
-                .then(function (res) { return res.ok ? res.json() : null; })
-                .then(function (data) {
-                    if (data && Array.isArray(data.images) && data.images.length) {
-                        imagePool = data.images;
-                    } else {
-                        imagePool = fallbackPool.slice();
-                    }
-                })
-                .catch(function () {
-                    imagePool = fallbackPool.slice();
-                })
-                .finally(function () {
-                    stage = "logoIn";
-                    setVisibility(true);
-                    schedule(fadeMs);
-                });
+            stage = "logoIn";
+            setVisibility(true);
+            schedule(fadeMs);
         })();
     </script>
 </body>
