@@ -61,6 +61,12 @@
             color: var(--text-dark);
         }
 
+        h3 {
+            margin: 18px 0 8px;
+            font-size: 1.05rem;
+            color: var(--text-dark);
+        }
+
         p, li {
             color: var(--text-regular);
             font-size: 0.98rem;
@@ -114,15 +120,50 @@
         <a class="home-link" href="../index.html">← Back to myme</a>
         <article class="card">
             <h1>myme Privacy Policy (Summary)</h1>
-            <div class="muted">Last updated: 2026-06-20</div>
+            <div class="muted">Last updated: 2026-06-22</div>
 
             <h2>1. Data we collect</h2>
             <ul>
                 <li><strong>Account:</strong> email and login provider identifiers (e.g., Google/Apple)</li>
+                <li><strong>Face data &amp; photos:</strong> photos you upload or capture that contain your face; derived analysis (e.g., face position, frontal check, face count/size). We do <strong>not</strong> collect biometric templates for device unlock or Face ID–style authentication.</li>
                 <li><strong>Service usage:</strong> uploaded photos, generation parameters, task IDs, output metadata</li>
                 <li><strong>Device &amp; operations:</strong> device information, diagnostics/crash/performance data, advertising/analytics identifiers (as permitted by your choices)</li>
                 <li><strong>Notifications:</strong> FCM token (for push delivery)</li>
             </ul>
+
+            <h3>Face data — what we collect, use, share, and retain</h3>
+
+            <p><strong>What face data we collect</strong></p>
+            <ul>
+                <li>Photos containing your face that you choose to upload, import, or capture in the app</li>
+                <li>Derived face-related analysis results (e.g., frontal check, approximate face region/size, face count) needed to provide the service</li>
+                <li>Generation settings you select (style, background, retouch level, etc.)</li>
+            </ul>
+
+            <p><strong>How we use face data</strong></p>
+            <ul>
+                <li>Generate AI portrait, ID, and profile photos</li>
+                <li>Check photo quality and composition before generation</li>
+                <li>Improve service quality and prevent abuse</li>
+            </ul>
+
+            <p><strong>Third parties &amp; storage</strong></p>
+            <ul>
+                <li>Face data is transmitted to servers operated by <strong>myme Corp. OÜ</strong> and to <strong>AI image processing infrastructure</strong> used to analyze and generate images on our behalf</li>
+                <li>Data may be stored on cloud servers outside your country (see Section 5)</li>
+                <li>We do <strong>not</strong> sell face data</li>
+            </ul>
+
+            <p><strong>Retention</strong></p>
+            <ul>
+                <li>When you delete your account, we delete or anonymize face data and related photos where permitted</li>
+                <li>Some records may be retained where required by law (e.g., tax/commerce) — see Section 3</li>
+            </ul>
+
+            <p><strong>In-app consent</strong></p>
+            <p class="policy-quote">
+                Before your first photo upload or AI generation, the app explains what is sent, who receives it, and asks for your permission. Privacy Policy alone is not sufficient; consent is requested in the app.
+            </p>
 
             <h2>2. Purposes</h2>
             <ul>
@@ -131,37 +172,24 @@
                 <li><strong>Marketing push</strong> is only sent if you opt in separately from system notifications.</li>
             </ul>
 
-            <h2>3. Face data &amp; uploaded photos</h2>
-            <p>
-                <strong>myme</strong> is an AI photo studio app that processes user-submitted photos to generate AI-driven ID photos, passport photos, and profile portraits.
-            </p>
+            <h2>3. Retention &amp; deletion</h2>
             <ul>
-                <li>
-                    <strong>What we collect:</strong> The app does <strong>not</strong> collect or use TrueDepth camera data, facial geometry data, or facial biometric markers. It only uploads standard 2D image files (JPEG/PNG) that you actively select and submit from your device.
-                </li>
-                <li>
-                    <strong>How we use it:</strong> Uploaded photos are used solely to transform your image into an AI-generated professional profile or ID photo using our AI model.
-                </li>
-                <li>
-                    <strong>Third-party sharing:</strong> Uploaded photos and generated outputs are <strong>not shared with any third parties</strong> for processing, advertising, or analytics. AI photo generation is handled on our private cloud infrastructure.
-                </li>
-                <li>
-                    <strong>Storage location:</strong> Photo processing takes place on our private cloud servers. Data may be processed on servers located outside your country; we apply appropriate safeguards as required.
-                </li>
-                <li>
-                    <strong>Retention:</strong> Uploaded photos and processed images are permanently deleted from our servers when AI photo generation is complete and delivered to you, or within <strong>24 hours</strong> at the latest. We do not retain biometric data or use your photos to train third-party models.
-                </li>
-            </ul>
-
-            <h2>4. Retention &amp; deletion</h2>
-            <ul>
-                <li>Uploaded photos and AI outputs are deleted as described in Section 3, even if your account remains active.</li>
-                <li>When you delete your account, we delete or anonymize remaining personal data where permitted.</li>
+                <li>When you delete your account, we delete or anonymize personal data where permitted.</li>
                 <li>Some records may be retained where required by law (e.g., tax/commerce).</li>
             </ul>
 
-            <h2>5. Processors &amp; third parties</h2>
+            <h2>4. Processors &amp; third parties</h2>
             <ul>
+                <li>
+                    <strong>AI image analysis &amp; generation</strong>
+                    <ul>
+                        <li><strong>Recipients:</strong> myme Corp. OÜ cloud servers; AI image generation/analysis providers that process photos on our behalf</li>
+                        <li><strong>Data shared:</strong> face-containing photos, analysis outputs, generation parameters, task/session identifiers</li>
+                        <li><strong>When shared:</strong> after you agree in the in-app consent dialog, when you upload/analyze photos, or request AI generation</li>
+                        <li><strong>Purpose:</strong> portrait generation, quality validation, service improvement, fraud/abuse prevention</li>
+                        <li><strong>Protection:</strong> contractual and technical safeguards; providers must protect data consistently with this policy</li>
+                    </ul>
+                </li>
                 <li>
                     <strong>Payments, subscriptions &amp; in-app purchases</strong>
                     <ul>
@@ -181,30 +209,30 @@
                 <li>Analytics/crash reporting: <strong>Firebase Analytics / Crashlytics</strong> (may be disabled depending on build settings)</li>
             </ul>
 
-            <h2>6. International transfers</h2>
+            <h2>5. International transfers</h2>
             <p>
                 Data may be processed on servers located outside your country; we apply appropriate safeguards as required.
             </p>
 
-            <h2>7. Your rights</h2>
+            <h2>6. Your rights</h2>
             <ul>
                 <li>Request access, correction, deletion, or restriction (contact support)</li>
                 <li>Withdraw <strong>marketing</strong> consent anytime in Settings</li>
             </ul>
 
-            <h2>8. Contact</h2>
+            <h2>7. Contact</h2>
             <p>
                 Privacy inquiries: <a href="mailto:myme@mymecorp.xyz">myme@mymecorp.xyz</a><br>
                 To delete your account and associated data, see our
                 <a href="../account-deletion/">Account &amp; Data Deletion</a> page.
             </p>
 
-            <h2>9. Operator</h2>
+            <h2>8. Operator</h2>
             <ul class="contact-block">
                 <li><strong>Business name:</strong> myme Corp. OÜ</li>
-                <li><strong>Registry country:</strong> Estonia</li>
+                <li><strong>Country of registration:</strong> Estonia</li>
                 <li><strong>Registry code:</strong> 17506092</li>
-                <li><strong>Business address:</strong> Sepapaja tn 6, 15551 Tallinn, Harju Maakond, Estonia</li>
+                <li><strong>Address:</strong> Sepapaja tn 6, 15551 Tallinn, Harju Maakond, Estonia</li>
                 <li><strong>Website:</strong> <a href="https://mymecorp.xyz/">https://mymecorp.xyz/</a></li>
             </ul>
         </article>
