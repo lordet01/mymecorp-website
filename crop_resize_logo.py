@@ -1,10 +1,11 @@
 from PIL import Image
 import os
 
-input_path = "myme_Design Asset/png/myme_landscape(primary).png"
+input_path = "myme_Design Asset/new/myme_landscape_primary.png"
 output_path = "myme_Design Asset/png/myme_landscape(primary)_footer.png"
 
 try:
+    os.makedirs(os.path.dirname(output_path), exist_ok=True)
     with Image.open(input_path) as img:
         print(f"Original size: {img.size}")
         

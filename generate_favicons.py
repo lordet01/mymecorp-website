@@ -1,7 +1,7 @@
 from PIL import Image
 import os
 
-input_path = "myme_Design Asset/icon/apple-touch-icon.png"
+input_path = "myme_Design Asset/new/myme_symbol_primary.png"
 output_dir = "myme_Design Asset/favicon"
 os.makedirs(output_dir, exist_ok=True)
 
