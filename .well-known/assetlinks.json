@@ -1,0 +1,15 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls",
+      "delegate_permission/common.get_login_creds"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.mymecorp.myme",
+      "sha256_cert_fingerprints": [
+        "15:4F:F7:38:71:2C:23:52:FD:C8:DE:14:46:5E:71:67:FE:6D:84:D0:2C:60:1A:A6:AF:F7:38:E6:60:53:93:36"
+      ]
+    }
+  }
+]
