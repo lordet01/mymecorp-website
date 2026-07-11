@@ -1,7 +1,7 @@
 from PIL import Image
 import os
 
-input_path = "myme_Design Asset/new/myme_symbol_primary.png"
+input_path = "myme_Design Asset/new/myMe_symbol_chrome.png"
 output_dir = "myme_Design Asset/favicon"
 os.makedirs(output_dir, exist_ok=True)
 

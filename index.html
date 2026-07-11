@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-i18n-key="meta.title">myme | AI ID Photos &amp; Profiles</title>
+    <title data-i18n-key="meta.title">myMe — Your Personal AI Photo Concierge</title>
     
     <!-- Favicon and Icons -->
     <link rel="icon" type="image/x-icon" href="./myme_Design Asset/favicon/favicon.ico">
@@ -15,13 +15,16 @@
     <link rel="stylesheet" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
     <style>
         :root {
-            --primary-color: #FF5F5F;
-            --primary-light: #FFE5E5;
-            --text-dark: #111827;
-            --text-regular: #374151;
-            --text-light: #6B7280;
-            --bg-light: #F9FAFB;
-            --bg-white: #FFFFFF;
+            --primary-color: #F2F2F2;
+            --primary-light: rgba(255, 255, 255, 0.08);
+            --chrome: linear-gradient(135deg, #ffffff 0%, #d4d4d4 28%, #f7f7f7 48%, #a8a8a8 72%, #ececec 100%);
+            --text-dark: #F5F5F5;
+            --text-regular: #C8C8C8;
+            --text-light: #8E8E8E;
+            --bg-light: #111111;
+            --bg-white: #000000;
+            --bg-elevated: #141414;
+            --border-chrome: rgba(255, 255, 255, 0.16);
         }
 
         body {
@@ -43,7 +46,11 @@
         }
 
         .highlight {
-            color: var(--primary-color);
+            background-image: var(--chrome);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            -webkit-text-fill-color: transparent;
         }
 
         .visually-hidden {
@@ -68,17 +75,17 @@
         .lang-switcher select {
             font-size: 11px;
             line-height: 1;
-            color: #374151;
-            background-color: rgba(255, 255, 255, 0.92);
-            border: 1px solid rgba(17, 24, 39, 0.15);
+            color: #F2F2F2;
+            background-color: rgba(20, 20, 20, 0.92);
+            border: 1px solid rgba(255, 255, 255, 0.18);
             border-radius: 10px;
             padding: 6px 24px 6px 8px;
             cursor: pointer;
-            box-shadow: 0 8px 16px -14px rgba(0, 0, 0, 0.45);
+            box-shadow: 0 8px 16px -14px rgba(0, 0, 0, 0.75);
         }
 
         .lang-switcher select:focus-visible {
-            outline: 2px solid rgba(255, 95, 95, 0.45);
+            outline: 2px solid rgba(242, 242, 242, 0.45);
             outline-offset: 1px;
         }
 
@@ -86,27 +93,30 @@
         .hero {
             padding: 24px 0 60px;
             text-align: center;
-            background: linear-gradient(180deg, var(--primary-light) 0%, var(--bg-white) 100%);
+            background:
+                radial-gradient(ellipse 80% 55% at 50% 0%, rgba(255, 255, 255, 0.09) 0%, transparent 55%),
+                linear-gradient(180deg, #0a0a0a 0%, #000000 100%);
         }
 
         .hero-logo {
             display: block;
             margin: 0 auto 24px;
-            height: 38px;
+            height: 64px;
             width: auto;
+            filter: drop-shadow(0 6px 18px rgba(255, 255, 255, 0.08));
         }
 
         .hero-badge {
             display: inline-block;
-            background-color: var(--bg-white);
+            background-color: rgba(255, 255, 255, 0.04);
             color: var(--primary-color);
             padding: 8px 20px;
             border-radius: 50px;
             font-size: 0.95rem;
             font-weight: 700;
             margin-bottom: 24px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-            border: 1px solid rgba(255, 95, 95, 0.2);
+            box-shadow: 0 8px 24px -16px rgba(255, 255, 255, 0.35);
+            border: 1px solid var(--border-chrome);
         }
 
         .hero h1 {
@@ -150,16 +160,18 @@
         }
 
         .feature-card {
-            background-color: var(--bg-light);
+            background-color: var(--bg-elevated);
             border-radius: 24px;
             padding: 40px 32px;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid var(--border-chrome);
         }
 
         .feature-card:hover {
             transform: translateY(-5px);
-            background-color: var(--bg-white);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05);
+            background-color: #1a1a1a;
+            box-shadow: 0 20px 40px -24px rgba(255, 255, 255, 0.18);
+            border-color: rgba(255, 255, 255, 0.28);
         }
 
         .feature-icon {
@@ -169,12 +181,12 @@
             margin-bottom: 20px;
             display: block;
             border-radius: 20px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 8px 24px -4px rgba(0, 0, 0, 0.06);
-            border: 1px solid rgba(0, 0, 0, 0.06);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45), 0 8px 24px -4px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.12);
         }
 
         .feature-card:hover .feature-icon {
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1), 0 12px 28px -4px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5), 0 12px 28px -4px rgba(0, 0, 0, 0.45);
         }
 
         .feature-title {
@@ -200,14 +212,18 @@
 
         /* Recommended users section */
         .target-section {
-            background-color: var(--text-dark);
-            color: var(--bg-white);
+            background:
+                radial-gradient(ellipse 70% 80% at 50% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 60%),
+                #050505;
+            color: var(--text-dark);
             margin-top: 100px;
             padding-top: 60px;
+            border-top: 1px solid var(--border-chrome);
+            border-bottom: 1px solid var(--border-chrome);
         }
 
         .target-section h2 {
-            color: var(--bg-white);
+            color: var(--text-dark);
         }
 
         .target-list {
@@ -251,7 +267,7 @@
 
         .target-text p {
             margin: 0;
-            color: #D1D5DB;
+            color: #B0B0B0;
         }
 
         /* How it works section */
@@ -277,8 +293,8 @@
         .step-number {
             width: 40px;
             height: 40px;
-            background-color: var(--primary-color);
-            color: white;
+            background-image: var(--chrome);
+            color: #111111;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -288,6 +304,7 @@
             flex-shrink: 0;
             margin-right: 24px;
             z-index: 2;
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.25), 0 8px 20px -10px rgba(255, 255, 255, 0.45);
         }
 
         .step-content {
@@ -308,9 +325,12 @@
         .cta-section {
             text-align: center;
             padding: 80px 20px;
-            background-color: var(--primary-light);
+            background:
+                linear-gradient(180deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%);
             border-radius: 32px;
             margin: 0 20px 80px;
+            border: 1px solid var(--border-chrome);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
         }
 
         .cta-title {
@@ -342,18 +362,18 @@
             min-width: 150px;
             padding: 8px 16px;
             border-radius: 10px;
-            background-color: #111111;
+            background: linear-gradient(180deg, #1c1c1c 0%, #0a0a0a 100%);
             color: #FFFFFF;
             text-decoration: none;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            border: 1px solid rgba(255,255,255,0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255,255,255,0.22);
         }
 
         .store-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
-            border-color: rgba(255,255,255,0.2);
+            box-shadow: 0 12px 24px -8px rgba(255, 255, 255, 0.18);
+            border-color: rgba(255,255,255,0.4);
         }
 
         .store-btn img {
@@ -393,9 +413,9 @@
             margin: 0 auto;
             border-radius: 24px;
             overflow: hidden;
-            border: 1px solid #F3F4F6;
-            background-color: #FFFFFF;
-            box-shadow: 0 24px 44px -30px rgba(17, 24, 39, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            background-color: #050505;
+            box-shadow: 0 24px 44px -24px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.08);
         }
 
         .promo-showcase {
@@ -425,21 +445,21 @@
         }
 
         .promo-showcase__logo-layer {
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.32) 55%, rgba(255, 255, 255, 0) 75%);
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.04) 45%, rgba(0, 0, 0, 0) 72%);
         }
 
         .promo-showcase__logo {
             object-fit: contain;
-            opacity: 0.9;
-            mix-blend-mode: multiply;
-            filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.08));
-            width: min(72%, 360px);
+            opacity: 1;
+            mix-blend-mode: normal;
+            filter: drop-shadow(0 10px 28px rgba(255, 255, 255, 0.12));
+            width: min(78%, 400px);
             height: auto;
         }
 
         .promo-showcase__grid-layer {
             backdrop-filter: blur(2px);
-            background: rgba(255, 255, 255, 0.35);
+            background: rgba(0, 0, 0, 0.35);
         }
 
         .promo-showcase__grid {
@@ -453,12 +473,13 @@
         }
 
         .promo-showcase__cell {
-            background: rgba(255, 255, 255, 0.62);
+            background: rgba(255, 255, 255, 0.06);
             border-radius: 18px;
             width: 100%;
             height: 100%;
             overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .promo-showcase__cell img {
@@ -504,22 +525,22 @@
             gap: 6px;
             padding: 10px 18px;
             border-radius: 50px;
-            background-color: var(--bg-light);
+            background-color: var(--bg-elevated);
             color: var(--text-dark);
             font-size: 0.95rem;
             font-weight: 600;
-            border: 1px solid rgba(17, 24, 39, 0.08);
+            border: 1px solid var(--border-chrome);
         }
         .chip:hover {
-            background-color: var(--primary-light);
-            border-color: rgba(255, 95, 95, 0.25);
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.32);
         }
 
         /* Target section (hashtag style) */
         .target-hashtag-line {
             text-align: center;
             font-size: 1rem;
-            color: #D1D5DB;
+            color: #B8B8B8;
             line-height: 1.8;
             max-width: 640px;
             margin: 0 auto;
@@ -528,17 +549,18 @@
         .target-hashtag-line .tag {
             display: inline-block;
             margin: 2px 6px 2px 0;
-            color: var(--primary-color);
+            color: #F2F2F2;
             font-weight: 600;
         }
 
         /* Footer */
         footer {
             padding: 60px 20px;
-            background-color: var(--bg-light);
+            background-color: #050505;
             font-size: 0.9rem;
             color: var(--text-light);
             text-align: center;
+            border-top: 1px solid var(--border-chrome);
         }
 
         .footer-logo {
@@ -551,7 +573,7 @@
         }
 
         .contact-info a {
-            color: var(--text-regular);
+            color: #F2F2F2;
             text-decoration: none;
             font-weight: 600;
         }
@@ -563,17 +585,17 @@
         .company-note {
             margin-top: 14px;
             font-size: 0.72rem;
-            color: #9CA3AF;
+            color: #7A7A7A;
             letter-spacing: 0.02em;
         }
 
         .business-info {
             margin-top: 16px;
             padding-top: 14px;
-            border-top: 1px solid rgba(17, 24, 39, 0.08);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
             font-size: 0.74rem;
             line-height: 1.7;
-            color: #6B7280;
+            color: #8A8A8A;
             text-align: center;
         }
 
@@ -586,7 +608,7 @@
         }
 
         .footer-links a {
-            color: var(--text-regular);
+            color: #E8E8E8;
             text-decoration: underline;
             text-underline-offset: 2px;
             font-weight: 600;
@@ -597,7 +619,7 @@
             .lang-switcher select { font-size: 10px; border-radius: 9px; padding: 5px 20px 5px 7px; }
             .container { padding: 0 16px; }
             .hero { padding: 20px 0 44px; }
-            .hero-logo { height: 32px; margin-bottom: 20px; }
+            .hero-logo { height: 52px; margin-bottom: 20px; }
             .hero h1 { font-size: 1.85rem; line-height: 1.3; margin-bottom: 16px; }
             .hero p { font-size: 1rem; margin-bottom: 28px; }
             .hero-badge { font-size: 0.82rem; padding: 7px 14px; margin-bottom: 18px; }
@@ -681,14 +703,14 @@
         <!-- Hero section -->
         <section class="hero">
             <div class="container">
-                <img class="hero-logo" src="./myme_Design Asset/png/myme_landscape(primary)_footer.png" alt="myme logo" data-i18n-alt-key="hero.logo.alt">
-                <div class="hero-badge" data-i18n-key="hero.badge">📸 Need an ID photo in a rush? Still booking a studio?</div>
-                <h1 data-i18n-key="hero.title">Your selfie becomes a<br><span class="highlight">high-quality studio portrait in 30 seconds</span></h1>
+                <img class="hero-logo" src="./myme_Design Asset/new/myMe_landscape_chrome.png" alt="myMe logo" data-i18n-alt-key="hero.logo.alt">
+                <div class="hero-badge" data-i18n-key="hero.badge">myMe — Your Personal AI Photo Concierge</div>
+                <h1 data-i18n-key="hero.title">Create your A-cut with<br><span class="highlight">your personal AI photo concierge</span></h1>
                 <section class="promo-rotation-section">
                     <div class="promo-rotation-card">
                         <div class="promo-showcase" style="--promo-fade-ms: 600ms; --promo-grid-size: 3;" aria-hidden="true">
                             <div class="promo-showcase__layer promo-showcase__logo-layer promo-showcase__layer--visible" data-promo-layer="logo">
-                                <img class="promo-showcase__logo" src="./myme_Design Asset/new/myme_symbol_primary.png" alt="myme symbol" data-i18n-alt-key="hero.logo.alt">
+                                <img class="promo-showcase__logo" src="./myme_Design Asset/new/myMe_symbol_chrome.png" alt="myme symbol" data-i18n-alt-key="hero.logo.alt">
                             </div>
                             <div class="promo-showcase__layer promo-showcase__grid-layer" data-promo-layer="grid">
                                 <div class="promo-showcase__grid" data-promo-grid></div>
@@ -697,8 +719,7 @@
                     </div>
                 </section>
                 <p data-i18n-key="hero.desc" class="hero-desc">
-                    <strong>myme</strong> transforms your everyday photos into polished ID photos, passport photos, and profile portraits with advanced AI.<br>
-                    No complicated Photoshop, no expensive studio costs. Create your best ID photo in just a few taps.
+                    Start with one selfie. Your AI photo concierge talks with you, curates the look, and finishes polished A-cuts for LinkedIn, profiles, ID photos, and more—while keeping your face true to you.
                 </p>
                 <div class="store-links hero-store-links">
                     <a class="store-btn" href="https://apps.apple.com/us/app/myme-ai-%EC%A6%9D%EB%AA%85%EC%82%AC%EC%A7%84-%ED%94%84%EB%A1%9C%ED%95%84-%EC%97%AC%EA%B6%8C/id6759363960?l=ko" target="_blank" rel="noopener noreferrer" aria-label="Go to App Store" data-i18n-aria-key="store.app.aria">
@@ -722,22 +743,22 @@
         <!-- Support (chips) section -->
         <section class="support-section">
             <div class="container">
-                <h2 class="support-heading" data-i18n-key="support.heading">What we support</h2>
+                <h2 class="support-heading" data-i18n-key="support.heading">Photos curated for every moment</h2>
                 <div class="chip-group">
-                    <div class="chip-group-label" data-i18n-key="support.photoLabel">📌 지원 사진 종류</div>
+                    <div class="chip-group-label" data-i18n-key="support.photoLabel">Photo purposes</div>
                     <div class="chip-row">
-                        <span class="chip" data-i18n-key="support.photo1">🪪 증명사진</span>
-                        <span class="chip" data-i18n-key="support.photo2">🛂 여권사진</span>
-                        <span class="chip" data-i18n-key="support.photo3">🖼️ AI 프로필</span>
-                        <span class="chip" data-i18n-key="support.photo4">🎨 애니화</span>
+                        <span class="chip" data-i18n-key="support.photo1">Profile</span>
+                        <span class="chip" data-i18n-key="support.photo2">ID photo</span>
+                        <span class="chip" data-i18n-key="support.photo3">LinkedIn</span>
+                        <span class="chip" data-i18n-key="support.photo4">SNS &amp; branding</span>
                     </div>
                 </div>
                 <div class="chip-group">
-                    <div class="chip-group-label" data-i18n-key="support.audienceLabel">👨‍👩‍👧‍👦 지원 대상</div>
+                    <div class="chip-group-label" data-i18n-key="support.audienceLabel">Concierge promise</div>
                     <div class="chip-row">
-                        <span class="chip" data-i18n-key="support.audience1">👨‍💼 남 / 👩‍💼 녀</span>
-                        <span class="chip" data-i18n-key="support.audience2">👶 아기</span>
-                        <span class="chip" data-i18n-key="support.audience3">🐶 반려동물</span>
+                        <span class="chip" data-i18n-key="support.audience1">Your face, kept true</span>
+                        <span class="chip" data-i18n-key="support.audience2">Conversational curation</span>
+                        <span class="chip" data-i18n-key="support.audience3">A-cuts, finished with you</span>
                     </div>
                 </div>
             </div>
@@ -745,46 +766,37 @@
 
         <!-- Feature section -->
         <section class="container">
-            <h2 data-i18n-key="feature.heading">✨ Why myme stands out</h2>
+            <h2 data-i18n-key="feature.heading">Why myMe feels personal</h2>
             <div class="feature-grid">
                 <div class="feature-card">
-                    <img class="feature-icon" src="./myme_Design Asset/myme_pic/suits.png" alt="Outfit change" data-i18n-alt-key="feature.outfit.icon.alt">
-                    <div class="feature-title" data-i18n-key="feature.outfit.title">Seamless AI Outfit Change</div>
+                    <img class="feature-icon" src="./myme_Design Asset/myme_pic/suits.png" alt="Conversational curation" data-i18n-alt-key="feature.outfit.icon.alt">
+                    <div class="feature-title" data-i18n-key="feature.outfit.title">Conversational curation</div>
                     <div class="feature-desc" data-i18n-key="feature.outfit.desc">
-                        Even if you took the photo in pajamas, you are good to go. myme AI applies outfits that match your body shape and pose naturally.
-                        <ul>
-                            <li><strong>Interview Suits:</strong> Clean black or navy suit looks for a professional first impression</li>
-                            <li><strong>Office &amp; Casual:</strong> Multiple styles suitable for employee and workplace ID photos</li>
-                        </ul>
+                        Tell your concierge the purpose—LinkedIn, profile, ID, SNS—and refine impression, style, and intensity through natural dialogue.
                     </div>
                 </div>
 
                 <div class="feature-card">
-                    <img class="feature-icon" src="./myme_Design Asset/myme_pic/color.png" alt="Background color" data-i18n-alt-key="feature.bg.icon.alt">
-                    <div class="feature-title" data-i18n-key="feature.bg.title">One-Tap Background Color by Purpose</div>
+                    <img class="feature-icon" src="./myme_Design Asset/myme_pic/beauty.png" alt="Face lock" data-i18n-alt-key="feature.bg.icon.alt">
+                    <div class="feature-title" data-i18n-key="feature.bg.title">Your face, kept true</div>
                     <div class="feature-desc" data-i18n-key="feature.bg.desc">
-                        No more guessing background colors at a studio. Try multiple options instantly and choose what works best.
-                        <ul>
-                            <li><strong>ID Card / Driver License / Passport:</strong> Clean white backgrounds that fit official requirements</li>
-                            <li><strong>Resume / Portfolio:</strong> Trust-building gradient blue and gray backgrounds</li>
-                            <li><strong>Personal Color:</strong> Soft pastel tones that brighten your face naturally</li>
-                        </ul>
+                        Face lock keeps your identity while the concierge elevates hair, wardrobe, lighting, and background around you.
                     </div>
                 </div>
 
                 <div class="feature-card">
-                    <img class="feature-icon" src="./myme_Design Asset/myme_pic/beauty.png" alt="Facial retouching" data-i18n-alt-key="feature.face.icon.alt">
-                    <div class="feature-title" data-i18n-key="feature.face.title">Natural AI Facial Retouching</div>
+                    <img class="feature-icon" src="./myme_Design Asset/myme_pic/color.png" alt="Shooting directions" data-i18n-alt-key="feature.face.icon.alt">
+                    <div class="feature-title" data-i18n-key="feature.face.title">Directed shooting concepts</div>
                     <div class="feature-desc" data-i18n-key="feature.face.desc">
-                        No over-editing. Keep your unique facial features while refining skin tone and contour for a clean, natural result.
+                        Receive curated shooting directions tailored to your goal, then pick favorites and develop them into final A-cuts.
                     </div>
                 </div>
 
                 <div class="feature-card">
-                    <img class="feature-icon" src="./myme_Design Asset/myme_pic/download.png" alt="Download" data-i18n-alt-key="feature.download.icon.alt">
-                    <div class="feature-title" data-i18n-key="feature.download.title">Save to Phone, Done: High-Resolution Download</div>
+                    <img class="feature-icon" src="./myme_Design Asset/myme_pic/download.png" alt="Save A-cuts" data-i18n-alt-key="feature.download.icon.alt">
+                    <div class="feature-title" data-i18n-key="feature.download.title">Finish and save A-cuts</div>
                     <div class="feature-desc" data-i18n-key="feature.download.desc">
-                        From web application uploads to print-ready files, save sharp high-resolution results instantly to your gallery.
+                        Soften expression, adjust crop, change background, or save as-is—then download polished results ready to use.
                     </div>
                 </div>
             </div>
@@ -793,42 +805,42 @@
         <!-- Target users (hashtag style) -->
         <section class="target-section">
             <div class="container">
-                <h2 data-i18n-key="target.heading">🎯 Perfect for these users</h2>
-                <p class="target-hashtag-line" data-i18n-key="target.hashtags">#Job_seekers #Passport #ID_renewal #Profile_photo</p>
+                <h2 data-i18n-key="target.heading">For every photo that represents you</h2>
+                <p class="target-hashtag-line" data-i18n-key="target.hashtags">#LinkedIn #Profile #ID_photo #Company_site #SNS #Branding</p>
             </div>
         </section>
 
         <!-- How it works section -->
         <section class="how-to">
             <div class="container">
-                <h2 data-i18n-key="how.heading">💡 How it works</h2>
+                <h2 data-i18n-key="how.heading">How your concierge works</h2>
                 <div class="step-container">
                     <div class="step">
                         <div class="step-number">1</div>
                         <div class="step-content">
-                            <div class="step-title" data-i18n-key="how.step1.title">Capture / Upload</div>
-                            <div class="step-desc" data-i18n-key="how.step1.desc">Choose a clear front-facing photo from your gallery or take one right away.</div>
+                            <div class="step-title" data-i18n-key="how.step1.title">Start with a selfie</div>
+                            <div class="step-desc" data-i18n-key="how.step1.desc">Capture or upload a clear front-facing photo to begin.</div>
                         </div>
                     </div>
                     <div class="step">
                         <div class="step-number">2</div>
                         <div class="step-content">
-                            <div class="step-title" data-i18n-key="how.step2.title">AI Generation</div>
-                            <div class="step-desc" data-i18n-key="how.step2.desc">In moments, AI analyzes your photo and creates a clean base ID portrait.</div>
+                            <div class="step-title" data-i18n-key="how.step2.title">Talk through the brief</div>
+                            <div class="step-desc" data-i18n-key="how.step2.desc">Share the purpose and the impression you want—your concierge guides the rest.</div>
                         </div>
                     </div>
                     <div class="step">
                         <div class="step-number">3</div>
                         <div class="step-content">
-                            <div class="step-title" data-i18n-key="how.step3.title">Choose Options (Unlock)</div>
-                            <div class="step-desc" data-i18n-key="how.step3.desc">Select outfits, hair, and backgrounds to complete your style. <br><small>(🔒 Try it free first, then unlock all options at a reasonable price.)</small></div>
+                            <div class="step-title" data-i18n-key="how.step3.title">Choose a direction</div>
+                            <div class="step-desc" data-i18n-key="how.step3.desc">Review curated shooting concepts, pick favorites, and develop them together.</div>
                         </div>
                     </div>
                     <div class="step">
                         <div class="step-number">4</div>
                         <div class="step-content">
-                            <div class="step-title" data-i18n-key="how.step4.title">Save</div>
-                            <div class="step-desc" data-i18n-key="how.step4.desc">Download your finished photo. That is it.</div>
+                            <div class="step-title" data-i18n-key="how.step4.title">Save your A-cuts</div>
+                            <div class="step-desc" data-i18n-key="how.step4.desc">Refine the finish or save as-is—then download polished A-cuts.</div>
                         </div>
                     </div>
                 </div>
@@ -838,8 +850,8 @@
         <!-- CTA section -->
         <div class="container">
             <div class="cta-section">
-                <div class="cta-title" data-i18n-key="cta.title">Get started with <span class="highlight">myme</span> now</div>
-                <div class="cta-desc" data-i18n-key="cta.desc">Build your personal studio for the price of a cup of coffee.</div>
+                <div class="cta-title" data-i18n-key="cta.title">Meet <span class="highlight">myMe</span>, your AI photo concierge</div>
+                <div class="cta-desc" data-i18n-key="cta.desc">Your personal A-cut, curated through conversation.</div>
                 <div class="store-links">
                     <a class="store-btn" href="https://apps.apple.com/us/app/myme-ai-%EC%A6%9D%EB%AA%85%EC%82%AC%EC%A7%84-%ED%94%84%EB%A1%9C%ED%95%84-%EC%97%AC%EA%B6%8C/id6759363960?l=ko" target="_blank" rel="noopener noreferrer" aria-label="Go to App Store" data-i18n-aria-key="store.app.aria">
                         <img src="https://upload.wikimedia.org/wikipedia/commons/6/67/App_Store_%28iOS%29.svg" alt="" aria-hidden="true">
@@ -863,16 +875,16 @@
 
     <footer>
         <div class="container">
-            <img src="./myme_Design Asset/png/myme_landscape(primary)_footer.png" alt="myme logo" class="footer-logo" data-i18n-alt-key="footer.logo.alt">
+            <img src="./myme_Design Asset/png/myme_landscape(white).png" alt="myMe logo" class="footer-logo" data-i18n-alt-key="footer.logo.alt">
             <div class="contact-info" data-i18n-key="footer.contact">
-                For support requests or product suggestions, feel free to contact us anytime.<br>
+                Need help or have a suggestion?<br>
                 Email: <a href="mailto:myme@mymecorp.xyz">myme@mymecorp.xyz</a>
             </div>
             <div class="footer-links">
-                <a href="./privacy/" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
-                <a href="./account-deletion/" target="_blank" rel="noopener noreferrer">Account Deletion</a>
+                <a href="./privacy/" target="_blank" rel="noopener noreferrer" data-i18n-key="footer.privacy">Privacy Policy</a>
+                <a href="./account-deletion/" target="_blank" rel="noopener noreferrer" data-i18n-key="footer.deletion">Account Deletion</a>
             </div>
-            <div class="footer-meta" data-i18n-key="footer.meta">© 2026 myme. All rights reserved.</div>
+            <div class="footer-meta" data-i18n-key="footer.meta">© 2026 myMe. All rights reserved.</div>
             <div class="company-note">myme Corp. OÜ</div>
             <div class="business-info" lang="en">
                 Business name: myme Corp. OÜ | Country of registration: Estonia | Legal structure: Limited company | Registry code: 17506092<br>
@@ -885,264 +897,272 @@
         (function () {
             var copy = {
                 en: {
-                    "meta.title": "myme | AI ID Photos & Profiles",
+                    "meta.title": "myMe — Your Personal AI Photo Concierge",
                     "lang.select.label": "Language",
-                    "hero.badge": "📸 Need an ID photo in a rush? Skip the studio—try myme",
-                    "hero.title": "From couch selfie to<br>perfect studio photo in 30 seconds <span class=\"highlight\">📸</span>",
-                    "hero.logo.alt": "myme symbol",
-                    "hero.desc": "AI automatically adjusts strict passport and ID photo standards!<br>Choose your own outfits, backgrounds, and hairstyles freely!",
-                    "support.heading": "Whatever, whoever—we make it perfect.",
-                    "support.photoLabel": "📌 Photo types",
-                    "support.photo1": "🪪 ID photo",
-                    "support.photo2": "🛂 Passport",
-                    "support.photo3": "🖼️ AI profile",
-                    "support.photo4": "🎨 Anime style",
-                    "support.audienceLabel": "👨‍👩‍👧‍👦 Who",
-                    "support.audience1": "👨‍💼 Men / 👩‍💼 Women",
-                    "support.audience2": "👶 Baby",
-                    "support.audience3": "🐶 Pet",
-                    "feature.heading": "💎 What makes myme special",
-                    "feature.outfit.title": "👔 AI suit fitting",
-                    "feature.outfit.desc": "Pajama selfie? Still get a perfect interview or office look.",
-                    "feature.bg.title": "🎨 One-tap background change",
-                    "feature.bg.desc": "Passport (white), resume (blue/gradient)—apply instantly.",
-                    "feature.face.title": "✨ Natural retouching",
-                    "feature.face.desc": "No over-editing. Your face, just cleaner skin and contour.",
-                    "feature.download.title": "🖨️ High-res download",
-                    "feature.download.desc": "From web uploads to real prints—crisp resolution every time.",
-                    "feature.outfit.icon.alt": "Outfit change",
-                    "feature.bg.icon.alt": "Background color",
-                    "feature.face.icon.alt": "Facial retouching",
-                    "feature.download.icon.alt": "Download",
-                    "target.heading": "When you need a rescue, myme has you covered!",
-                    "target.hashtags": "#resume_due_tomorrow #passport_rush #license_renewal #profile_pic_vibes #baby_first_passport #pet_id_photo",
-                    "target.job.title": "Job Seekers",
-                    "target.job.desc": "Resume due tomorrow, no time for a studio",
-                    "target.travel.title": "Travelers",
-                    "target.travel.desc": "Need a passport photo urgently, can’t visit a studio",
-                    "target.id.title": "ID Renewals",
-                    "target.id.desc": "Refresh old ID or license photo",
-                    "target.profile.title": "Profile need",
-                    "target.profile.desc": "AI profile for social & messaging",
-                    "target.job.icon.alt": "Job seekers",
-                    "target.travel.icon.alt": "Travelers",
-                    "target.id.icon.alt": "ID renewals",
-                    "target.profile.icon.alt": "Profile",
-                    "how.heading": "💡 How it works",
-                    "how.step1.title": "Snap!",
-                    "how.step1.desc": "Take a photo with your phone or pick one from your album.",
-                    "how.step2.title": "AI retouch",
-                    "how.step2.desc": "In 30 seconds, your base ID photo is ready!",
-                    "how.step3.title": "Style it",
-                    "how.step3.desc": "Change outfit, hair, and background as you like. (🔒 Unlock all options with premium.)",
-                    "how.step4.title": "Save",
-                    "how.step4.desc": "Download in high resolution. Done!",
-                    "cta.title": "For the price of a coffee,<br>open a personal studio in your pocket.",
-                    "cta.desc": "",
+                    "hero.badge": "myMe — Your Personal AI Photo Concierge",
+                    "hero.title": "Create your A-cut with<br><span class=\"highlight\">your personal AI photo concierge</span>",
+                    "hero.logo.alt": "myMe logo",
+                    "hero.desc": "Start with one selfie. Your AI photo concierge talks with you, curates the look, and finishes polished A-cuts for LinkedIn, profiles, ID photos, and more—while keeping your face true to you.",
+                    "support.heading": "Photos curated for every moment",
+                    "support.photoLabel": "Photo purposes",
+                    "support.photo1": "Profile",
+                    "support.photo2": "ID photo",
+                    "support.photo3": "LinkedIn",
+                    "support.photo4": "SNS & branding",
+                    "support.audienceLabel": "Concierge promise",
+                    "support.audience1": "Your face, kept true",
+                    "support.audience2": "Conversational curation",
+                    "support.audience3": "A-cuts, finished with you",
+                    "feature.heading": "Why myMe feels personal",
+                    "feature.outfit.title": "Conversational curation",
+                    "feature.outfit.desc": "Tell your concierge the purpose—LinkedIn, profile, ID, SNS—and refine impression, style, and intensity through natural dialogue.",
+                    "feature.bg.title": "Your face, kept true",
+                    "feature.bg.desc": "Face lock keeps your identity while the concierge elevates hair, wardrobe, lighting, and background around you.",
+                    "feature.face.title": "Directed shooting concepts",
+                    "feature.face.desc": "Receive curated shooting directions tailored to your goal, then pick favorites and develop them into final A-cuts.",
+                    "feature.download.title": "Finish and save A-cuts",
+                    "feature.download.desc": "Softened expression, crop, background, or save as-is—then download polished results ready to use.",
+                    "feature.outfit.icon.alt": "Conversational curation",
+                    "feature.bg.icon.alt": "Face lock",
+                    "feature.face.icon.alt": "Shooting directions",
+                    "feature.download.icon.alt": "Save A-cuts",
+                    "target.heading": "For every photo that represents you",
+                    "target.hashtags": "#LinkedIn #Profile #ID_photo #Company_site #SNS #Branding",
+                    "target.job.title": "Professionals",
+                    "target.job.desc": "Trusted LinkedIn and company portraits",
+                    "target.travel.title": "Travel & ID",
+                    "target.travel.desc": "Clean ID and passport-ready looks",
+                    "target.id.title": "Personal branding",
+                    "target.id.desc": "Homepage and portfolio presence",
+                    "target.profile.title": "Social profiles",
+                    "target.profile.desc": "SNS-ready A-cuts with your true face",
+                    "target.job.icon.alt": "Professionals",
+                    "target.travel.icon.alt": "Travel and ID",
+                    "target.id.icon.alt": "Personal branding",
+                    "target.profile.icon.alt": "Social profiles",
+                    "how.heading": "How your concierge works",
+                    "how.step1.title": "Start with a selfie",
+                    "how.step1.desc": "Capture or upload a clear front-facing photo to begin.",
+                    "how.step2.title": "Talk through the brief",
+                    "how.step2.desc": "Share the purpose and the impression you want—your concierge guides the rest.",
+                    "how.step3.title": "Choose a direction",
+                    "how.step3.desc": "Review curated shooting concepts, pick favorites, and develop them together.",
+                    "how.step4.title": "Save your A-cuts",
+                    "how.step4.desc": "Refine the finish or save as-is—then download polished A-cuts.",
+                    "cta.title": "Meet <span class=\"highlight\">myMe</span>, your AI photo concierge",
+                    "cta.desc": "Your personal A-cut, curated through conversation.",
                     "store.download": "Download now",
                     "store.app.name": "App Store",
                     "store.google.name": "Google Play",
                     "lang.select.aria": "Language selector",
                     "store.app.aria": "Go to App Store",
                     "store.google.aria": "Go to Google Play",
-                    "footer.contact": "Need help?<br>Suggestions & support: <a href=\"mailto:myme@mymecorp.xyz\">myme@mymecorp.xyz</a>",
-                    "footer.meta": "© 2026 myme. All rights reserved.",
-                    "footer.logo.alt": "myme logo"
+                    "footer.contact": "Need help or have a suggestion?<br>Email: <a href=\"mailto:myme@mymecorp.xyz\">myme@mymecorp.xyz</a>",
+                    "footer.meta": "© 2026 myMe. All rights reserved.",
+                    "footer.logo.alt": "myMe logo",
+                    "footer.privacy": "Privacy Policy",
+                    "footer.deletion": "Account Deletion"
                 },
                 ko: {
-                    "meta.title": "myme (마이미) | AI 증명사진 & 프로필",
+                    "meta.title": "myMe — 나만의 AI 포토 컨시어지",
                     "lang.select.label": "언어",
-                    "hero.badge": "📸 급한 증명사진? 사진관 말고 myme",
-                    "hero.title": "방구석 셀카가 30초 만에<br>완벽한 스튜디오 사진으로 <span class=\"highlight\">📸</span>",
-                    "hero.logo.alt": "myme (마이미) 심볼",
-                    "hero.desc": "까다로운 여권/증명사진 규격도 AI가 알아서 맞춰줍니다!<br>의상, 배경, 헤어까지 자유롭게 선택하세요!",
-                    "support.heading": "무엇이든, 누구든 완벽하게 만들어 드립니다.",
-                    "support.photoLabel": "📌 지원 사진 종류",
-                    "support.photo1": "🪪 증명사진",
-                    "support.photo2": "🛂 여권사진",
-                    "support.photo3": "🖼️ AI 프로필",
-                    "support.photo4": "🎨 애니화",
-                    "support.audienceLabel": "👨‍👩‍👧‍👦 지원 대상",
-                    "support.audience1": "👨‍💼 남 / 👩‍💼 녀",
-                    "support.audience2": "👶 아기",
-                    "support.audience3": "🐶 반려동물",
-                    "feature.heading": "💎 myme만의 특별함",
-                    "feature.outfit.title": "👔 AI 정장 피팅",
-                    "feature.outfit.desc": "잠옷 셀카도 완벽한 면접/오피스룩으로.",
-                    "feature.bg.title": "🎨 원탭 배경 체인지",
-                    "feature.bg.desc": "여권(화이트), 이력서(블루/그라데이션) 즉시 적용.",
-                    "feature.face.title": "✨ 자연스러운 보정",
-                    "feature.face.desc": "과보정 NO! 내 얼굴 그대로 피부와 윤곽만 깔끔하게.",
-                    "feature.download.title": "🖨️ 고화질 다운로드",
-                    "feature.download.desc": "웹 제출부터 실제 인화까지 깨짐 없는 해상도.",
-                    "feature.outfit.icon.alt": "의상 변경",
-                    "feature.bg.icon.alt": "배경색",
-                    "feature.face.icon.alt": "얼굴 보정",
-                    "feature.download.icon.alt": "다운로드",
-                    "target.heading": "이런 순간, myme가 구출해 드립니다!",
-                    "target.hashtags": "#내일_면접_이력서 #급한_여권_발급 #운전면허증_갱신 #카톡_감성_프사 #우리아이_첫_여권 #반려동물_증명사진",
-                    "target.job.title": "취업 준비생",
-                    "target.job.desc": "이력서 급한데 사진관 못 가는 분",
-                    "target.travel.title": "여행 준비",
-                    "target.travel.desc": "여권사진 급한데 사진관 어려운 분",
-                    "target.id.title": "증명사진 재발급",
-                    "target.id.desc": "신분증·면허증 사진 갱신",
-                    "target.profile.title": "프로필 필요",
-                    "target.profile.desc": "SNS·메신저용 AI 프로필",
-                    "target.job.icon.alt": "취업 준비생",
-                    "target.travel.icon.alt": "여행 준비",
-                    "target.id.icon.alt": "증명사진 재발급",
-                    "target.profile.icon.alt": "프로필",
-                    "how.heading": "💡 이용 방법",
-                    "how.step1.title": "찰칵!",
-                    "how.step1.desc": "폰으로 찍거나 앨범에서 선택하세요.",
-                    "how.step2.title": "AI보정",
-                    "how.step2.desc": "단 30초면 기본 증명사진 완성!",
-                    "how.step3.title": "스타일링",
-                    "how.step3.desc": "의상, 머리, 배경을 마음대로 바꿔보세요. (🔒 프리미엄 결제 시 모든 옵션 해제)",
-                    "how.step4.title": "저장",
-                    "how.step4.desc": "고화질 원본 다운로드 끝!",
-                    "cta.title": "내 폰 안에 개인 스튜디오를 열어보세요.",
-                    "cta.desc": "",
+                    "hero.badge": "myMe — 나만의 AI 포토 컨시어지",
+                    "hero.title": "AI 포토 컨시어지와 함께<br><span class=\"highlight\">나만의 A컷 만들기</span>",
+                    "hero.logo.alt": "myMe 로고",
+                    "hero.desc": "셀카 한 장으로 시작하세요. AI 포토 컨시어지가 대화하며 방향을 큐레이션하고, 얼굴은 그대로 유지한 채 LinkedIn·프로필·증명사진까지 A컷으로 완성해 드립니다.",
+                    "support.heading": "모든 순간에 맞는 사진 큐레이션",
+                    "support.photoLabel": "사용 목적",
+                    "support.photo1": "프로필 사진",
+                    "support.photo2": "증명사진",
+                    "support.photo3": "LinkedIn",
+                    "support.photo4": "SNS·브랜딩",
+                    "support.audienceLabel": "컨시어지 약속",
+                    "support.audience1": "얼굴 그대로 유지",
+                    "support.audience2": "대화형 큐레이션",
+                    "support.audience3": "함께 완성하는 A컷",
+                    "feature.heading": "myMe가 특별한 이유",
+                    "feature.outfit.title": "대화형 큐레이션",
+                    "feature.outfit.desc": "LinkedIn, 프로필, 증명사진, SNS—목적만 말하면 인상·스타일·변화 강도까지 대화로 맞춰 갑니다.",
+                    "feature.bg.title": "얼굴 그대로 유지",
+                    "feature.bg.desc": "페이스 락으로 신원은 지키고, 헤어·의상·조명·배경만 고급스럽게 다듬습니다.",
+                    "feature.face.title": "촬영 방향 제안",
+                    "feature.face.desc": "목적에 맞는 촬영 콘셉트를 제안받고, 마음에 드는 컷을 골라 A컷으로 발전시킵니다.",
+                    "feature.download.title": "A컷 마무리 & 저장",
+                    "feature.download.desc": "표정·크롭·배경을 다듬거나 그대로 저장—바로 쓸 수 있는 결과물을 다운로드하세요.",
+                    "feature.outfit.icon.alt": "대화형 큐레이션",
+                    "feature.bg.icon.alt": "얼굴 유지",
+                    "feature.face.icon.alt": "촬영 방향",
+                    "feature.download.icon.alt": "A컷 저장",
+                    "target.heading": "나를 대표하는 모든 사진을 위해",
+                    "target.hashtags": "#LinkedIn #프로필 #증명사진 #회사홈페이지 #SNS #브랜딩",
+                    "target.job.title": "프로페셔널",
+                    "target.job.desc": "신뢰감 있는 LinkedIn·회사 프로필",
+                    "target.travel.title": "여행·신분증",
+                    "target.travel.desc": "깔끔한 증명·여권용 컷",
+                    "target.id.title": "퍼스널 브랜딩",
+                    "target.id.desc": "홈페이지·포트폴리오 존재감",
+                    "target.profile.title": "소셜 프로필",
+                    "target.profile.desc": "내 얼굴 그대로의 SNS A컷",
+                    "target.job.icon.alt": "프로페셔널",
+                    "target.travel.icon.alt": "여행·신분증",
+                    "target.id.icon.alt": "퍼스널 브랜딩",
+                    "target.profile.icon.alt": "소셜 프로필",
+                    "how.heading": "컨시어지 이용 방법",
+                    "how.step1.title": "셀카로 시작",
+                    "how.step1.desc": "정면이 선명한 사진을 촬영하거나 앨범에서 선택하세요.",
+                    "how.step2.title": "브리프 대화",
+                    "how.step2.desc": "사용 목적과 원하는 인상을 말하면 컨시어지가 이끌어 줍니다.",
+                    "how.step3.title": "방향 선택",
+                    "how.step3.desc": "추천 촬영 콘셉트를 보고 마음에 드는 컷을 골라 함께 발전시킵니다.",
+                    "how.step4.title": "A컷 저장",
+                    "how.step4.desc": "마무리 다듬기 또는 그대로 저장—완성된 A컷을 다운로드하세요.",
+                    "cta.title": "<span class=\"highlight\">myMe</span>, 나만의 AI 포토 컨시어지",
+                    "cta.desc": "대화로 큐레이션하는 나만의 A컷.",
                     "store.download": "지금 다운로드",
                     "store.app.name": "앱 스토어",
                     "store.google.name": "구글 플레이",
                     "lang.select.aria": "언어 선택",
                     "store.app.aria": "앱 스토어로 이동",
                     "store.google.aria": "구글 플레이로 이동",
-                    "footer.contact": "도움이 필요하신가요?<br>서비스 제안 및 지원: <a href=\"mailto:myme@mymecorp.xyz\">myme@mymecorp.xyz</a>",
-                    "footer.meta": "© 2026 myme. All rights reserved.",
-                    "footer.logo.alt": "myme (마이미) 로고"
+                    "footer.contact": "도움이 필요하신가요?<br>문의: <a href=\"mailto:myme@mymecorp.xyz\">myme@mymecorp.xyz</a>",
+                    "footer.meta": "© 2026 myMe. All rights reserved.",
+                    "footer.logo.alt": "myMe 로고",
+                    "footer.privacy": "개인정보 처리방침",
+                    "footer.deletion": "계정 삭제"
                 },
                 ja: {
-                    "meta.title": "myme | AI証明写真・プロフィール",
+                    "meta.title": "myMe — あなただけのAIフォトコンシェルジュ",
                     "lang.select.label": "言語",
-                    "hero.badge": "📸 証明写真、急いでる？写真館じゃなくてmyme",
-                    "hero.title": "部屋のセルフィーが30秒で<br>完璧なスタジオ写真に <span class=\"highlight\">📸</span>",
-                    "hero.logo.alt": "myme シンボル",
-                    "hero.desc": "厳しいパスポート・証明写真の規格もAIが自動で調整します！<br>自分で服・背景・ヘアまで自由に選択できます！",
-                    "support.heading": "何でも、誰でも、完璧に仕上げます。",
-                    "support.photoLabel": "📌 対応写真の種類",
-                    "support.photo1": "🪪 証明写真",
-                    "support.photo2": "🛂 パスポート写真",
-                    "support.photo3": "🖼️ AIプロフィール",
-                    "support.photo4": "🎨 アニメ化",
-                    "support.audienceLabel": "👨‍👩‍👧‍👦 対象",
-                    "support.audience1": "👨‍💼 男性 / 👩‍💼 女性",
-                    "support.audience2": "👶 ベビー",
-                    "support.audience3": "🐶 ペット",
-                    "feature.heading": "💎 mymeだけの特別なところ",
-                    "feature.outfit.title": "👔 AIスーツフィッティング",
-                    "feature.outfit.desc": "パジャマのセルフィーも、完璧な面接・オフィスルックに。",
-                    "feature.bg.title": "🎨 ワンタップ背景チェンジ",
-                    "feature.bg.desc": "パスポート(白)、履歴書(ブルー/グラデ)すぐ適用。",
-                    "feature.face.title": "✨ 自然な補正",
-                    "feature.face.desc": "過補正NO！自分の顔のまま、肌と輪郭だけきれいに。",
-                    "feature.download.title": "🖨️ 高画質ダウンロード",
-                    "feature.download.desc": "Web提出から実際の印刷まで、崩れない解像度。",
-                    "feature.outfit.icon.alt": "服装チェンジ",
-                    "feature.bg.icon.alt": "背景色",
-                    "feature.face.icon.alt": "顔レタッチ",
-                    "feature.download.icon.alt": "ダウンロード",
-                    "target.heading": "そんな時、mymeが助けます！",
-                    "target.hashtags": "#明日_履歴書_面接 #急ぎ_パスポート #免許証_更新 #カカオ_プロフ #赤ちゃん_初パスポート #ペット_証明写真",
-                    "target.job.title": "就活中の方",
-                    "target.job.desc": "履歴書が明日なのに写真館に行けない方",
-                    "target.travel.title": "旅行前の方",
-                    "target.travel.desc": "パスポート写真が急なのに写真館が難しい方",
-                    "target.id.title": "身分証の更新",
-                    "target.id.desc": "身分証・免許証の写真を新しくしたい方",
-                    "target.profile.title": "プロフィールが必要な方",
-                    "target.profile.desc": "SNS・メッセージ用のAIプロフィール",
-                    "target.job.icon.alt": "就活",
-                    "target.travel.icon.alt": "旅行",
-                    "target.id.icon.alt": "身分証",
-                    "target.profile.icon.alt": "プロフィール",
-                    "how.heading": "💡 使い方",
-                    "how.step1.title": "パシャリ!",
-                    "how.step1.desc": "スマホで撮るか、アルバムから選びましょう。",
-                    "how.step2.title": "AI補正",
-                    "how.step2.desc": "たった30秒で基本の証明写真が完成！",
-                    "how.step3.title": "スタイリング",
-                    "how.step3.desc": "服・髪・背景を自由に変えられます。（🔒 プレミアムで全オプション解除）",
-                    "how.step4.title": "保存",
-                    "how.step4.desc": "高画質でダウンロードして完了！",
-                    "cta.title": "コーヒー1杯の価格で、<br>スマホに個人スタジオを。",
-                    "cta.desc": "",
+                    "hero.badge": "myMe — あなただけのAIフォトコンシェルジュ",
+                    "hero.title": "AIフォトコンシェルジュと<br><span class=\"highlight\">最高のAカットを</span>",
+                    "hero.logo.alt": "myMe ロゴ",
+                    "hero.desc": "セルフィー1枚から始めましょう。AIフォトコンシェルジュが対話しながら方向をキュレーションし、顔はそのままにLinkedIn・プロフィール・証明写真までAカットに仕上げます。",
+                    "support.heading": "あらゆるシーンに合わせた写真キュレーション",
+                    "support.photoLabel": "用途",
+                    "support.photo1": "プロフィール",
+                    "support.photo2": "証明写真",
+                    "support.photo3": "LinkedIn",
+                    "support.photo4": "SNS・ブランディング",
+                    "support.audienceLabel": "コンシェルジュの約束",
+                    "support.audience1": "顔はそのまま",
+                    "support.audience2": "対話型キュレーション",
+                    "support.audience3": "一緒に仕上げるAカット",
+                    "feature.heading": "myMeが特別な理由",
+                    "feature.outfit.title": "対話型キュレーション",
+                    "feature.outfit.desc": "LinkedIn、プロフィール、証明写真、SNS—用途を伝えるだけで、印象・スタイル・変化の強さを対話で合わせていきます。",
+                    "feature.bg.title": "顔はそのままキープ",
+                    "feature.bg.desc": "フェイスロックで本人らしさを守り、ヘア・衣装・照明・背景だけを上品に整えます。",
+                    "feature.face.title": "撮影方向の提案",
+                    "feature.face.desc": "目的に合わせた撮影コンセプトを提案。お気に入りを選び、最終Aカットへ発展させます。",
+                    "feature.download.title": "Aカット仕上げ＆保存",
+                    "feature.download.desc": "表情・クロップ・背景を調整するか、そのまま保存。すぐに使える仕上がりをダウンロード。",
+                    "feature.outfit.icon.alt": "対話型キュレーション",
+                    "feature.bg.icon.alt": "顔キープ",
+                    "feature.face.icon.alt": "撮影方向",
+                    "feature.download.icon.alt": "Aカット保存",
+                    "target.heading": "あなたを表すすべての写真のために",
+                    "target.hashtags": "#LinkedIn #プロフィール #証明写真 #会社サイト #SNS #ブランディング",
+                    "target.job.title": "プロフェッショナル",
+                    "target.job.desc": "信頼感のあるLinkedIn・会社プロフィール",
+                    "target.travel.title": "旅行・身分証",
+                    "target.travel.desc": "きれいな証明・パスポート向けカット",
+                    "target.id.title": "パーソナルブランディング",
+                    "target.id.desc": "ホームページ・ポートフォリオの存在感",
+                    "target.profile.title": "ソーシャルプロフィール",
+                    "target.profile.desc": "自分の顔のままのSNS向けAカット",
+                    "target.job.icon.alt": "プロフェッショナル",
+                    "target.travel.icon.alt": "旅行・身分証",
+                    "target.id.icon.alt": "パーソナルブランディング",
+                    "target.profile.icon.alt": "ソーシャルプロフィール",
+                    "how.heading": "コンシェルジュの使い方",
+                    "how.step1.title": "セルフィーで開始",
+                    "how.step1.desc": "正面がはっきり写った写真を撮るか、アルバムから選びます。",
+                    "how.step2.title": "ブリーフ対話",
+                    "how.step2.desc": "用途とほしい印象を伝えると、コンシェルジュが導きます。",
+                    "how.step3.title": "方向を選ぶ",
+                    "how.step3.desc": "おすすめ撮影コンセプトを見て、お気に入りを選び一緒に発展させます。",
+                    "how.step4.title": "Aカットを保存",
+                    "how.step4.desc": "仕上げを調整するかそのまま保存—完成したAカットをダウンロード。",
+                    "cta.title": "<span class=\"highlight\">myMe</span>、あなただけのAIフォトコンシェルジュ",
+                    "cta.desc": "対話でキュレーションする、あなただけのAカット。",
                     "store.download": "今すぐダウンロード",
                     "store.app.name": "App Store",
                     "store.google.name": "Google Play",
                     "lang.select.aria": "言語を選択",
                     "store.app.aria": "App Storeへ移動",
                     "store.google.aria": "Google Playへ移動",
-                    "footer.contact": "お困りですか？<br>サービス提案・サポート: <a href=\"mailto:myme@mymecorp.xyz\">myme@mymecorp.xyz</a>",
-                    "footer.meta": "© 2026 myme. All rights reserved.",
-                    "footer.logo.alt": "myme ロゴ"
+                    "footer.contact": "お困りですか？<br>お問い合わせ: <a href=\"mailto:myme@mymecorp.xyz\">myme@mymecorp.xyz</a>",
+                    "footer.meta": "© 2026 myMe. All rights reserved.",
+                    "footer.logo.alt": "myMe ロゴ",
+                    "footer.privacy": "プライバシーポリシー",
+                    "footer.deletion": "アカウント削除"
                 },
                 et: {
-                    "meta.title": "myme | AI Dokumendifotod ja Profiilid",
+                    "meta.title": "myMe — Sinu isiklik AI fotokonsierž",
                     "lang.select.label": "Keel",
-                    "hero.badge": "📸 Dokumendifoto kiiresti? Stuudio asemel proovi myme",
-                    "hero.title": "Diivani selfiest<br>täiuslik stuudofoto 30 sekundiga <span class=\"highlight\">📸</span>",
-                    "hero.logo.alt": "myme sümbol",
-                    "hero.desc": "AI automaatselt kohandab ranged passi ja ID-fotode standardeid!<br>Vali oma riided, taustapildid ja juuksestailid vabalt!",
-                    "support.heading": "Mis iganes, kes iganes—teeme täiuslikuks.",
-                    "support.photoLabel": "📌 Toetatud foto tüübid",
-                    "support.photo1": "🪪 Dokumendifoto",
-                    "support.photo2": "🛂 Passifoto",
-                    "support.photo3": "🖼️ AI-profiil",
-                    "support.photo4": "🎨 Anime stiil",
-                    "support.audienceLabel": "👨‍👩‍👧‍👦 Sihtgrupp",
-                    "support.audience1": "👨‍💼 Mehed / 👩‍💼 Naised",
-                    "support.audience2": "👶 Beebi",
-                    "support.audience3": "🐶 Lemmikloom",
-                    "feature.heading": "💎 Mida teeb myme eriliseks",
-                    "feature.outfit.title": "👔 AI ülikonna sobitus",
-                    "feature.outfit.desc": "Pidžaama selfie? Siiski täiuslik intervjuu- või kontorilook.",
-                    "feature.bg.title": "🎨 Ühe puudutusega taust",
-                    "feature.bg.desc": "Pass (valge), CV (sinine/gradient)—kohaldub kohe.",
-                    "feature.face.title": "✨ Loomulik viimistlus",
-                    "feature.face.desc": "Mitte üle töötlemine. Sinu nägu, lihtsalt puhtam nahk ja kontuur.",
-                    "feature.download.title": "🖨️ Kõrge eraldusvõime allalaadimine",
-                    "feature.download.desc": "Veebi üleslaadimist kuni trükini—terav eraldusvõime.",
-                    "feature.outfit.icon.alt": "Riietuse vahetus",
-                    "feature.bg.icon.alt": "Taustavärv",
-                    "feature.face.icon.alt": "Näo viimistlus",
-                    "feature.download.icon.alt": "Allalaadimine",
-                    "target.heading": "Sellisel hetkel päästab myme sind!",
-                    "target.hashtags": "#CV_homme #pass_kiire #juhiluba_uuendus #profiilipilt #beebi_esimene_pass #lemmiklooma_foto",
-                    "target.job.title": "Tööotsijad",
-                    "target.job.desc": "CV homme, stuudiosse pole aega",
-                    "target.travel.title": "Reisijad",
-                    "target.travel.desc": "Passifoto kiiresti vaja, stuudiot külastada ei saa",
-                    "target.id.title": "Dokumentide uuendamine",
-                    "target.id.desc": "Vana ID või juhiloa foto värskendus",
-                    "target.profile.title": "Profiil vajalik",
-                    "target.profile.desc": "Sotsiaalmeedia ja sõnumite jaoks AI-profiil",
-                    "target.job.icon.alt": "Tööotsijad",
-                    "target.travel.icon.alt": "Reisijad",
-                    "target.id.icon.alt": "Dokumendid",
-                    "target.profile.icon.alt": "Profiil",
-                    "how.heading": "💡 Kuidas see töötab",
-                    "how.step1.title": "Pildista",
-                    "how.step1.desc": "Tee pilt telefoniga või vali albumist.",
-                    "how.step2.title": "AI viimistlus",
-                    "how.step2.desc": "30 sekundiga on põhidokumendifoto valmis!",
-                    "how.step3.title": "Stiil",
-                    "how.step3.desc": "Vaheta riietust, soengut ja tausta. (🔒 Premiumiga kõik valikud avatud.)",
-                    "how.step4.title": "Salvesta",
-                    "how.step4.desc": "Laadi alla kõrge eraldusvõimega. Valmis!",
-                    "cta.title": "Kohvitassi hinna eest<br>isiklik stuudio taskus.",
-                    "cta.desc": "",
+                    "hero.badge": "myMe — Sinu isiklik AI fotokonsierž",
+                    "hero.title": "Loo oma A-kaadrid<br><span class=\"highlight\">isikliku AI fotokonsieržiga</span>",
+                    "hero.logo.alt": "myMe logo",
+                    "hero.desc": "Alusta ühe selfiega. Sinu AI fotokonsierž vestleb sinuga, kureerib suunda ja viimistleb LinkedIni, profiili, dokumendi- ja muud A-kaadrid—säilitades sinu näo.",
+                    "support.heading": "Fotod, kureeritud igaks hetkeks",
+                    "support.photoLabel": "Kasutusotstarve",
+                    "support.photo1": "Profiil",
+                    "support.photo2": "Dokumendifoto",
+                    "support.photo3": "LinkedIn",
+                    "support.photo4": "SNS ja bränding",
+                    "support.audienceLabel": "Konsierži lubadus",
+                    "support.audience1": "Sinu nägu jääb tõeks",
+                    "support.audience2": "Vestluspõhine kureerimine",
+                    "support.audience3": "A-kaadrid koos sinuga",
+                    "feature.heading": "Miks myMe tundub isiklik",
+                    "feature.outfit.title": "Vestluspõhine kureerimine",
+                    "feature.outfit.desc": "Ütle otstarve—LinkedIn, profiil, dokument, SNS—ning täpsusta muljet, stiili ja muutuse tugevust loomulikus dialoogis.",
+                    "feature.bg.title": "Sinu nägu jääb tõeks",
+                    "feature.bg.desc": "Näolukk hoiab identiteeti, samal ajal kui konsierž täiustab juukseid, riietust, valgust ja tausta.",
+                    "feature.face.title": "Suunatud võttekontseptsioonid",
+                    "feature.face.desc": "Saa eesmärgile kohandatud võttesuunad, vali lemmikud ja arenda need lõplikeks A-kaadriteks.",
+                    "feature.download.title": "Viimistle ja salvesta A-kaadrid",
+                    "feature.download.desc": "Pehmenda ilmet, kärbi, muuda tausta või salvesta nii nagu on—laadi alla viimistletud tulemus.",
+                    "feature.outfit.icon.alt": "Vestluspõhine kureerimine",
+                    "feature.bg.icon.alt": "Näolukk",
+                    "feature.face.icon.alt": "Võttesuunad",
+                    "feature.download.icon.alt": "A-kaadrite salvestamine",
+                    "target.heading": "Iga foto jaoks, mis sind esindab",
+                    "target.hashtags": "#LinkedIn #Profiil #Dokumendifoto #Ettevõtte_sait #SNS #Bränding",
+                    "target.job.title": "Professionaalid",
+                    "target.job.desc": "Usaldusväärsed LinkedIni ja ettevõtte portreed",
+                    "target.travel.title": "Reis ja ID",
+                    "target.travel.desc": "Puhtad dokumendi- ja passivalmid välimused",
+                    "target.id.title": "Isiklik bränding",
+                    "target.id.desc": "Kodulehe ja portfoolio kohalolu",
+                    "target.profile.title": "Sotsiaalprofiilid",
+                    "target.profile.desc": "SNS-valmid A-kaadrid sinu tõelise näoga",
+                    "target.job.icon.alt": "Professionaalid",
+                    "target.travel.icon.alt": "Reis ja ID",
+                    "target.id.icon.alt": "Isiklik bränding",
+                    "target.profile.icon.alt": "Sotsiaalprofiilid",
+                    "how.heading": "Kuidas sinu konsierž töötab",
+                    "how.step1.title": "Alusta selfiega",
+                    "how.step1.desc": "Pildista või laadi üles selge eestvaates foto.",
+                    "how.step2.title": "Räägi briifist",
+                    "how.step2.desc": "Jaga otstarvet ja soovitud muljet—konsierž juhib ülejäänut.",
+                    "how.step3.title": "Vali suund",
+                    "how.step3.desc": "Vaata kureeritud võttekontseptsioone, vali lemmikud ja arenda neid koos.",
+                    "how.step4.title": "Salvesta A-kaadrid",
+                    "how.step4.desc": "Viimistle või salvesta nii nagu on—laadi alla viimistletud A-kaadrid.",
+                    "cta.title": "Tutvu <span class=\"highlight\">myMe</span>-ga, sinu AI fotokonsieržiga",
+                    "cta.desc": "Sinu isiklik A-kaader, kureeritud vestluse kaudu.",
                     "store.download": "Laadi kohe alla",
                     "store.app.name": "App Store",
                     "store.google.name": "Google Play",
                     "lang.select.aria": "Keelevalik",
                     "store.app.aria": "Mine App Store'i",
                     "store.google.aria": "Mine Google Play'sse",
-                    "footer.contact": "Vajad abi?<br>Teenuse ettepanekud ja tugi: <a href=\"mailto:myme@mymecorp.xyz\">myme@mymecorp.xyz</a>",
-                    "footer.meta": "© 2026 myme. Kõik õigused kaitstud.",
-                    "footer.logo.alt": "myme logo"
+                    "footer.contact": "Vajad abi või soovid midagi soovitada?<br>E-post: <a href=\"mailto:myme@mymecorp.xyz\">myme@mymecorp.xyz</a>",
+                    "footer.meta": "© 2026 myMe. Kõik õigused kaitstud.",
+                    "footer.logo.alt": "myMe logo",
+                    "footer.privacy": "Privaatsuspoliitika",
+                    "footer.deletion": "Konto kustutamine"
                 }
             };
 

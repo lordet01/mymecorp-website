@@ -1,6 +1,6 @@
 {
-    "name": "myme - AI ID Photo Studio",
-    "short_name": "myme",
+    "name": "myMe — Your Personal AI Photo Concierge",
+    "short_name": "myMe",
     "icons": [
         {
             "src": "./myme_Design Asset/favicon/android-chrome-192x192.png",
@@ -13,7 +13,7 @@
             "type": "image/png"
         }
     ],
-    "theme_color": "#FF5F5F",
-    "background_color": "#ffffff",
+    "theme_color": "#000000",
+    "background_color": "#000000",
     "display": "standalone"
 }
