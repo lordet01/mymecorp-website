@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="canonical" href="https://mymecorp.xyz/kivo/">
+    <title data-i18n-key="meta.title">Kivo — Speak naturally. Write instantly.</title>
+    <meta name="description" data-i18n-key="meta.description" content="Kivo is voice typing for macOS. Speak naturally and turn your voice into polished text for coding agents, messages, email, prompts, and documents.">
+    <meta property="og:title" content="Kivo — Speak naturally. Write instantly.">
+    <meta property="og:description" content="Voice typing for your Mac. Built for developers and professionals who need to express complex ideas faster.">
+    <meta property="og:image" content="https://mymecorp.xyz/kivo/assets/kivo-hero.png">
+    <meta property="og:url" content="https://mymecorp.xyz/kivo/">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="icon" type="image/png" href="./assets/kivo-icon.png">
+    <link rel="apple-touch-icon" href="./assets/kivo-icon.png">
+    <meta name="theme-color" content="#05070f">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #05070f;
+            --bg-elevated: #0b1020;
+            --bg-deep: #02040a;
+            --text: #f4f7ff;
+            --text-soft: #b7c0d4;
+            --text-muted: #7e879c;
+            --cyan: #4ecbff;
+            --blue: #3a7bff;
+            --violet: #8b5cff;
+            --border: rgba(120, 160, 255, 0.16);
+            --glow: rgba(78, 203, 255, 0.28);
+            --max: 1080px;
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            margin: 0;
+            font-family: "Source Sans 3", "Segoe UI", sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a { color: var(--cyan); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        img, video { max-width: 100%; display: block; }
+
+        .container {
+            width: min(var(--max), calc(100% - 40px));
+            margin: 0 auto;
+        }
+
+        .nav {
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            z-index: 20;
+            padding: 18px 0;
+        }
+
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .nav-brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text);
+            text-decoration: none;
+            font-family: "Space Grotesk", sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-brand img {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a {
+            color: var(--text-soft);
+            text-decoration: none;
+        }
+
+        .nav-links a:hover { color: var(--text); }
+
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: flex;
+            align-items: flex-end;
+            overflow: hidden;
+            background:
+                radial-gradient(ellipse 70% 55% at 72% 42%, rgba(58, 123, 255, 0.22) 0%, transparent 58%),
+                radial-gradient(ellipse 50% 40% at 20% 80%, rgba(139, 92, 255, 0.16) 0%, transparent 55%),
+                linear-gradient(180deg, #07101f 0%, var(--bg-deep) 100%);
+        }
+
+        .hero-media {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+
+        .hero-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center right;
+        }
+
+        .hero-media::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(90deg, rgba(5, 7, 15, 0.92) 0%, rgba(5, 7, 15, 0.72) 42%, rgba(5, 7, 15, 0.28) 68%, rgba(5, 7, 15, 0.45) 100%),
+                linear-gradient(180deg, rgba(5, 7, 15, 0.35) 0%, rgba(5, 7, 15, 0.15) 40%, rgba(5, 7, 15, 0.88) 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            width: min(560px, 100%);
+            padding: 120px 0 72px;
+        }
+
+        .brand-mark {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 22px;
+            opacity: 0;
+            animation: rise 0.9s ease forwards 0.1s;
+        }
+
+        .brand-mark img {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            box-shadow: 0 0 28px var(--glow);
+            animation: pulse-glow 3.2s ease-in-out infinite;
+        }
+
+        .brand-mark span {
+            font-family: "Space Grotesk", sans-serif;
+            font-size: 1.55rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+        }
+
+        .hero h1 {
+            margin: 0 0 14px;
+            font-family: "Space Grotesk", sans-serif;
+            font-size: clamp(2.4rem, 5.5vw, 3.6rem);
+            font-weight: 700;
+            line-height: 1.08;
+            letter-spacing: -0.04em;
+            opacity: 0;
+            animation: rise 0.9s ease forwards 0.25s;
+        }
+
+        .hero-lead {
+            margin: 0 0 28px;
+            max-width: 34ch;
+            color: var(--text-soft);
+            font-size: 1.15rem;
+            opacity: 0;
+            animation: rise 0.9s ease forwards 0.4s;
+        }
+
+        .cta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            opacity: 0;
+            animation: rise 0.9s ease forwards 0.55s;
+        }
+
+        .hero .cta-row { opacity: 0; animation: rise 0.9s ease forwards 0.55s; }
+        section .cta-row { opacity: 1; animation: none; }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            min-height: 48px;
+            padding: 0 20px;
+            border-radius: 12px;
+            font-family: "Space Grotesk", sans-serif;
+            font-weight: 600;
+            font-size: 0.98rem;
+            text-decoration: none;
+            border: 1px solid transparent;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .btn:hover { text-decoration: none; transform: translateY(-1px); }
+
+        .btn-primary {
+            color: #041018;
+            background: linear-gradient(135deg, var(--cyan) 0%, var(--blue) 55%, var(--violet) 100%);
+            box-shadow: 0 12px 30px -16px var(--glow);
+        }
+
+        .btn-secondary {
+            color: var(--text);
+            background: rgba(255, 255, 255, 0.04);
+            border-color: var(--border);
+        }
+
+        .btn-secondary:hover { border-color: rgba(120, 160, 255, 0.35); }
+
+        section { padding: 88px 0; }
+
+        .section-label {
+            margin: 0 0 10px;
+            color: var(--cyan);
+            font-family: "Space Grotesk", sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        section h2 {
+            margin: 0 0 14px;
+            font-family: "Space Grotesk", sans-serif;
+            font-size: clamp(1.7rem, 3.4vw, 2.35rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.15;
+        }
+
+        .section-lead {
+            margin: 0 0 36px;
+            max-width: 54ch;
+            color: var(--text-soft);
+            font-size: 1.08rem;
+        }
+
+        .band {
+            background:
+                radial-gradient(ellipse 60% 80% at 50% 0%, rgba(58, 123, 255, 0.12) 0%, transparent 60%),
+                var(--bg-elevated);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* Video */
+        .video-frame {
+            position: relative;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            overflow: hidden;
+            background: #000;
+            aspect-ratio: 16 / 9;
+            box-shadow: 0 24px 60px -36px rgba(78, 203, 255, 0.35);
+        }
+
+        .video-frame video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-fallback {
+            position: absolute;
+            inset: 0;
+            display: grid;
+            place-content: center;
+            gap: 10px;
+            padding: 24px;
+            text-align: center;
+            background:
+                linear-gradient(180deg, rgba(5, 7, 15, 0.35), rgba(5, 7, 15, 0.82)),
+                url("./assets/kivo-hero.png") center / cover no-repeat;
+            color: var(--text-soft);
+        }
+
+        .video-fallback strong {
+            font-family: "Space Grotesk", sans-serif;
+            font-size: 1.15rem;
+            color: var(--text);
+        }
+
+        .video-fallback span { font-size: 0.95rem; }
+
+        .video-frame.has-video .video-fallback { display: none; }
+
+        /* Example panels */
+        .example {
+            display: grid;
+            gap: 14px;
+            max-width: 820px;
+        }
+
+        .example-block {
+            padding: 18px 20px;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .example-block .label {
+            margin: 0 0 8px;
+            font-family: "Space Grotesk", sans-serif;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .example-block p {
+            margin: 0;
+            color: var(--text-soft);
+            font-size: 1rem;
+            white-space: pre-wrap;
+        }
+
+        .example-block.result {
+            border-color: rgba(78, 203, 255, 0.28);
+            background: rgba(78, 203, 255, 0.05);
+        }
+
+        .example-block.result .label { color: var(--cyan); }
+
+        .example-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .mini-example {
+            padding: 20px 18px;
+            border-top: 2px solid rgba(78, 203, 255, 0.45);
+        }
+
+        .mini-example h3 {
+            margin: 0 0 8px;
+            font-family: "Space Grotesk", sans-serif;
+            font-size: 1.05rem;
+        }
+
+        .mini-example .spoken {
+            margin: 0 0 12px;
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            font-style: italic;
+        }
+
+        .mini-example .written {
+            margin: 0;
+            color: var(--text-soft);
+            font-size: 0.96rem;
+        }
+
+        /* Plans */
+        .plans {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .plan {
+            background: var(--bg-deep);
+            padding: 28px 24px;
+        }
+
+        .plan h3 {
+            margin: 0 0 6px;
+            font-family: "Space Grotesk", sans-serif;
+            font-size: 1.2rem;
+        }
+
+        .plan .plan-tag {
+            margin: 0 0 16px;
+            color: var(--text-muted);
+            font-size: 0.92rem;
+        }
+
+        .plan ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .plan li {
+            position: relative;
+            padding: 7px 0 7px 16px;
+            color: var(--text-soft);
+            font-size: 0.95rem;
+        }
+
+        .plan li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 15px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--cyan);
+            opacity: 0.7;
+        }
+
+        .plan.featured {
+            background: linear-gradient(180deg, rgba(58, 123, 255, 0.14) 0%, rgba(5, 7, 15, 0.96) 40%);
+        }
+
+        .privacy-points {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            display: grid;
+            gap: 14px;
+            max-width: 720px;
+        }
+
+        .privacy-points li {
+            color: var(--text-soft);
+            padding-left: 18px;
+            border-left: 2px solid rgba(139, 92, 255, 0.45);
+        }
+
+        .faq {
+            display: grid;
+            border-top: 1px solid var(--border);
+        }
+
+        .faq details {
+            border-bottom: 1px solid var(--border);
+            padding: 18px 0;
+        }
+
+        .faq summary {
+            cursor: pointer;
+            font-family: "Space Grotesk", sans-serif;
+            font-weight: 600;
+            font-size: 1.05rem;
+            list-style: none;
+        }
+
+        .faq summary::-webkit-details-marker { display: none; }
+        .faq summary::after {
+            content: "+";
+            float: right;
+            color: var(--cyan);
+        }
+        .faq details[open] summary::after { content: "–"; }
+
+        .faq p {
+            margin: 12px 0 0;
+            color: var(--text-soft);
+            max-width: 70ch;
+        }
+
+        .final-cta {
+            text-align: center;
+            padding: 96px 0;
+            background:
+                radial-gradient(ellipse 50% 70% at 50% 30%, rgba(78, 203, 255, 0.14) 0%, transparent 60%),
+                var(--bg-deep);
+        }
+
+        .final-cta h2 { margin-bottom: 10px; }
+        .final-cta .section-lead {
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .final-cta .cta-row { justify-content: center; }
+
+        footer {
+            padding: 40px 0 48px;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px 20px;
+            margin-bottom: 18px;
+        }
+
+        .footer-links a { color: var(--text-soft); }
+
+        .company-note {
+            margin-top: 14px;
+            color: var(--text-soft);
+            font-weight: 600;
+        }
+
+        .business-info {
+            margin-top: 6px;
+            max-width: 70ch;
+            line-height: 1.55;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(18px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        @keyframes rise {
+            from { opacity: 0; transform: translateY(18px); }
+            to { opacity: 1; transform: none; }
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 22px rgba(78, 203, 255, 0.22); }
+            50% { box-shadow: 0 0 36px rgba(78, 203, 255, 0.42); }
+        }
+
+        @media (max-width: 900px) {
+            .plans,
+            .example-grid { grid-template-columns: 1fr; }
+
+            .hero-media img { object-position: 70% center; }
+            .hero-content {
+                width: min(100%, 560px);
+                padding: 110px 0 56px;
+            }
+            .hero-media::after {
+                background:
+                    linear-gradient(180deg, rgba(5, 7, 15, 0.55) 0%, rgba(5, 7, 15, 0.72) 45%, rgba(5, 7, 15, 0.94) 100%),
+                    linear-gradient(90deg, rgba(5, 7, 15, 0.75) 0%, rgba(5, 7, 15, 0.35) 100%);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .nav-links a:not(.btn) { display: none; }
+            .container { width: min(100% - 32px, var(--max)); }
+            section { padding: 64px 0; }
+            .hero { min-height: 92vh; }
+            .brand-mark span { font-size: 1.35rem; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation: none !important;
+                transition: none !important;
+            }
+            .reveal { opacity: 1; transform: none; }
+            .brand-mark, .hero h1, .hero-lead, .hero .cta-row { opacity: 1; }
+        }
+
+        .visually-hidden {
+            position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+            overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+        }
+        .lang-switcher {
+            position: fixed; top: 14px; right: 14px; z-index: 1000;
+        }
+        .lang-switcher select {
+            font-size: 11px; line-height: 1; color: #f4f7ff;
+            background-color: rgba(11, 16, 32, 0.92);
+            border: 1px solid rgba(120, 160, 255, 0.28);
+            border-radius: 10px; padding: 6px 24px 6px 8px; cursor: pointer;
+            box-shadow: 0 8px 16px -14px rgba(0, 0, 0, 0.75);
+            font-family: "Space Grotesk", sans-serif;
+        }
+        .lang-switcher select:focus-visible {
+            outline: 2px solid rgba(78, 203, 255, 0.45); outline-offset: 1px;
+        }
+        @media (max-width: 600px) {
+            .lang-switcher { top: 12px; right: 12px; }
+            .nav { padding-right: 88px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="lang-switcher">
+        <label class="visually-hidden" for="lang-select" data-i18n-key="lang.select.label">Language</label>
+        <select id="lang-select" aria-label="Language selector" data-i18n-aria-key="lang.select.aria">
+            <option value="en">English</option>
+            <option value="ko">한국어</option>
+            <option value="ja">日本語</option>
+            <option value="et">Eesti</option>
+        </select>
+    </div>
+    <header class="nav">
+        <div class="container nav-inner">
+            <a class="nav-brand" href="./">
+                <img src="./assets/kivo-icon.png" alt="" width="32" height="32">
+                Kivo
+            </a>
+            <nav class="nav-links" aria-label="Primary">
+                <a href="#demo" data-i18n-key="nav.demo">Demo</a>
+                <a href="#plans" data-i18n-key="nav.plans">Plans</a>
+                <a href="#faq" data-i18n-key="nav.faq">FAQ</a>
+                <a href="./support/" data-i18n-key="nav.support">Support</a>
+                <a class="btn btn-primary" href="#download" style="min-height: 40px; padding: 0 14px; font-size: 0.9rem;" data-i18n-key="nav.store">Mac App Store</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- 1. Hero -->
+        <section class="hero" aria-label="Kivo hero">
+            <div class="hero-media" aria-hidden="true">
+                <img src="./assets/kivo-hero.png" alt="" width="1024" height="640">
+            </div>
+            <div class="container">
+                <div class="hero-content">
+                    <div class="brand-mark">
+                        <img src="./assets/kivo-icon.png" alt="" width="48" height="48">
+                        <span>Kivo</span>
+                    </div>
+                    <h1 data-i18n-key="hero.title">Speak naturally.<br>Write instantly.</h1>
+                    <p class="hero-lead" data-i18n-key="hero.lead">Voice typing for your Mac — for coding agents, messages, email, prompts, and documents.</p>
+                    <div class="cta-row">
+                        <a class="btn btn-primary" href="#download" data-i18n-key="hero.cta.store">Download on the Mac App Store</a>
+                        <a class="btn btn-secondary" href="#demo" data-i18n-key="hero.cta.demo">Watch demo</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. 15–30s usage video -->
+        <section class="band" id="demo">
+            <div class="container reveal">
+                <p class="section-label" data-i18n-key="demo.label">See it in action</p>
+                <h2 data-i18n-key="demo.title">From voice to text in seconds.</h2>
+                <p class="section-lead" data-i18n-key="demo.lead">A short look at the real Kivo workflow: shortcut, speak, review, finish with the keyboard.</p>
+                <div class="video-frame" id="demo-frame">
+                    <video
+                        id="demo-video"
+                        controls
+                        playsinline
+                        preload="metadata"
+                        poster="./assets/kivo-hero.png"
+                        aria-label="Kivo usage demo, about 15 to 30 seconds" data-i18n-aria-key="demo.video.aria">
+                        <source src="./assets/kivo-demo.mp4" type="video/mp4">
+                    </video>
+                    <div class="video-fallback" id="demo-fallback">
+                        <strong data-i18n-key="demo.fallback.title">Demo video coming soon</strong>
+                        <span data-i18n-key="demo.fallback.note">Drop a 15–30s clip at <code style="color: var(--cyan);">kivo/assets/kivo-demo.mp4</code></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Coding-agent instruction example -->
+        <section id="agents">
+            <div class="container reveal">
+                <p class="section-label" data-i18n-key="agents.label">Coding agents</p>
+                <h2 data-i18n-key="agents.title">Give agents the full brief — by voice.</h2>
+                <p class="section-lead" data-i18n-key="agents.lead">Explain the problem, constraints, implementation details, and tests in one continuous thought. Then review and send.</p>
+                <div class="example">
+                    <div class="example-block">
+                        <p class="label" data-i18n-key="agents.speak.label">You speak</p>
+                        <p data-i18n-key="agents.speak.text">“Update the checkout flow so guest users can pay without creating an account. Keep Apple Pay and card. Add a regression test for empty cart, and don’t change the existing subscription path.”</p>
+                    </div>
+                    <div class="example-block result">
+                        <p class="label" data-i18n-key="agents.write.label">Kivo writes</p>
+                        <p data-i18n-key="agents.write.text">Update the checkout flow so guest users can pay without creating an account. Keep Apple Pay and card payments. Add a regression test for the empty-cart case, and do not change the existing subscription path.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Team message / email / prompt examples -->
+        <section class="band" id="everyday">
+            <div class="container reveal">
+                <p class="section-label" data-i18n-key="everyday.label">Everyday writing</p>
+                <h2 data-i18n-key="everyday.title">Team messages, email, and prompts.</h2>
+                <p class="section-lead" data-i18n-key="everyday.lead">Use the same voice-first draft for the writing you do all day — then finish precise details on the keyboard.</p>
+                <div class="example-grid">
+                    <article class="mini-example">
+                        <h3 data-i18n-key="everyday.msg.title">Team message</h3>
+                        <p class="spoken" data-i18n-key="everyday.msg.spoken">“Ship notes for today’s build: auth fix is in, staging looks good, please smoke-test invite flow before lunch.”</p>
+                        <p class="written" data-i18n-key="everyday.msg.written">Ship notes for today’s build: the auth fix is in and staging looks good. Please smoke-test the invite flow before lunch.</p>
+                    </article>
+                    <article class="mini-example">
+                        <h3 data-i18n-key="everyday.email.title">Email draft</h3>
+                        <p class="spoken" data-i18n-key="everyday.email.spoken">“Thanks for the proposal. We’re aligned on scope. Can we move the kickoff to Thursday and share the revised timeline by EOD?”</p>
+                        <p class="written" data-i18n-key="everyday.email.written">Thanks for the proposal — we’re aligned on scope. Could we move the kickoff to Thursday and share the revised timeline by end of day?</p>
+                    </article>
+                    <article class="mini-example">
+                        <h3 data-i18n-key="everyday.prompt.title">AI prompt</h3>
+                        <p class="spoken" data-i18n-key="everyday.prompt.spoken">“Summarize this PR for non-engineers: what changed, why it matters, and any user-facing risk.”</p>
+                        <p class="written" data-i18n-key="everyday.prompt.written">Summarize this PR for non-engineers: what changed, why it matters, and any user-facing risk.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Free / Personal / Pro -->
+        <section id="plans">
+            <div class="container reveal">
+                <p class="section-label" data-i18n-key="plans.label">Plans</p>
+                <h2 data-i18n-key="plans.title">Free / Personal / Pro</h2>
+                <p class="section-lead" data-i18n-key="plans.lead">Start with free minutes. Upgrade when you need more usage. Prices are shown in the app and may vary by region.</p>
+                <div class="plans">
+                    <div class="plan">
+                        <h3 data-i18n-key="plans.free.title">Free</h3>
+                        <p class="plan-tag" data-i18n-key="plans.free.tag">Try the workflow</p>
+                        <ul>
+                            <li data-i18n-key="plans.free.1">10 free minutes</li>
+                            <li data-i18n-key="plans.free.2">Push-to-talk voice typing</li>
+                            <li data-i18n-key="plans.free.3">Works across macOS apps</li>
+                        </ul>
+                    </div>
+                    <div class="plan featured">
+                        <h3 data-i18n-key="plans.personal.title">Personal</h3>
+                        <p class="plan-tag" data-i18n-key="plans.personal.tag">Everyday professional use</p>
+                        <ul>
+                            <li data-i18n-key="plans.personal.1">Higher monthly usage</li>
+                            <li data-i18n-key="plans.personal.2">Messages, email, and prompts</li>
+                            <li data-i18n-key="plans.personal.3">Usage warning at 80%</li>
+                        </ul>
+                    </div>
+                    <div class="plan">
+                        <h3 data-i18n-key="plans.pro.title">Pro</h3>
+                        <p class="plan-tag" data-i18n-key="plans.pro.tag">Heavy agent &amp; drafting work</p>
+                        <ul>
+                            <li data-i18n-key="plans.pro.1">Highest usage limits</li>
+                            <li data-i18n-key="plans.pro.2">Additional Pro capabilities</li>
+                            <li data-i18n-key="plans.pro.3">Monthly or annual billing</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Privacy -->
+        <section class="band" id="privacy">
+            <div class="container reveal">
+                <p class="section-label" data-i18n-key="privacy.label">Privacy</p>
+                <h2 data-i18n-key="privacy.title">How Kivo handles your data</h2>
+                <p class="section-lead" data-i18n-key="privacy.lead">Recording starts only when you activate push-to-talk. Permissions are requested for a clear reason.</p>
+                <ul class="privacy-points">
+                    <li data-i18n-key="privacy.1"><strong style="color: var(--text);">Microphone</strong> — used only while you hold the shortcut to capture voice input.</li>
+                    <li data-i18n-key="privacy.2"><strong style="color: var(--text);">Accessibility</strong> — used to insert generated text into the currently focused app.</li>
+                    <li data-i18n-key="privacy.3"><strong style="color: var(--text);">Internet</strong> — required for speech recognition and text processing.</li>
+                    <li data-i18n-key="privacy.4">Subscriptions renew through your Apple Account unless canceled in Apple Account settings.</li>
+                </ul>
+                <p style="margin-top: 22px; color: var(--text-soft);" data-i18n-key="privacy.links">
+                    Read the full <a href="./privacy/">Privacy Policy</a> and <a href="./terms/">Terms of Use</a>.
+                </p>
+            </div>
+        </section>
+
+        <!-- 7. App Store download -->
+        <section class="final-cta" id="download">
+            <div class="container reveal">
+                <p class="section-label" style="justify-self: center;" data-i18n-key="download.label">Mac App Store</p>
+                <h2 data-i18n-key="download.title">Get Kivo for Mac</h2>
+                <p class="section-lead" data-i18n-key="download.lead">Download Kivo and turn natural speech into text you can review and finish with your keyboard.</p>
+                <div class="cta-row">
+                    <!-- Replace href with the live Mac App Store URL before launch -->
+                    <a class="btn btn-primary" href="#download" data-i18n-key="download.cta.store">Download on the Mac App Store</a>
+                    <a class="btn btn-secondary" href="./support/" data-i18n-key="download.cta.support">Get support</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. FAQ -->
+        <section id="faq">
+            <div class="container reveal">
+                <p class="section-label" data-i18n-key="faq.label">FAQ</p>
+                <h2 data-i18n-key="faq.title">Common questions</h2>
+                <div class="faq">
+                    <details>
+                        <summary data-i18n-key="faq.q1">Does Kivo replace my keyboard?</summary>
+                        <p data-i18n-key="faq.a1">No. Speak the long draft, then use the keyboard for names, code, numbers, and final polish.</p>
+                    </details>
+                    <details>
+                        <summary data-i18n-key="faq.q2">Which apps can I use it in?</summary>
+                        <p data-i18n-key="faq.a2">Place the cursor in a supported text field — coding agents, chat, email, documents, notes, and other standard macOS text inputs — then activate Kivo.</p>
+                    </details>
+                    <details>
+                        <summary data-i18n-key="faq.q3">Why does Kivo need Accessibility permission?</summary>
+                        <p data-i18n-key="faq.a3">Accessibility permission lets Kivo insert generated text into the app that currently has focus.</p>
+                    </details>
+                    <details>
+                        <summary data-i18n-key="faq.q4">What happens when I reach my usage limit?</summary>
+                        <p data-i18n-key="faq.a4">You’ll see a warning at about 80% of your plan allowance. Cloud processing stops at 100%. Upgrade or wait for the next billing period to continue.</p>
+                    </details>
+                    <details>
+                        <summary data-i18n-key="faq.q5">How do I get help?</summary>
+                        <p data-i18n-key="faq.a5">Visit <a href="./support/">Kivo Support</a> or email <a href="mailto:kivo@mymecorp.xyz">kivo@mymecorp.xyz</a>. We typically respond within 2 business days.</p>
+                    </details>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 9. Support · Terms · Privacy -->
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="./support/" data-i18n-key="footer.support">Support</a>
+                <a href="./terms/" data-i18n-key="footer.terms">Terms of Use</a>
+                <a href="./privacy/" data-i18n-key="footer.privacy">Privacy Policy</a>
+                <a href="./support/#delete-account" data-i18n-key="footer.delete">Delete Account</a>
+                <a href="https://mymecorp.xyz/">myme Corp.</a>
+                <a href="mailto:kivo@mymecorp.xyz">kivo@mymecorp.xyz</a>
+            </div>
+            <div data-i18n-key="footer.meta">© 2026 myme Corp. OÜ. All rights reserved.</div>
+            <div class="company-note">myme Corp. OÜ</div>
+            <div class="business-info" lang="en">
+                Business name: myme Corp. OÜ | Country of registration: Estonia | Legal structure: Limited company | Registry code: 17506092<br>
+                Address: Sepapaja tn 6, 15551 Tallinn, Harju Maakond, Estonia
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const reveals = document.querySelectorAll(".reveal");
+        if ("IntersectionObserver" in window) {
+            const io = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("visible");
+                        io.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.16 });
+            reveals.forEach((el) => io.observe(el));
+        } else {
+            reveals.forEach((el) => el.classList.add("visible"));
+        }
+
+        const video = document.getElementById("demo-video");
+        const frame = document.getElementById("demo-frame");
+        if (video) {
+            const markReady = () => frame.classList.add("has-video");
+            video.addEventListener("loadeddata", markReady);
+            video.addEventListener("canplay", markReady);
+            // If the source 404s, keep the fallback visible.
+            video.querySelector("source")?.addEventListener("error", () => {
+                frame.classList.remove("has-video");
+            });
+            video.addEventListener("error", () => {
+                frame.classList.remove("has-video");
+            });
+        }
+    </script>
+
+    <script src="./assets/i18n-runtime.js"></script>
+    <script src="./assets/i18n-marketing.js"></script>
+    <script>KivoI18n.init(window.KIVO_MARKETING_I18N);</script>
+</body>
+</html>

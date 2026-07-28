@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="canonical" href="https://mymecorp.xyz/kivo/support/">
+    <title data-i18n-key="meta.title">Kivo Support</title>
+    <meta name="description" data-i18n-key="meta.description" content="Get help with Kivo for macOS — permissions, subscriptions, usage limits, troubleshooting, and account deletion. Contact myme Corp. OÜ at kivo@mymecorp.xyz.">
+    <link rel="icon" type="image/png" href="../assets/kivo-icon.png">
+    <link rel="apple-touch-icon" href="../assets/kivo-icon.png">
+    <meta name="theme-color" content="#05070f">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #05070f;
+            --bg-panel: #0b1020;
+            --text: #f4f7ff;
+            --text-soft: #b7c0d4;
+            --text-muted: #7e879c;
+            --cyan: #4ecbff;
+            --blue: #3a7bff;
+            --violet: #8b5cff;
+            --border: rgba(120, 160, 255, 0.16);
+        }
+
+        * { box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            margin: 0;
+            font-family: "Source Sans 3", "Segoe UI", sans-serif;
+            background:
+                radial-gradient(ellipse 70% 40% at 50% 0%, rgba(58, 123, 255, 0.14) 0%, transparent 55%),
+                var(--bg);
+            color: var(--text);
+            line-height: 1.65;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a { color: var(--cyan); }
+
+        .container {
+            width: min(860px, calc(100% - 40px));
+            margin: 0 auto;
+            padding: 32px 0 64px;
+        }
+
+        .top-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 18px;
+            color: var(--text-soft);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .top-link:hover { color: var(--text); }
+
+        .top-link img {
+            width: 28px;
+            height: 28px;
+            border-radius: 7px;
+        }
+
+        .panel {
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 28px 24px 36px;
+        }
+
+        h1 {
+            margin: 0 0 8px;
+            font-family: "Space Grotesk", sans-serif;
+            font-size: clamp(1.8rem, 4vw, 2.2rem);
+            letter-spacing: -0.03em;
+        }
+
+        .lede {
+            margin: 0 0 24px;
+            color: var(--text-soft);
+            font-size: 1.05rem;
+        }
+
+        .contact-grid {
+            display: grid;
+            gap: 10px;
+            margin: 0 0 28px;
+            padding: 18px 18px;
+            list-style: none;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .contact-grid li {
+            color: var(--text-soft);
+            font-size: 0.98rem;
+        }
+
+        .contact-grid strong {
+            color: var(--text);
+            display: inline-block;
+            min-width: 9.5rem;
+        }
+
+        .toc {
+            margin: 0 0 28px;
+            padding: 0;
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 12px;
+        }
+
+        .toc a {
+            color: var(--text-soft);
+            text-decoration: none;
+            font-size: 0.92rem;
+            padding: 6px 10px;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+        }
+
+        .toc a:hover {
+            color: var(--text);
+            border-color: rgba(120, 160, 255, 0.35);
+        }
+
+        h2 {
+            margin: 32px 0 10px;
+            padding-top: 8px;
+            font-family: "Space Grotesk", sans-serif;
+            font-size: 1.25rem;
+            letter-spacing: -0.02em;
+            scroll-margin-top: 24px;
+        }
+
+        h2:first-of-type { margin-top: 8px; }
+
+        p, li {
+            color: var(--text-soft);
+            font-size: 0.98rem;
+        }
+
+        ul, ol {
+            margin: 8px 0 0;
+            padding-left: 20px;
+        }
+
+        li { margin-bottom: 6px; }
+
+        .note {
+            margin-top: 12px;
+            padding: 12px 14px;
+            border-left: 3px solid var(--cyan);
+            background: rgba(78, 203, 255, 0.06);
+            border-radius: 0 10px 10px 0;
+            color: var(--text-soft);
+            font-size: 0.95rem;
+        }
+
+        footer {
+            margin-top: 28px;
+            color: var(--text-muted);
+            font-size: 0.88rem;
+        }
+
+        footer a { color: var(--text-soft); }
+
+        @media (max-width: 600px) {
+            .container { width: min(100% - 32px, 860px); }
+            .panel { padding: 22px 18px 28px; }
+            .contact-grid strong {
+                display: block;
+                min-width: 0;
+                margin-bottom: 2px;
+            }
+        }
+
+        .visually-hidden {
+            position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+            overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+        }
+        .lang-switcher {
+            position: fixed; top: 14px; right: 14px; z-index: 1000;
+        }
+        .lang-switcher select {
+            font-size: 11px; line-height: 1; color: #f4f7ff;
+            background-color: rgba(11, 16, 32, 0.92);
+            border: 1px solid rgba(120, 160, 255, 0.28);
+            border-radius: 10px; padding: 6px 24px 6px 8px; cursor: pointer;
+            font-family: "Space Grotesk", sans-serif;
+        }
+        .lang-switcher select:focus-visible {
+            outline: 2px solid rgba(78, 203, 255, 0.45); outline-offset: 1px;
+        }
+    </style>
+</head>
+<body>
+    <div class="lang-switcher">
+        <label class="visually-hidden" for="lang-select" data-i18n-key="lang.select.label">Language</label>
+        <select id="lang-select" aria-label="Language selector" data-i18n-aria-key="lang.select.aria">
+            <option value="en">English</option>
+            <option value="ko">한국어</option>
+            <option value="ja">日本語</option>
+            <option value="et">Eesti</option>
+        </select>
+    </div>
+    <main class="container">
+        <a class="top-link" href="../">
+            <img src="../assets/kivo-icon.png" alt="" width="28" height="28">
+            <span data-i18n-key="back">Back to Kivo</span>
+        </a>
+
+        <article class="panel">
+            <h1 data-i18n-key="title">Kivo Support</h1>
+            <p class="lede" data-i18n-key="lede">Help for Kivo, the voice typing app for macOS. Reach us by email — we typically respond within 2 business days.</p>
+
+            <ul class="contact-grid">
+                <li><strong data-i18n-key="contact.email">Email:</strong> <a href="mailto:kivo@mymecorp.xyz">kivo@mymecorp.xyz</a></li>
+                <li><strong data-i18n-key="contact.company">Company:</strong> myme Corp. OÜ</li>
+                <li><strong data-i18n-key="contact.address">Legal address:</strong> Sepapaja tn 6, 15551 Tallinn, Harju Maakond, Estonia</li>
+                <li><strong data-i18n-key="contact.registry">Registry code:</strong> 17506092</li>
+                <li><strong data-i18n-key="contact.website">Website:</strong> <a href="https://mymecorp.xyz/">https://mymecorp.xyz/</a></li>
+                <li><strong data-i18n-key="contact.product">Product page:</strong> <a href="https://mymecorp.xyz/kivo/">https://mymecorp.xyz/kivo/</a></li>
+                <li><strong data-i18n-key="contact.response">Response time:</strong> <span data-i18n-key="contact.response.value">Within 2 business days</span></li>
+            </ul>
+
+            <ul class="toc">
+                <li><a href="#getting-started" data-i18n-key="toc.getting">Getting Started</a></li>
+                <li><a href="#microphone" data-i18n-key="toc.mic">Microphone</a></li>
+                <li><a href="#accessibility" data-i18n-key="toc.access">Accessibility</a></li>
+                <li><a href="#subscription" data-i18n-key="toc.sub">Subscription</a></li>
+                <li><a href="#usage-limits" data-i18n-key="toc.limits">Usage Limits</a></li>
+                <li><a href="#troubleshooting" data-i18n-key="toc.trouble">Troubleshooting</a></li>
+                <li><a href="#feature-requests" data-i18n-key="toc.features">Feature Requests</a></li>
+                <li><a href="#delete-account" data-i18n-key="toc.delete">Delete Account</a></li>
+            </ul>
+
+            <h2 id="getting-started" data-i18n-key="getting.title">Getting Started</h2>
+            <ol>
+                <li data-i18n-key="getting.1">Download Kivo from the Mac App Store and launch the app.</li>
+                <li data-i18n-key="getting.2">Sign in when prompted.</li>
+                <li data-i18n-key="getting.3">Grant <strong>Microphone</strong> permission when macOS asks.</li>
+                <li data-i18n-key="getting.4">Enable <strong>Accessibility</strong> permission for Kivo in System Settings.</li>
+                <li data-i18n-key="getting.5">Open a text field (for example, TextEdit), place the cursor, then press and hold your Kivo shortcut while speaking.</li>
+                <li data-i18n-key="getting.6">Release the shortcut, review the generated text, and finish any precise edits with your keyboard.</li>
+            </ol>
+            <p class="note" data-i18n-key="getting.note">Kivo is a menu bar app. Look for the Kivo icon in the macOS menu bar to open settings, plans, and status.</p>
+
+            <h2 id="microphone" data-i18n-key="mic.title">Microphone Permission</h2>
+            <p data-i18n-key="mic.p">Kivo needs microphone access to capture voice input when you activate push-to-talk. Recording starts only when you press the shortcut.</p>
+            <ul>
+                <li data-i18n-key="mic.1">Open <strong>System Settings → Privacy &amp; Security → Microphone</strong>.</li>
+                <li data-i18n-key="mic.2">Find <strong>Kivo</strong> and turn it on.</li>
+                <li data-i18n-key="mic.3">If Kivo does not appear, launch the app once and try voice input again so macOS can prompt you.</li>
+            </ul>
+
+            <h2 id="accessibility" data-i18n-key="access.title">Accessibility Permission</h2>
+            <p data-i18n-key="access.p">Accessibility permission lets Kivo insert generated text into the app that currently has keyboard focus.</p>
+            <ul>
+                <li data-i18n-key="access.1">Open <strong>System Settings → Privacy &amp; Security → Accessibility</strong>.</li>
+                <li data-i18n-key="access.2">Enable <strong>Kivo</strong>.</li>
+                <li data-i18n-key="access.3">If text is not inserted after dictation, turn Kivo off and on again in that list, then restart Kivo.</li>
+            </ul>
+
+            <h2 id="subscription" data-i18n-key="sub.title">Subscription and Billing</h2>
+            <p data-i18n-key="sub.p1">Kivo includes 10 free minutes. Personal and Pro subscriptions are available for higher usage limits and additional capabilities.</p>
+            <ul>
+                <li data-i18n-key="sub.1">Open plans from <strong>Kivo menu bar icon → Settings → Plans</strong>.</li>
+                <li data-i18n-key="sub.2">Subscriptions renew automatically unless canceled through your Apple Account settings.</li>
+                <li data-i18n-key="sub.3">Available plans and prices are shown in the app and may vary by country or region.</li>
+                <li data-i18n-key="sub.4">To manage or cancel a subscription: <strong>System Settings → Apple Account → Subscriptions</strong> (or Account settings on the device where you subscribed).</li>
+            </ul>
+            <p data-i18n-key="sub.p2">For billing questions that Apple handles (refunds, payment method, receipt), contact Apple Support. For product usage questions, email <a href="mailto:kivo@mymecorp.xyz">kivo@mymecorp.xyz</a>.</p>
+
+            <h2 id="usage-limits" data-i18n-key="limits.title">Usage Limits</h2>
+            <ul>
+                <li data-i18n-key="limits.1">A usage warning appears at about <strong>80%</strong> of your plan allowance.</li>
+                <li data-i18n-key="limits.2">Cloud processing stops when you reach <strong>100%</strong> of the limit.</li>
+                <li data-i18n-key="limits.3">Upgrade your plan or wait for the next billing period to continue processing.</li>
+            </ul>
+
+            <h2 id="troubleshooting" data-i18n-key="trouble.title">Troubleshooting</h2>
+            <ul>
+                <li data-i18n-key="trouble.1"><strong>Shortcut does nothing:</strong> Confirm Kivo is running, check the shortcut in Settings, and make sure another app is not capturing the same keys.</li>
+                <li data-i18n-key="trouble.2"><strong>No text appears:</strong> Place the cursor in a standard text field, verify Accessibility permission, and try TextEdit as a quick test.</li>
+                <li data-i18n-key="trouble.3"><strong>“Listening” never starts:</strong> Check Microphone permission and that you are pressing/holding the configured shortcut.</li>
+                <li data-i18n-key="trouble.4"><strong>Processing fails:</strong> Confirm your Mac is online. If you are near a usage limit, open Plans to review remaining minutes.</li>
+                <li data-i18n-key="trouble.5"><strong>Still stuck:</strong> Email <a href="mailto:kivo@mymecorp.xyz">kivo@mymecorp.xyz</a> with your macOS version, Kivo version, and a short description of the steps you tried.</li>
+            </ul>
+
+            <h2 id="feature-requests" data-i18n-key="features.title">Feature Requests</h2>
+            <p data-i18n-key="features.p">We welcome product feedback. Send ideas to <a href="mailto:kivo@mymecorp.xyz">kivo@mymecorp.xyz</a> with the subject line <strong>Kivo feature request</strong>. Include your workflow (for example, coding agents, email, or notes) so we can prioritize clearly.</p>
+
+            <h2 id="delete-account" data-i18n-key="delete.title">Delete Account</h2>
+            <p data-i18n-key="delete.p">To request deletion of your Kivo account and associated data:</p>
+            <ol>
+                <li data-i18n-key="delete.1">Email <a href="mailto:kivo@mymecorp.xyz">kivo@mymecorp.xyz</a> from the address linked to your Kivo account.</li>
+                <li data-i18n-key="delete.2">Use the subject line <strong>Kivo account deletion</strong>.</li>
+                <li data-i18n-key="delete.3">Include the account email and, if possible, the sign-in provider.</li>
+            </ol>
+            <p data-i18n-key="delete.note">We will confirm when deletion is complete, usually within <strong>30 days</strong>. App Store subscription billing is managed separately through your Apple Account — cancel the subscription there if you no longer want renewals.</p>
+        </article>
+
+        <footer>
+            <p>
+                <a href="../">Kivo</a> ·
+                <a href="../privacy/" data-i18n-key="footer.privacy">Privacy</a> ·
+                <a href="../terms/" data-i18n-key="footer.terms">Terms</a> ·
+                <a href="https://mymecorp.xyz/">myme Corp.</a> ·
+                <a href="mailto:kivo@mymecorp.xyz">kivo@mymecorp.xyz</a>
+            </p>
+            <p lang="en">
+                myme Corp. OÜ · Registry code 17506092<br>
+                Sepapaja tn 6, 15551 Tallinn, Harju Maakond, Estonia
+            </p>
+        </footer>
+    </main>
+    <script src="../assets/i18n-runtime.js"></script>
+    <script src="../assets/i18n-support.js"></script>
+    <script>KivoI18n.init(window.KIVO_SUPPORT_I18N);</script>
+</body>
+</html>
