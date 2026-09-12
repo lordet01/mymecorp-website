@@ -1,15 +1,15 @@
 window.MymeLegalI18n = {
     en: {
-        "meta.title": "myme Terms of Service (Summary)",
+        "meta.title": "myme studio Terms of Service (Summary)",
         "lang.select.label": "Language",
         "lang.select.aria": "Language selector",
-        "nav.back": "← Back to myme",
+        "nav.back": "← Back to myme studio",
 
-        "terms.title": "myme Terms of Service (Summary)",
+        "terms.title": "myme studio Terms of Service (Summary)",
         "terms.updated": "Last updated: 2026-05-09",
 
         "t1.title": "1. Service",
-        "t1.p": "myme (“the Service”) is an app that generates and edits portrait images using AI based on photos you provide.",
+        "t1.p": "myme studio (“the Service”) is an app that generates and edits portrait images using AI based on photos you provide.",
 
         "t2.title": "2. Accounts",
         "t2.1": "Users under 14 must not use the Service without verifiable parental consent.",
@@ -49,7 +49,7 @@ window.MymeLegalI18n = {
 
         "refund.title": "Digital content (tokens) — Refunds &amp; withdrawal",
         "r1.title": "1. Nature of digital goods",
-        "r1.p": "myme tokens are <strong>digital content/add-on services</strong> credited to your account immediately after payment.",
+        "r1.p": "myme studio tokens are <strong>digital content/add-on services</strong> credited to your account immediately after payment.",
         "r2.title": "2. Withdrawal restrictions (examples)",
         "r2.p": "Under applicable laws and platform policies, <strong>digital content that has already been used</strong> may not be eligible for withdrawal/cancellation.",
         "r3.title": "3. Refund process",
@@ -92,16 +92,16 @@ window.MymeLegalI18n = {
     },
 
     ko: {
-        "meta.title": "myme 이용약관 (요약)",
+        "meta.title": "myme studio 이용약관 (요약)",
         "lang.select.label": "언어",
         "lang.select.aria": "언어 선택",
-        "nav.back": "← myme로 돌아가기",
+        "nav.back": "← myme studio로 돌아가기",
 
-        "terms.title": "myme 이용약관 (요약)",
+        "terms.title": "myme studio 이용약관 (요약)",
         "terms.updated": "최종 업데이트: 2026-05-09",
 
         "t1.title": "1. 서비스",
-        "t1.p": "myme(“서비스”)는 사용자가 제공한 사진을 기반으로 AI로 인물 이미지를 생성·편집하는 앱입니다.",
+        "t1.p": "myme studio(“서비스”)는 사용자가 제공한 사진을 기반으로 AI로 인물 이미지를 생성·편집하는 앱입니다.",
 
         "t2.title": "2. 계정",
         "t2.1": "만 14세 미만은 확인 가능한 법정대리인 동의 없이 서비스를 이용해서는 안 됩니다.",
@@ -141,7 +141,7 @@ window.MymeLegalI18n = {
 
         "refund.title": "디지털 콘텐츠(토큰) — 환불 및 철회",
         "r1.title": "1. 디지털 상품의 성격",
-        "r1.p": "myme 토큰은 결제 직후 계정에 즉시 적립되는 <strong>디지털 콘텐츠/부가 서비스</strong>입니다.",
+        "r1.p": "myme studio 토큰은 결제 직후 계정에 즉시 적립되는 <strong>디지털 콘텐츠/부가 서비스</strong>입니다.",
         "r2.title": "2. 철회 제한(예시)",
         "r2.p": "관련 법령 및 플랫폼 정책에 따라, <strong>이미 사용된 디지털 콘텐츠</strong>는 철회/취소 대상이 아닐 수 있습니다.",
         "r3.title": "3. 환불 절차",
@@ -184,16 +184,16 @@ window.MymeLegalI18n = {
     },
 
     ja: {
-        "meta.title": "myme 利用規約（要約）",
+        "meta.title": "myme studio 利用規約（要約）",
         "lang.select.label": "言語",
         "lang.select.aria": "言語選択",
-        "nav.back": "← myme に戻る",
+        "nav.back": "← myme studio に戻る",
 
-        "terms.title": "myme 利用規約（要約）",
+        "terms.title": "myme studio 利用規約（要約）",
         "terms.updated": "最終更新: 2026-05-09",
 
         "t1.title": "1. サービス",
-        "t1.p": "myme（「本サービス」）は、提供された写真に基づき AI でポートレート画像を生成・編集するアプリです。",
+        "t1.p": "myme studio（「本サービス」）は、提供された写真に基づき AI でポートレート画像を生成・編集するアプリです。",
 
         "t2.title": "2. アカウント",
         "t2.1": "14歳未満の方は、確認可能な保護者の同意なしに本サービスを利用してはなりません。",
@@ -233,7 +233,7 @@ window.MymeLegalI18n = {
 
         "refund.title": "デジタルコンテンツ（トークン）— 返金および撤回",
         "r1.title": "1. デジタル商品の性質",
-        "r1.p": "myme トークンは、支払い直後にアカウントへ即時付与される<strong>デジタルコンテンツ／アドオンサービス</strong>です。",
+        "r1.p": "myme studio トークンは、支払い直後にアカウントへ即時付与される<strong>デジタルコンテンツ／アドオンサービス</strong>です。",
         "r2.title": "2. 撤回の制限（例）",
         "r2.p": "適用法令およびプラットフォームポリシーにより、<strong>すでに使用されたデジタルコンテンツ</strong>は撤回／キャンセルの対象外となる場合があります。",
         "r3.title": "3. 返金手続き",
@@ -276,16 +276,16 @@ window.MymeLegalI18n = {
     },
 
     et: {
-        "meta.title": "myme kasutustingimused (kokkuvõte)",
+        "meta.title": "myme studio kasutustingimused (kokkuvõte)",
         "lang.select.label": "Keel",
         "lang.select.aria": "Keele valija",
-        "nav.back": "← Tagasi myme juurde",
+        "nav.back": "← Tagasi myme studio juurde",
 
-        "terms.title": "myme kasutustingimused (kokkuvõte)",
+        "terms.title": "myme studio kasutustingimused (kokkuvõte)",
         "terms.updated": "Viimati uuendatud: 2026-05-09",
 
         "t1.title": "1. Teenus",
-        "t1.p": "myme („Teenus“) on rakendus, mis loob ja muudab AI abil portreepilte teie esitatud fotode põhjal.",
+        "t1.p": "myme studio („Teenus“) on rakendus, mis loob ja muudab AI abil portreepilte teie esitatud fotode põhjal.",
 
         "t2.title": "2. Kontod",
         "t2.1": "Alla 14-aastased ei tohi Teenust kasutada ilma kontrollitava vanema nõusolekuta.",
@@ -325,7 +325,7 @@ window.MymeLegalI18n = {
 
         "refund.title": "Digitaalne sisu (tokenid) — tagasimaksed ja taganemine",
         "r1.title": "1. Digikaupade olemus",
-        "r1.p": "myme tokenid on <strong>digitaalne sisu/lisateenused</strong>, mis kantakse teie kontole kohe pärast makset.",
+        "r1.p": "myme studio tokenid on <strong>digitaalne sisu/lisateenused</strong>, mis kantakse teie kontole kohe pärast makset.",
         "r2.title": "2. Taganemispiirangud (näited)",
         "r2.p": "Kohaldatavate seaduste ja platvormipoliitikate kohaselt ei pruugi <strong>juba kasutatud digitaalne sisu</strong> olla taganemiseks/tühistamiseks kõlblik.",
         "r3.title": "3. Tagasimakseprotsess",

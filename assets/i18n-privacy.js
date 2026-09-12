@@ -1,10 +1,10 @@
 window.MymePrivacyI18n = {
     en: {
-        "meta.title": "myme Privacy Policy (Summary)",
+        "meta.title": "myme studio Privacy Policy (Summary)",
         "lang.select.label": "Language",
         "lang.select.aria": "Language selector",
-        "nav.back": "← Back to myme",
-        "title": "myme Privacy Policy (Summary)",
+        "nav.back": "← Back to myme studio",
+        "title": "myme studio Privacy Policy (Summary)",
         "updated": "Last updated: 2026-06-23",
 
         "s1.title": "1. Data we collect",
@@ -83,11 +83,11 @@ window.MymePrivacyI18n = {
     },
 
     ko: {
-        "meta.title": "myme 개인정보 처리방침 (요약)",
+        "meta.title": "myme studio 개인정보 처리방침 (요약)",
         "lang.select.label": "언어",
         "lang.select.aria": "언어 선택",
-        "nav.back": "← myme로 돌아가기",
-        "title": "myme 개인정보 처리방침 (요약)",
+        "nav.back": "← myme studio로 돌아가기",
+        "title": "myme studio 개인정보 처리방침 (요약)",
         "updated": "최종 업데이트: 2026-06-23",
 
         "s1.title": "1. 수집하는 데이터",
@@ -166,11 +166,11 @@ window.MymePrivacyI18n = {
     },
 
     ja: {
-        "meta.title": "myme プライバシーポリシー（要約）",
+        "meta.title": "myme studio プライバシーポリシー（要約）",
         "lang.select.label": "言語",
         "lang.select.aria": "言語選択",
-        "nav.back": "← myme に戻る",
-        "title": "myme プライバシーポリシー（要約）",
+        "nav.back": "← myme studio に戻る",
+        "title": "myme studio プライバシーポリシー（要約）",
         "updated": "最終更新: 2026-06-23",
 
         "s1.title": "1. 収集するデータ",
@@ -249,11 +249,11 @@ window.MymePrivacyI18n = {
     },
 
     et: {
-        "meta.title": "myme privaatsuspoliitika (kokkuvõte)",
+        "meta.title": "myme studio privaatsuspoliitika (kokkuvõte)",
         "lang.select.label": "Keel",
         "lang.select.aria": "Keele valija",
-        "nav.back": "← Tagasi myme juurde",
-        "title": "myme privaatsuspoliitika (kokkuvõte)",
+        "nav.back": "← Tagasi myme studio juurde",
+        "title": "myme studio privaatsuspoliitika (kokkuvõte)",
         "updated": "Viimati uuendatud: 2026-06-23",
 
         "s1.title": "1. Andmed, mida kogume",
