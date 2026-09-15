@@ -181,14 +181,14 @@
         <a class="home-link" href="../index.html" data-i18n-key="nav.back">← Back to myme studio</a>
         <article class="card">
             <h1 data-i18n-key="title">myme studio Privacy Policy (Summary)</h1>
-            <div class="muted" data-i18n-key="updated">Last updated: 2026-06-23</div>
+            <div class="muted" data-i18n-key="updated">Last updated: 2026-09-16</div>
 
             <h2 data-i18n-key="s1.title">1. Data we collect</h2>
             <ul>
                 <li data-i18n-key="s1.account"><strong>Account:</strong> email and login provider identifiers (e.g., Google/Apple)</li>
                 <li data-i18n-key="s1.face"><strong>Face data &amp; photos:</strong> photos you upload or capture that contain your face; derived analysis (e.g., face position, frontal check, face count/size). We do <strong>not</strong> collect biometric templates for device unlock or Face ID–style authentication.</li>
                 <li data-i18n-key="s1.usage"><strong>Service usage:</strong> uploaded photos, generation parameters, task IDs, output metadata</li>
-                <li data-i18n-key="s1.device"><strong>Device &amp; operations:</strong> device information, diagnostics/crash/performance data, advertising/analytics identifiers (as permitted by your choices)</li>
+                <li data-i18n-key="s1.device"><strong>Device &amp; operations:</strong> device information, diagnostics/crash/performance data, analytics identifiers (as permitted by your choices and settings)</li>
                 <li data-i18n-key="s1.notif"><strong>Notifications:</strong> FCM token (for push delivery)</li>
             </ul>
 
@@ -203,7 +203,7 @@
 
             <p><strong data-i18n-key="s1.use.h">How we use face data</strong></p>
             <ul>
-                <li data-i18n-key="s1.use.1">Generate AI portrait, ID, and profile photos</li>
+                <li data-i18n-key="s1.use.1">Generate AI portraits for purposes offered in the app (profile, ID, dating, professional, and similar)</li>
                 <li data-i18n-key="s1.use.2">Check photo quality and composition before generation</li>
                 <li data-i18n-key="s1.use.3">Improve service quality and prevent abuse</li>
             </ul>
@@ -211,8 +211,9 @@
             <p><strong data-i18n-key="s1.server.h">Server transmission &amp; storage</strong></p>
             <ul>
                 <li data-i18n-key="s1.server.1">To provide app features such as AI analysis and image generation, face data is transmitted to and processed on secure servers operated by <strong>myme Corp. OÜ</strong></li>
-                <li data-i18n-key="s1.server.2">Data may be stored on cloud servers outside your country (see Section 5)</li>
-                <li data-i18n-key="s1.server.3">We do <strong>not</strong> sell face data</li>
+                <li data-i18n-key="s1.server.2">When a third-party AI engine is used (see Section 4), face-containing photos and generation parameters may also be sent to that provider</li>
+                <li data-i18n-key="s1.server.3">Data may be stored on cloud servers outside your country (see Section 5)</li>
+                <li data-i18n-key="s1.server.4">We do <strong>not</strong> sell face data</li>
             </ul>
 
             <p><strong data-i18n-key="s1.retain.h">Retention</strong></p>
@@ -245,36 +246,36 @@
                 <li>
                     <span data-i18n-key="s4.ai"><strong>AI image analysis &amp; generation</strong></span>
                     <ul>
-                        <li data-i18n-key="s4.ai.1"><strong>Processor &amp; location:</strong> secure cloud servers operated directly by <strong>myme Corp. OÜ</strong> (our proprietary image-generation AI model)</li>
+                        <li data-i18n-key="s4.ai.1"><strong>Processors &amp; location:</strong> secure cloud/GPU servers operated by <strong>myme Corp. OÜ</strong> (orchestration, storage, and company-operated image models)</li>
+                        <li data-i18n-key="s4.ai.1b"><strong>OpenAI</strong> (e.g., GPT Image APIs) — when that engine is used for generation or edits, face-containing photos and generation parameters may be transmitted to and processed by OpenAI</li>
                         <li data-i18n-key="s4.ai.2"><strong>Data transmitted &amp; processed:</strong> face-containing photos, analysis outputs, generation parameters, task/session identifiers</li>
                         <li data-i18n-key="s4.ai.3"><strong>When:</strong> after you agree in the in-app consent dialog, when you upload/analyze photos, or request AI generation</li>
                         <li data-i18n-key="s4.ai.4"><strong>Purpose:</strong> portrait generation, quality validation, service improvement, fraud/abuse prevention</li>
                         <li data-i18n-key="s4.ai.5"><strong>Protection:</strong> contractual and technical safeguards consistent with this policy</li>
-                        <li data-i18n-key="s4.ai.6"><strong>Note on AI Features:</strong> Our app does <strong>NOT</strong> use any third-party AI services. All AI processing is done using our <strong>proprietary image-generation AI model</strong> hosted entirely on our own secure servers. No user data is shared with external AI providers.</li>
+                        <li data-i18n-key="s4.ai.6"><strong>Note on AI features:</strong> Depending on the generation engine, processing may use models on our servers <strong>or third-party AI (OpenAI)</strong>. We do not sell face data; processing is limited to what is needed to provide the service.</li>
                     </ul>
                 </li>
                 <li>
-                    <span data-i18n-key="s4.pay"><strong>Payments, subscriptions &amp; in-app purchases</strong></span>
+                    <span data-i18n-key="s4.pay"><strong>Payments &amp; in-app purchases (tokens)</strong></span>
                     <ul>
                         <li data-i18n-key="s4.pay.1"><strong>Apple App Store</strong>, <strong>Google Play</strong>: store payment processing</li>
                         <li>
-                            <span data-i18n-key="s4.rc"><strong>RevenueCat</strong> (subscription/IAP management and receipt validation)</span>
+                            <span data-i18n-key="s4.rc"><strong>RevenueCat</strong> (IAP management and receipt validation)</span>
                             <ul>
-                                <li data-i18n-key="s4.rc.1"><strong>Data shared:</strong> your account <strong>email address</strong> (used as the App User ID), purchase and subscription records, store transaction identifiers</li>
+                                <li data-i18n-key="s4.rc.1"><strong>Data shared:</strong> your account <strong>email address</strong> (used as the App User ID), purchase records, store transaction identifiers</li>
                                 <li data-i18n-key="s4.rc.2"><strong>When shared:</strong> immediately after a successful Google/Apple sign-in, and on subsequent app launches while signed in</li>
-                                <li data-i18n-key="s4.rc.3"><strong>Purpose:</strong> sync in-app products and subscription status, restore purchases, manage billing history, and prevent fraud</li>
-                                <li data-i18n-key="s4.rc.4"><strong>Retention &amp; deletion:</strong> governed by RevenueCat’s privacy policy and our agreement. We request deletion of your RevenueCat subscriber data when you delete your account.</li>
+                                <li data-i18n-key="s4.rc.3"><strong>Purpose:</strong> sync token and other in-app product status, restore purchases, manage billing history, and prevent fraud</li>
+                                <li data-i18n-key="s4.rc.4"><strong>Retention &amp; deletion:</strong> governed by RevenueCat’s privacy policy and our agreement. We request deletion of your RevenueCat customer data when you delete your account.</li>
                             </ul>
                         </li>
                     </ul>
                 </li>
-                <li data-i18n-key="s4.ads">Ads: <strong>Google AdMob</strong> (consent flows such as UMP/ATT apply)</li>
                 <li data-i18n-key="s4.analytics">Analytics/crash reporting: <strong>Firebase Analytics / Crashlytics</strong> (may be disabled depending on build settings)</li>
             </ul>
 
             <h2 data-i18n-key="s5.title">5. International transfers</h2>
             <p data-i18n-key="s5.p">
-                Data may be processed on servers located outside your country; we apply appropriate safeguards as required.
+                Data may be processed on servers located outside your country (including cloud, analytics, and third-party AI providers); we apply appropriate safeguards as required.
             </p>
 
             <h2 data-i18n-key="s6.title">6. Your rights</h2>
