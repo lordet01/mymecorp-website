@@ -10,6 +10,9 @@
     <link rel="apple-touch-icon" sizes="180x180" href="../myme_Design Asset/favicon/apple-touch-icon.png">
     <meta name="theme-color" content="#050506">
     <link rel="stylesheet" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary-color: #F2F2F2;
@@ -19,6 +22,7 @@
             --bg-light: #000000;
             --bg-white: #111111;
             --border-chrome: rgba(255, 255, 255, 0.16);
+            --font-sans: 'Outfit', 'Pretendard Variable', Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Hiragino Sans', 'Noto Sans JP', 'Segoe UI', sans-serif;
         }
 
         * {
@@ -27,10 +31,11 @@
 
         body {
             margin: 0;
-            font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+            font-family: var(--font-sans);
             background: var(--bg-light);
             color: var(--text-dark);
             line-height: 1.65;
+            -webkit-font-smoothing: antialiased;
         }
 
         .visually-hidden {

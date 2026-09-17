@@ -18,7 +18,7 @@
     <link rel="stylesheet" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary-color: #F3C7BE;
@@ -34,16 +34,20 @@
             --border-chrome: rgba(243, 199, 190, 0.18);
             --studio-rose: #F3C7BE;
             --studio-rose-soft: #F7D5CE;
+            --font-sans: 'Outfit', 'Pretendard Variable', Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Hiragino Sans', 'Noto Sans JP', 'Segoe UI', sans-serif;
+            --font-display: 'Outfit', 'Pretendard Variable', Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Hiragino Sans', 'Noto Sans JP', 'Segoe UI', sans-serif;
         }
 
         body {
-            font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
+            font-family: var(--font-sans);
             margin: 0; padding: 0;
             background-color: var(--bg-white);
             color: var(--text-dark);
             word-break: keep-all;
             overflow-wrap: break-word;
             line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
             -webkit-text-size-adjust: 100%;
         }
 
@@ -62,13 +66,14 @@
             -webkit-text-fill-color: transparent;
         }
 
+        /* Geometric sans to match myme logo — same stack for all languages (no serif fallback) */
         .display-font,
         .hero h1,
         section h2,
         .cta-title {
-            font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
-            font-weight: 500;
-            letter-spacing: -0.01em;
+            font-family: var(--font-display);
+            font-weight: 700;
+            letter-spacing: -0.03em;
         }
 
         .visually-hidden {
@@ -140,10 +145,10 @@
 
         .hero h1 {
             font-size: 2.5rem;
-            line-height: 1.35;
+            line-height: 1.25;
             margin-bottom: 24px;
-            font-weight: 500;
-            letter-spacing: -0.02em;
+            font-weight: 700;
+            letter-spacing: -0.035em;
         }
 
         .hero p {
@@ -165,10 +170,10 @@
 
         section h2 {
             font-size: 2rem;
-            font-weight: 500;
+            font-weight: 700;
             text-align: center;
             margin-bottom: 20px;
-            letter-spacing: -0.02em;
+            letter-spacing: -0.03em;
         }
 
         .section-sub {
@@ -446,8 +451,9 @@
 
         .cta-title {
             font-size: 1.8rem;
-            font-weight: 500;
+            font-weight: 700;
             margin-bottom: 16px;
+            letter-spacing: -0.03em;
         }
 
         .cta-desc {
