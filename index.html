@@ -742,25 +742,28 @@
         .hero-ba {
             display: grid;
             grid-template-columns: 1fr auto 1fr;
-            gap: 14px;
+            gap: 16px;
             align-items: center;
-            max-width: 560px;
+            max-width: 640px;
             margin: 8px auto 28px;
+            padding: 0 8px;
         }
         .hero-ba__card {
             position: relative;
             border-radius: 20px;
             overflow: hidden;
             border: 1px solid var(--border-chrome);
-            background: var(--bg-elevated);
+            background: #0E0E10;
             box-shadow: 0 18px 40px -28px rgba(243, 199, 190, 0.35);
         }
         .hero-ba__card img {
             display: block;
             width: 100%;
-            aspect-ratio: 4 / 5;
+            height: auto;
+            aspect-ratio: 3 / 4;
             object-fit: cover;
-            object-position: center top;
+            object-position: center 18%;
+            background: #0E0E10;
         }
         .hero-ba__label {
             position: absolute;
@@ -773,6 +776,7 @@
             letter-spacing: 0.02em;
             color: #050506;
             background: rgba(247, 213, 206, 0.92);
+            z-index: 1;
         }
         .hero-ba__arrow {
             font-family: var(--font-display);
@@ -808,13 +812,23 @@
             margin-right: auto;
         }
         @media (max-width: 768px) {
-            .hero-ba { max-width: 420px; gap: 10px; }
+            .hero-ba { max-width: 520px; gap: 12px; }
             .hero-ba__arrow { font-size: 1.25rem; }
             .note-grid--trust { grid-template-columns: 1fr; }
         }
         @media (max-width: 480px) {
-            .hero-ba { grid-template-columns: 1fr; gap: 8px; max-width: 260px; }
-            .hero-ba__arrow { transform: rotate(90deg); justify-self: center; }
+            /* Keep side-by-side but give each portrait enough width so heads aren't cropped */
+            .hero-ba {
+                grid-template-columns: 1fr auto 1fr;
+                gap: 8px;
+                max-width: 100%;
+                padding: 0 4px;
+            }
+            .hero-ba__arrow {
+                transform: none;
+                font-size: 1.1rem;
+            }
+            .hero-ba__card { border-radius: 16px; }
         }
 
         /* 일본어는 띄어쓰기가 없으므로 강제 줄바꿈 허용 */
@@ -850,12 +864,12 @@
                 <h1 data-i18n-key="hero.title">Meet the you<br><span class="highlight">you’ve never photographed</span></h1>
                 <div class="hero-ba" aria-hidden="false">
                     <div class="hero-ba__card">
-                        <img src="./myme_Design Asset/studio/before_after/hero_before.jpg" alt="Selfie before" data-i18n-alt-key="hero.ba.before.alt" width="720" height="900" loading="eager">
+                        <img src="./myme_Design Asset/studio/before_after/hero_before.jpg" alt="Selfie before" data-i18n-alt-key="hero.ba.before.alt" width="768" height="1024" loading="eager">
                         <span class="hero-ba__label" data-i18n-key="hero.ba.before">Selfie</span>
                     </div>
                     <div class="hero-ba__arrow" aria-hidden="true">→</div>
                     <div class="hero-ba__card">
-                        <img src="./myme_Design Asset/studio/before_after/hero_after.jpg" alt="Profile A-cut after" data-i18n-alt-key="hero.ba.after.alt" width="720" height="900" loading="eager">
+                        <img src="./myme_Design Asset/studio/before_after/hero_after.jpg" alt="Profile A-cut after" data-i18n-alt-key="hero.ba.after.alt" width="768" height="1024" loading="eager">
                         <span class="hero-ba__label" data-i18n-key="hero.ba.after">A-cut</span>
                     </div>
                 </div>
