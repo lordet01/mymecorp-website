@@ -200,6 +200,7 @@
             border-radius: 24px;
             overflow: hidden;
             border: 1px solid var(--border-chrome);
+            min-width: 0;
             transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
@@ -212,9 +213,10 @@
 
         .usecase-card img {
             width: 100%;
+            height: auto;
             aspect-ratio: 3 / 4;
             object-fit: cover;
-            object-position: center 18%;
+            object-position: center top;
             display: block;
         }
 
@@ -691,7 +693,14 @@
             section { padding: 52px 0; }
             section h2 { font-size: 1.55rem; margin-bottom: 14px; }
             .section-sub { font-size: 0.95rem; margin-bottom: 32px; }
-            .usecase-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+            /* Phone: one portrait per row so 3:4 A-cuts aren't side-sliced */
+            .usecase-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+                max-width: 340px;
+                margin-left: auto;
+                margin-right: auto;
+            }
             .usecase-card { border-radius: 18px; }
             .usecase-body { padding: 14px 16px 18px; }
             .usecase-title { font-size: 0.98rem; margin-bottom: 6px; }
@@ -730,7 +739,6 @@
             .hero { padding: 40px 0 32px; }
             .hero h1 { font-size: 1.65rem; margin-bottom: 12px; }
             .hero-badge { font-size: 0.78rem; padding: 6px 12px; margin-bottom: 14px; }
-            .usecase-grid { grid-template-columns: 1fr; }
             .cta-title { font-size: 1.35rem; }
             .store-btn { padding: 10px 14px; }
             /* 아주 좁은 화면에서는 단어 중간 줄바꿈을 더 적극적으로 허용 */
@@ -741,7 +749,7 @@
         /* Hero before → after */
         .hero-ba {
             display: grid;
-            grid-template-columns: 1fr auto 1fr;
+            grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
             gap: 16px;
             align-items: center;
             max-width: 640px;
@@ -754,6 +762,7 @@
             overflow: hidden;
             border: 1px solid var(--border-chrome);
             background: #0E0E10;
+            min-width: 0;
             box-shadow: 0 18px 40px -28px rgba(243, 199, 190, 0.35);
         }
         .hero-ba__card img {
@@ -762,7 +771,7 @@
             height: auto;
             aspect-ratio: 3 / 4;
             object-fit: cover;
-            object-position: center 18%;
+            object-position: center top;
             background: #0E0E10;
         }
         .hero-ba__label {
@@ -812,21 +821,22 @@
             margin-right: auto;
         }
         @media (max-width: 768px) {
-            .hero-ba { max-width: 520px; gap: 12px; }
+            .hero-ba { max-width: 420px; gap: 12px; }
             .hero-ba__arrow { font-size: 1.25rem; }
             .note-grid--trust { grid-template-columns: 1fr; }
         }
-        @media (max-width: 480px) {
-            /* Keep side-by-side but give each portrait enough width so heads aren't cropped */
+        @media (max-width: 560px) {
+            /* Stack before→after so each frame stays a readable 3:4 portrait */
             .hero-ba {
-                grid-template-columns: 1fr auto 1fr;
-                gap: 8px;
-                max-width: 100%;
-                padding: 0 4px;
+                grid-template-columns: 1fr;
+                max-width: 280px;
+                gap: 10px;
+                padding: 0;
             }
             .hero-ba__arrow {
-                transform: none;
-                font-size: 1.1rem;
+                transform: rotate(90deg);
+                font-size: 1.15rem;
+                justify-self: center;
             }
             .hero-ba__card { border-radius: 16px; }
         }
