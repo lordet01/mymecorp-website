@@ -1,3 +1,7 @@
-profile.jpg  <- node2 storage/gallery/seeds/profile/f01/a00.png (갤러리 프로필 여01)
-linkedin.jpg <- node2 storage/gallery/seeds/linkedin/f04/a00.png (갤러리 링크드인 여04)
-fashion.jpg  <- node2 storage/gallery/seeds/dating/f04/a00.png (갤러리 데이팅/패션 여04)
+# Usecase card sources (app Gallery bundled assets)
+
+- profile.jpg  <- g30_f_profile_20s.jpg
+- linkedin.jpg <- g21_f_linkedin_20s.jpg (Career)
+- fashion.jpg  <- g25_f_dating_20s.jpg (Fashion/dating A-cut)
+
+Source: flutter_app/assets/photographer/gallery (node2 + local viral).

@@ -1648,40 +1648,45 @@
             var timeoutId = null;
             var imageBase = "./myme_Design%20Asset/studio/wall/";
 
-            // App-bundled model portraits + Gallery A-cuts (assets/photographer/models + gallery)
-            var localPromoProfileImages = [
-                "model_1_female.jpg",
-                "model_2_female.jpg",
-                "model_3_male.jpg",
-                "model_4_female.jpg",
-                "model_5_male.jpg",
-                "acut_g01_f_company_20s.jpg",
-                "acut_g02_f_linkedin_30s.jpg",
-                "acut_g03_f_profile_30s.jpg",
-                "acut_g04_f_sns_30s.jpg",
-                "acut_g05_m_linkedin_20s.jpg",
-                "acut_g06_m_profile_20s.jpg",
-                "acut_g07_m_sns_20s.jpg",
-                "acut_g08_f_linkedin_20s.jpg",
-                "acut_g09_f_profile_20s.jpg",
-                "acut_g10_f_sns_20s.jpg",
-                "acut_g11_m_linkedin_20s.jpg",
-                "acut_g12_m_profile_20s.jpg",
-                "acut_g13_m_sns_30s.jpg",
-                "acut_g14_f_profile_20s.jpg",
-                "acut_g15_f_sns_30s.jpg",
-                "acut_g16_m_profile_30s.jpg",
-                "acut_g17_m_sns_20s.jpg",
-                "acut_g18_f_profile_20s.jpg",
-                "acut_g19_f_sns_20s.jpg",
-                "acut_g20_m_profile_20s.jpg",
-                "acut_g21_m_sns_30s.jpg",
-                "acut_g22_f_profile_30s.jpg",
-                "acut_g23_f_sns_20s.jpg",
-                "acut_g24_m_sns_20s.jpg"
+            // App Gallery cards (female/male) + Discover child A-cuts — see wall/manifest.json
+            var fallbackPromoImages = [
+                "g30_f_profile_20s.jpg",
+                "g21_f_linkedin_20s.jpg",
+                "g25_f_dating_20s.jpg",
+                "g33_f_profile_viral.jpg",
+                "g05_m_profile_20s.jpg",
+                "g01_m_linkedin_20s.jpg",
+                "g02_m_dating_20s.jpg",
+                "g34_m_profile_viral.jpg",
+                "child_cf02.jpg",
+                "child_cf04.jpg",
+                "child_cm00.jpg",
+                "child_cm03.jpg"
             ];
 
-            var imagePool = localPromoProfileImages.slice();
+            var imagePool = fallbackPromoImages.slice();
+            var poolsByCategory = {
+                female: [],
+                male: [],
+                child: []
+            };
+
+            function categorizeName(name) {
+                if (/^child_/.test(name)) return "child";
+                if (/_f_|viral_f/.test(name)) return "female";
+                if (/_m_|viral_m/.test(name)) return "male";
+                return "female";
+            }
+
+            function rebuildCategoryPools(list) {
+                poolsByCategory = { female: [], male: [], child: [] };
+                for (var i = 0; i < list.length; i += 1) {
+                    var cat = categorizeName(list[i]);
+                    poolsByCategory[cat].push(list[i]);
+                }
+            }
+
+            rebuildCategoryPools(imagePool);
 
             function setVisibility(showLogo) {
                 logoLayer.classList.toggle("promo-showcase__layer--visible", showLogo);
@@ -1701,13 +1706,29 @@
 
             function pickImages(pool, count) {
                 if (!pool.length || count <= 0) return [];
+                // Prefer a mixed female / male / child grid when possible
+                var cats = ["female", "male", "child"];
                 var selections = [];
+                var used = {};
+                for (var c = 0; c < cats.length && selections.length < count; c += 1) {
+                    var bucket = shuffle(poolsByCategory[cats[c]] || []);
+                    for (var b = 0; b < bucket.length; b += 1) {
+                        if (!used[bucket[b]]) {
+                            used[bucket[b]] = true;
+                            selections.push(bucket[b]);
+                            break;
+                        }
+                    }
+                }
                 var remaining = shuffle(pool);
                 while (selections.length < count) {
                     if (!remaining.length) remaining = shuffle(pool);
-                    selections.push(remaining.pop());
+                    var next = remaining.pop();
+                    if (used[next] && selections.length + remaining.length >= count) continue;
+                    used[next] = true;
+                    selections.push(next);
                 }
-                return selections;
+                return shuffle(selections);
             }
 
             function renderGrid(images) {
@@ -1762,9 +1783,22 @@
                 }
             }
 
-            stage = "logoIn";
-            setVisibility(true);
-            schedule(fadeMs);
+            function startPromo() {
+                stage = "logoIn";
+                setVisibility(true);
+                schedule(fadeMs);
+            }
+
+            fetch(imageBase + "manifest.json", { cache: "no-store" })
+                .then(function (res) { return res.ok ? res.json() : null; })
+                .then(function (data) {
+                    if (data && Array.isArray(data.images) && data.images.length) {
+                        imagePool = data.images.slice();
+                        rebuildCategoryPools(imagePool);
+                    }
+                })
+                .catch(function () { /* keep fallback */ })
+                .finally(startPromo);
         })();
     </script>
 </body>

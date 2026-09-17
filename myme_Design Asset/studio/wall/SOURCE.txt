@@ -1,0 +1,10 @@
+# Promo wall image sources
+
+App Gallery (bundled Discover cards):
+  node2:~/works/z-profile/flutter_app/assets/photographer/gallery/g*.jpg
+  + local viral g33_f_profile_viral.jpg / g34_m_profile_viral.jpg
+
+Children (Discover init_gen child track A-cuts):
+  outputs/app_sim2_kpop_frontal/session_seed_c*/complete/gallery/a00.png
+
+Replaces older model_* + acut_g* copies that did not match current app gallery paths.
