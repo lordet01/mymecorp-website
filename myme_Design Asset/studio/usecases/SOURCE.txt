@@ -1,6 +1,5 @@
-profile.jpg  <- z-profile outputs/viral_results/female/a00.png (화이트 패턴 가디건 프로필 A-cut)
-linkedin.jpg <- flutter_app/assets/photographer/gallery/g11_m_linkedin_20s.jpg (네이비 블레이저 정장 · 갤러리 LinkedIn)
-fashion.jpg  <- z-profile outputs/viral_results/female/a01.png (네이비 집업 후디 + 스트라이프 셔츠 패션 화보 A-cut)
-sns.jpg      <- z-profile outputs/viral_results/male/a00.png (블랙 토글 보머 프로필 A-cut)
-hero_before.jpg <- z-profile assets/viral/viral_female_selfie.png (일상 셀카)
-hero_after.jpg  <- z-profile outputs/viral_results/female/a00.png (압도적 프로필 A-cut)
+profile.jpg  <- z-profile outputs/viral_results/female/a00.png
+linkedin.jpg <- z-profile assets/viral/viral_results/male/a03_id_formal.png (하늘색 그라디언트 면접 정장)
+fashion.jpg  <- z-profile outputs/viral_results/female/a01.png
+id.jpg       <- z-profile assets/viral/viral_results/female/a03_id_formal.png (하늘색 그라디언트 면접 증명사진)
+sns.jpg      <- z-profile outputs/viral_results/male/a00.png

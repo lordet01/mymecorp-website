@@ -1,6 +1,8 @@
 {
   "source": "App Gallery flutter_app/assets/photographer/gallery + Discover child init_gen A-cuts",
   "images": [
+    "viral_f04_id_formal.jpg",
+    "viral_m04_id_formal.jpg",
     "viral_f01_profile.jpg",
     "viral_m01_profile.jpg",
     "viral_f02_fashion.jpg",
@@ -54,7 +56,7 @@
     "g33_f_profile_viral.jpg",
     "g34_m_profile_viral.jpg"
   ],
-  "count": 52,
+  "count": 54,
   "categories": {
     "female": [
       "child_cf00.jpg",
