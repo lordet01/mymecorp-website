@@ -1,17 +1,50 @@
 (function (global) {
     "use strict";
 
-    var SUPPORTED = { en: true, ko: true, ja: true, et: true };
+    var SUPPORTED = {
+        en: true, ko: true, ja: true, et: true,
+        "zh-cn": true, "zh-tw": true, de: true, fr: true
+    };
+
+    var HTML_LANG = {
+        en: "en", ko: "ko", ja: "ja", et: "et",
+        "zh-cn": "zh-CN", "zh-tw": "zh-TW", de: "de", fr: "fr"
+    };
 
     function normalize(lang) {
-        lang = String(lang || "en").toLowerCase();
-        return SUPPORTED[lang] ? lang : "en";
+        lang = String(lang || "en").toLowerCase().replace(/_/g, "-");
+        if (SUPPORTED[lang]) return lang;
+        if (lang.indexOf("ko") === 0) return "ko";
+        if (lang.indexOf("ja") === 0) return "ja";
+        if (lang.indexOf("et") === 0) return "et";
+        if (lang.indexOf("de") === 0) return "de";
+        if (lang.indexOf("fr") === 0) return "fr";
+        if (
+            lang === "zh-hant" || lang.indexOf("zh-hant") === 0 ||
+            lang === "zh-tw" || lang.indexOf("zh-tw") === 0 ||
+            lang === "zh-hk" || lang.indexOf("zh-hk") === 0 ||
+            lang === "zh-mo" || lang.indexOf("zh-mo") === 0
+        ) return "zh-tw";
+        if (lang.indexOf("zh") === 0) return "zh-cn";
+        return "en";
     }
 
     function getStoredLanguage() {
         try {
-            var stored = (localStorage.getItem("myme_lang") || "").toLowerCase();
+            var stored = (localStorage.getItem("myme_lang") || "").toLowerCase().replace(/_/g, "-");
+            if (!stored) return null;
             if (SUPPORTED[stored]) return stored;
+            if (
+                stored.indexOf("zh") === 0 ||
+                stored.indexOf("de") === 0 ||
+                stored.indexOf("fr") === 0 ||
+                stored.indexOf("ko") === 0 ||
+                stored.indexOf("ja") === 0 ||
+                stored.indexOf("et") === 0 ||
+                stored.indexOf("en") === 0
+            ) {
+                return normalize(stored);
+            }
         } catch (e) {}
         return null;
     }
@@ -25,18 +58,18 @@
     function getForcedLanguage() {
         try {
             var params = new URLSearchParams(window.location.search);
-            var lang = (params.get("lang") || "").toLowerCase();
-            if (SUPPORTED[lang]) return lang;
+            var lang = (params.get("lang") || "").toLowerCase().replace(/_/g, "-");
+            if (lang) {
+                var normalized = normalize(lang);
+                if (SUPPORTED[normalized]) return normalized;
+            }
         } catch (e) {}
         return null;
     }
 
     function getBrowserLanguage() {
         var browserLang = (navigator.language || "").toLowerCase();
-        if (browserLang.indexOf("ko") === 0) return "ko";
-        if (browserLang.indexOf("ja") === 0) return "ja";
-        if (browserLang.indexOf("et") === 0) return "et";
-        return "en";
+        return normalize(browserLang);
     }
 
     function fetchCountryCodeWithTimeout() {
@@ -58,7 +91,7 @@
         var dict = copy[normalized] || copy.en || {};
         var i;
 
-        document.documentElement.setAttribute("lang", normalized);
+        document.documentElement.setAttribute("lang", HTML_LANG[normalized] || normalized);
 
         var selector = document.getElementById("lang-select");
         if (selector) selector.value = normalized;
@@ -125,6 +158,10 @@
                 if (countryCode === "KR") return applyLanguage(copy, "ko");
                 if (countryCode === "JP") return applyLanguage(copy, "ja");
                 if (countryCode === "EE") return applyLanguage(copy, "et");
+                if (countryCode === "CN" || countryCode === "SG") return applyLanguage(copy, "zh-cn");
+                if (countryCode === "TW" || countryCode === "HK" || countryCode === "MO") return applyLanguage(copy, "zh-tw");
+                if (countryCode === "DE" || countryCode === "AT") return applyLanguage(copy, "de");
+                if (countryCode === "FR" || countryCode === "BE" || countryCode === "LU") return applyLanguage(copy, "fr");
                 if (countryCode) return applyLanguage(copy, "en");
                 applyLanguage(copy, getBrowserLanguage());
             })

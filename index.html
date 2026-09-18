@@ -34,8 +34,8 @@
             --border-chrome: rgba(243, 199, 190, 0.18);
             --studio-rose: #F3C7BE;
             --studio-rose-soft: #F7D5CE;
-            --font-sans: 'Outfit', 'Pretendard Variable', Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Hiragino Sans', 'Noto Sans JP', 'Segoe UI', sans-serif;
-            --font-display: 'Outfit', 'Pretendard Variable', Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Hiragino Sans', 'Noto Sans JP', 'Segoe UI', sans-serif;
+            --font-sans: 'Outfit', 'Pretendard Variable', Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', 'PingFang SC', 'PingFang TC', 'Noto Sans SC', 'Noto Sans TC', 'Hiragino Sans', 'Noto Sans JP', 'Segoe UI', sans-serif;
+            --font-display: 'Outfit', 'Pretendard Variable', Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', 'PingFang SC', 'PingFang TC', 'Noto Sans SC', 'Noto Sans TC', 'Hiragino Sans', 'Noto Sans JP', 'Segoe UI', sans-serif;
         }
 
         body {
@@ -269,18 +269,20 @@
             border-color: rgba(243, 199, 190, 0.38);
         }
 
-        .feature-icon {
-            width: 64px;
-            height: 64px;
+        .feature-shot {
+            width: 100%;
+            aspect-ratio: 4 / 5;
             object-fit: cover;
+            object-position: top center;
             margin-bottom: 20px;
             display: block;
-            border-radius: 20px;
+            border-radius: 18px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45), 0 8px 24px -4px rgba(0, 0, 0, 0.4);
             border: 1px solid rgba(243, 199, 190, 0.22);
+            background: #0A0A0C;
         }
 
-        .feature-card:hover .feature-icon {
+        .feature-card:hover .feature-shot {
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5), 0 12px 28px -4px rgba(243, 199, 190, 0.2);
         }
 
@@ -706,7 +708,7 @@
             .usecase-title { font-size: 0.98rem; margin-bottom: 6px; }
             .usecase-desc { font-size: 0.85rem; }
             .feature-card { padding: 26px 20px; border-radius: 18px; }
-            .feature-icon { width: 52px; height: 52px; margin-bottom: 12px; border-radius: 16px; }
+            .feature-shot { margin-bottom: 14px; border-radius: 14px; }
             .feature-title { font-size: 1.05rem; margin-bottom: 10px; }
             .feature-desc { font-size: 0.95rem; }
             .screenshot-card { width: min(180px, 58vw); }
@@ -841,8 +843,13 @@
             .hero-ba__card { border-radius: 16px; }
         }
 
-        /* 일본어는 띄어쓰기가 없으므로 강제 줄바꿈 허용 */
-        :lang(ja) {
+        /* 일본어·중국어는 띄어쓰기가 없으므로 강제 줄바꿈 허용 */
+        :lang(ja),
+        :lang(zh),
+        :lang(zh-CN),
+        :lang(zh-TW),
+        :lang(zh-Hans),
+        :lang(zh-Hant) {
             word-break: break-all !important;
         }
 
@@ -861,6 +868,10 @@
             <option value="en">EN</option>
             <option value="ko">KR</option>
             <option value="ja">JP</option>
+            <option value="zh-cn">CN</option>
+            <option value="zh-tw">TW</option>
+            <option value="de">DE</option>
+            <option value="fr">FR</option>
             <option value="et">EE</option>
         </select>
     </div>
@@ -956,17 +967,17 @@
                 <p class="section-sub" data-i18n-key="feat.sub">Shoot with JUN, explore community styles, and keep finished A-cuts in one portfolio.</p>
                 <div class="features-grid">
                     <div class="feature-card">
-                        <img class="feature-icon" src="./myme_Design Asset/myme_pic/concierge_chat.png" alt="Studio" data-i18n-alt-key="feat.studio.alt" loading="lazy">
+                        <img class="feature-shot" src="./myme_Design Asset/studio/features/studio.jpg" alt="Studio" data-i18n-alt-key="feat.studio.alt" loading="lazy" width="720" height="900">
                         <div class="feature-title" data-i18n-key="feat.studio.title">Studio</div>
                         <p class="feature-desc" data-i18n-key="feat.studio.desc">Chat with JUN, your AI photo concierge, about purpose and mood—then finish polished A-cuts that stay true to you.</p>
                     </div>
                     <div class="feature-card">
-                        <img class="feature-icon" src="./myme_Design Asset/myme_pic/studio_photo-2.png" alt="Gallery" data-i18n-alt-key="feat.gallery.alt" loading="lazy">
+                        <img class="feature-shot" src="./myme_Design Asset/studio/features/gallery.jpg" alt="Gallery" data-i18n-alt-key="feat.gallery.alt" loading="lazy" width="720" height="900">
                         <div class="feature-title" data-i18n-key="feat.gallery.title">Gallery</div>
                         <p class="feature-desc" data-i18n-key="feat.gallery.desc">Browse public styles from the community, save looks you love, or tap “Make with this style” to apply them to your face.</p>
                     </div>
                     <div class="feature-card">
-                        <img class="feature-icon" src="./myme_Design Asset/myme_pic/download.png" alt="My Album" data-i18n-alt-key="feat.album.alt" loading="lazy">
+                        <img class="feature-shot" src="./myme_Design Asset/studio/features/album.jpg" alt="My Album" data-i18n-alt-key="feat.album.alt" loading="lazy" width="720" height="900">
                         <div class="feature-title" data-i18n-key="feat.album.title">My Album</div>
                         <p class="feature-desc" data-i18n-key="feat.album.desc">Keep finished A-cuts and saved styles in one portfolio—ready to revisit, polish, or share.</p>
                     </div>
@@ -1154,13 +1165,13 @@
                     "feat.sub": "Shoot with JUN, explore community styles, and keep finished A-cuts in one portfolio.",
                     "feat.studio.title": "Studio",
                     "feat.studio.desc": "Chat with JUN, your AI photo concierge, about purpose and mood—then finish polished A-cuts that stay true to you.",
-                    "feat.studio.alt": "Studio consult with JUN",
+                    "feat.studio.alt": "Studio home — start shooting with JUN",
                     "feat.gallery.title": "Gallery",
                     "feat.gallery.desc": "Browse public styles from the community, save looks you love, or tap “Make with this style” to apply them to your face.",
-                    "feat.gallery.alt": "Gallery styles",
+                    "feat.gallery.alt": "Gallery discover — browse public styles",
                     "feat.album.title": "My Album",
                     "feat.album.desc": "Keep finished A-cuts and saved styles in one portfolio—ready to revisit, polish, or share.",
-                    "feat.album.alt": "My Album portfolio",
+                    "feat.album.alt": "My Album — A-cut portfolio",
                     "how.heading": "How the studio works",
                     "how.sub": "From one selfie to a finished A-cut, in four guided steps.",
                     "how.step1.title": "Start with a selfie",
@@ -1243,13 +1254,13 @@
                     "feat.sub": "JUN과 촬영하고, 커뮤니티 스타일을 둘러보고, 완성 A-cut은 내 앨범에 모으세요.",
                     "feat.studio.title": "스튜디오",
                     "feat.studio.desc": "AI 포토 컨시어지 JUN과 용도·분위기를 짧게 나눈 뒤, 당신다운 A-cut까지 완성합니다.",
-                    "feat.studio.alt": "JUN과의 스튜디오 상담",
+                    "feat.studio.alt": "스튜디오 홈 — JUN과 촬영 시작",
                     "feat.gallery.title": "갤러리",
                     "feat.gallery.desc": "다른 사람의 공개 스타일을 둘러보고, 마음에 드는 룩을 저장하거나 「이 스타일로 만들기」로 내 얼굴에 적용하세요.",
-                    "feat.gallery.alt": "갤러리 스타일",
+                    "feat.gallery.alt": "갤러리 발견 — 공개 스타일 둘러보기",
                     "feat.album.title": "내 앨범",
                     "feat.album.desc": "완성 A-cut과 저장한 스타일을 포트폴리오처럼 모아 다시 보고, 다듬고, 공유할 수 있습니다.",
-                    "feat.album.alt": "내 앨범",
+                    "feat.album.alt": "내 앨범 — A-cut 포트폴리오",
                     "how.heading": "스튜디오 이용 방법",
                     "how.sub": "셀카 한 장에서 완성된 A-cut까지, 네 단계로 안내합니다.",
                     "how.step1.title": "셀카로 시작",
@@ -1332,13 +1343,13 @@
                     "feat.sub": "JUNと撮影し、コミュニティのスタイルを探り、完成したAカットはMy Albumへ。",
                     "feat.studio.title": "スタジオ",
                     "feat.studio.desc": "AIフォトコンシェルジュJUNと用途・雰囲気を短く話し、あなたらしいAカットまで仕上げます。",
-                    "feat.studio.alt": "JUNとのスタジオ相談",
+                    "feat.studio.alt": "スタジオホーム — JUNと撮影開始",
                     "feat.gallery.title": "ギャラリー",
                     "feat.gallery.desc": "公開スタイルを眺め、お気に入りを保存。または「このスタイルで作る」で自分の顔に適用できます。",
-                    "feat.gallery.alt": "ギャラリースタイル",
+                    "feat.gallery.alt": "ギャラリー発見 — 公開スタイルを見る",
                     "feat.album.title": "マイアルバム",
                     "feat.album.desc": "完成したAカットと保存スタイルをポートフォリオとしてまとめ、見直し・仕上げ・共有ができます。",
-                    "feat.album.alt": "マイアルバム",
+                    "feat.album.alt": "マイアルバム — Aカットポートフォリオ",
                     "how.heading": "スタジオの使い方",
                     "how.sub": "セルフィー1枚から完成したAカットまで、4つのステップでご案内。",
                     "how.step1.title": "セルフィーで開始",
@@ -1421,13 +1432,13 @@
                     "feat.sub": "Pildista JUNiga, avasta kogukonna stiile ja hoia valmis A-kaadrid ühes portfoolios.",
                     "feat.studio.title": "Stuudio",
                     "feat.studio.desc": "Räägi JUNiga—sinu AI fotokonsieržiga—otstarbest ja meeleolust ning lõpeta A-kaadrid, mis jäävad sinu moodi.",
-                    "feat.studio.alt": "Stuudio konsultatsioon JUNiga",
+                    "feat.studio.alt": "Stuudio avaekraan — pildistamine JUNiga",
                     "feat.gallery.title": "Galerii",
                     "feat.gallery.desc": "Sirvi avalikke stiile, salvesta lemmikud või rakenda neid oma näole nupuga „Make with this style“.",
-                    "feat.gallery.alt": "Galerii stiilid",
+                    "feat.gallery.alt": "Galerii avastus — avalikud stiilid",
                     "feat.album.title": "Minu album",
                     "feat.album.desc": "Hoia valmis A-kaadrid ja salvestatud stiilid ühes portfoolios—ülevaatamiseks, viimistlemiseks või jagamiseks.",
-                    "feat.album.alt": "Minu album",
+                    "feat.album.alt": "Minu album — A-kaadrite portfoolio",
                     "how.heading": "Kuidas stuudio töötab",
                     "how.sub": "Ühest selfiest valmis A-kaadrini nelja juhitud sammuga.",
                     "how.step1.title": "Alusta selfiega",
@@ -1482,17 +1493,402 @@
                     "footer.privacy": "Privaatsuspoliitika",
                     "footer.terms": "Kasutustingimused",
                     "footer.deletion": "Konto kustutamine"
-                }
+                },
+                "zh-cn": {
+                    "meta.title": "myme studio — 遇见从未被拍过的你",
+                    "meta.desc": "myme studio：一张自拍，与 AI 摄影礼宾 JUN 短暂对话，完成仍像你本人的个人资料 A裁。无需订阅即可开始。",
+                    "lang.select.label": "语言",
+                    "hero.badge": "JUN · 你的 AI 摄影礼宾",
+                    "hero.title": "遇见从未被<br><span class=\"highlight\">拍过的你</span>",
+                    "hero.logo.alt": "myme studio 标志",
+                    "hero.desc": "只需一张自拍和短暂对话，就能完成仍像你本人的个人资料 A裁。",
+                    "hero.ba.before": "自拍",
+                    "hero.ba.after": "A裁",
+                    "hero.ba.before.alt": "使用 myme studio 前的日常自拍",
+                    "hero.ba.after.alt": "使用 myme studio 后的个人资料 A裁",
+                    "use.heading": "一张自拍。个人资料、职场、时尚 A裁。",
+                    "use.sub": "告诉 JUN 用途——外观会按场景精心策划。",
+                    "use.profile.title": "个人资料",
+                    "use.profile.desc": "适合应用与社区的温暖自然头像。",
+                    "use.profile.alt": "个人资料 A裁示例",
+                    "use.career.title": "职场",
+                    "use.career.desc": "可直接用于 LinkedIn、一眼建立信任的肖像。",
+                    "use.career.alt": "职场肖像示例",
+                    "use.fashion.title": "时尚",
+                    "use.fashion.desc": "适合动态与个人品牌的精致时尚 A裁。",
+                    "use.fashion.alt": "时尚 A裁示例",
+                    "feat.heading": "一个工作室，三个空间",
+                    "feat.sub": "与 JUN 拍摄，浏览社区风格，把完成的 A裁收进同一作品集。",
+                    "feat.studio.title": "工作室",
+                    "feat.studio.desc": "与 AI 摄影礼宾 JUN 聊聊用途与氛围，再完成仍像你本人的精致 A裁。",
+                    "feat.studio.alt": "工作室首页 — 与 JUN 开始拍摄",
+                    "feat.gallery.title": "画廊",
+                    "feat.gallery.desc": "浏览社区公开风格，收藏喜欢的造型，或点「用这个风格制作」套用到自己脸上。",
+                    "feat.gallery.alt": "画廊发现 — 浏览公开风格",
+                    "feat.album.title": "我的相册",
+                    "feat.album.desc": "把完成的 A裁与收藏风格集中成作品集——随时回顾、精修或分享。",
+                    "feat.album.alt": "我的相册 — A裁作品集",
+                    "how.heading": "工作室如何运作",
+                    "how.sub": "从一张自拍到完成的 A裁，四步引导。",
+                    "how.step1.title": "从自拍开始",
+                    "how.step1.desc": "拍摄或上传一张清晰正脸照片——工作室只需要这一张。",
+                    "how.step2.title": "简短沟通",
+                    "how.step2.desc": "说出用途与想要的印象——AI 摄影礼宾 JUN 会倾听并引导其余步骤。",
+                    "how.step3.title": "选择方向",
+                    "how.step3.desc": "查看策划好的拍摄概念，挑选喜欢的方向，一起深化。",
+                    "how.step4.title": "保存你的 A裁",
+                    "how.step4.desc": "精修收尾或原样保存——然后下载即可使用的精致 A裁。",
+                    "shots.heading": "应用内一览",
+                    "shots.sub": "从工作室首页到画廊发现——看清 myme studio 全流程。",
+                    "shots.home.cap": "首页",
+                    "shots.home.alt": "工作室首页",
+                    "shots.purpose.cap": "用途",
+                    "shots.purpose.alt": "用途咨询",
+                    "shots.concepts.cap": "概念",
+                    "shots.concepts.alt": "概念方向",
+                    "shots.finals.cap": "成片",
+                    "shots.finals.alt": "A裁成片",
+                    "shots.beauty.cap": "美颜",
+                    "shots.beauty.alt": "美颜精修",
+                    "shots.album.cap": "我的相册",
+                    "shots.album.alt": "我的相册",
+                    "shots.discover.cap": "发现",
+                    "shots.discover.alt": "画廊发现",
+                    "note.heading": "人们信任 myme studio 的原因",
+                    "note.sub": "完成第一张 A裁后，这些细节最重要。",
+                    "note.face.label": "相似度",
+                    "note.face.title": "脸还是你的脸",
+                    "note.face.desc": "A裁保留你的身份——精致呈现，而不会变成别人。",
+                    "note.chat.label": "策划",
+                    "note.chat.title": "与 JUN 短暂对话",
+                    "note.chat.desc": "AI 摄影礼宾 JUN 倾听用途与氛围，再为你指导造型。",
+                    "note.token.label": "定价",
+                    "note.token.title": "代币，而非订阅",
+                    "note.token.desc": "生成使用消耗型代币。按需购买——无定期扣费。",
+                    "note.id.footnote": "证件/护照风造型仅为风格导向——不保证符合正式公文规格。",
+                    "cta.title": "遇见从未被拍过的你",
+                    "cta.desc": "一张自拍。与 JUN 短暂对话。仍像你本人的个人资料 A裁。",
+                    "store.download": "免费制作我的 A裁",
+                    "store.sub": "无需订阅即可开始 · 一张自拍就够",
+                    "store.app.name": "App Store",
+                    "store.google.name": "Google Play",
+                    "lang.select.aria": "语言选择",
+                    "store.app.aria": "前往 App Store",
+                    "store.google.aria": "前往 Google Play",
+                    "footer.contact": "需要帮助或有建议？<br>邮箱：<a href=\"mailto:myme@mymecorp.xyz\">myme@mymecorp.xyz</a>",
+                    "footer.meta": "© 2026 myme studio. 保留所有权利。",
+                    "footer.business": "商号：myme Corp. OÜ | 注册国家：爱沙尼亚 | 法律形式：有限公司 | 注册号：17506092<br>地址：Sepapaja tn 6, 15551 Tallinn, Harju Maakond, Estonia",
+                    "footer.logo.alt": "myme studio 标志",
+                    "footer.privacy": "隐私政策",
+                    "footer.terms": "服务条款",
+                    "footer.deletion": "删除账户"
+                },
+                "zh-tw": {
+                    "meta.title": "myme studio — 遇見從未被拍過的你",
+                    "meta.desc": "myme studio：一張自拍，與 AI 攝影禮賓 JUN 短暫對話，完成仍像你本人的個人檔案 A裁。無需訂閱即可開始。",
+                    "lang.select.label": "語言",
+                    "hero.badge": "JUN · 你的 AI 攝影禮賓",
+                    "hero.title": "遇見從未被<br><span class=\"highlight\">拍過的你</span>",
+                    "hero.logo.alt": "myme studio 標誌",
+                    "hero.desc": "只需一張自拍和短暫對話，就能完成仍像你本人的個人檔案 A裁。",
+                    "hero.ba.before": "自拍",
+                    "hero.ba.after": "A裁",
+                    "hero.ba.before.alt": "使用 myme studio 前的日常自拍",
+                    "hero.ba.after.alt": "使用 myme studio 後的個人檔案 A裁",
+                    "use.heading": "一張自拍。個人檔案、職涯、時尚 A裁。",
+                    "use.sub": "告訴 JUN 用途——外觀會依場景精心策畫。",
+                    "use.profile.title": "個人檔案",
+                    "use.profile.desc": "適合 App 與社群的溫暖自然大頭照。",
+                    "use.profile.alt": "個人檔案 A裁範例",
+                    "use.career.title": "職涯",
+                    "use.career.desc": "可直接用於 LinkedIn、一眼建立信任的肖像。",
+                    "use.career.alt": "職涯肖像範例",
+                    "use.fashion.title": "時尚",
+                    "use.fashion.desc": "適合動態與個人品牌的精緻時尚 A裁。",
+                    "use.fashion.alt": "時尚 A裁範例",
+                    "feat.heading": "一個工作室，三個空間",
+                    "feat.sub": "與 JUN 拍攝，瀏覽社群風格，把完成的 A裁收進同一作品集。",
+                    "feat.studio.title": "工作室",
+                    "feat.studio.desc": "與 AI 攝影禮賓 JUN 聊聊用途與氛圍，再完成仍像你本人的精緻 A裁。",
+                    "feat.studio.alt": "工作室首頁 — 與 JUN 開始拍攝",
+                    "feat.gallery.title": "藝廊",
+                    "feat.gallery.desc": "瀏覽社群公開風格，收藏喜歡的造型，或點「用這個風格製作」套用到自己臉上。",
+                    "feat.gallery.alt": "藝廊探索 — 瀏覽公開風格",
+                    "feat.album.title": "我的相簿",
+                    "feat.album.desc": "把完成的 A裁與收藏風格集中成作品集——隨時回顧、精修或分享。",
+                    "feat.album.alt": "我的相簿 — A裁作品集",
+                    "how.heading": "工作室如何運作",
+                    "how.sub": "從一張自拍到完成的 A裁，四步引導。",
+                    "how.step1.title": "從自拍開始",
+                    "how.step1.desc": "拍攝或上傳一張清晰正臉照片——工作室只需要這一張。",
+                    "how.step2.title": "簡短溝通",
+                    "how.step2.desc": "說出用途與想要的印象——AI 攝影禮賓 JUN 會傾聽並引導其餘步驟。",
+                    "how.step3.title": "選擇方向",
+                    "how.step3.desc": "查看策畫好的拍攝概念，挑選喜歡的方向，一起深化。",
+                    "how.step4.title": "儲存你的 A裁",
+                    "how.step4.desc": "精修收尾或原樣儲存——然後下載即可使用的精緻 A裁。",
+                    "shots.heading": "應用內一覽",
+                    "shots.sub": "從工作室首頁到藝廊探索——看清 myme studio 全流程。",
+                    "shots.home.cap": "首頁",
+                    "shots.home.alt": "工作室首頁",
+                    "shots.purpose.cap": "用途",
+                    "shots.purpose.alt": "用途諮詢",
+                    "shots.concepts.cap": "概念",
+                    "shots.concepts.alt": "概念方向",
+                    "shots.finals.cap": "成片",
+                    "shots.finals.alt": "A裁成片",
+                    "shots.beauty.cap": "美顏",
+                    "shots.beauty.alt": "美顏精修",
+                    "shots.album.cap": "我的相簿",
+                    "shots.album.alt": "我的相簿",
+                    "shots.discover.cap": "探索",
+                    "shots.discover.alt": "藝廊探索",
+                    "note.heading": "人們信任 myme studio 的原因",
+                    "note.sub": "完成第一張 A裁後，這些細節最重要。",
+                    "note.face.label": "相似度",
+                    "note.face.title": "臉還是你的臉",
+                    "note.face.desc": "A裁保留你的身分——精緻呈現，而不會變成別人。",
+                    "note.chat.label": "策畫",
+                    "note.chat.title": "與 JUN 短暫對話",
+                    "note.chat.desc": "AI 攝影禮賓 JUN 傾聽用途與氛圍，再為你指導造型。",
+                    "note.token.label": "定價",
+                    "note.token.title": "代幣，而非訂閱",
+                    "note.token.desc": "生成使用消耗型代幣。按需購買——無定期扣款。",
+                    "note.id.footnote": "證件／護照風造型僅為風格導向——不保證符合正式公文規格。",
+                    "cta.title": "遇見從未被拍過的你",
+                    "cta.desc": "一張自拍。與 JUN 短暫對話。仍像你本人的個人檔案 A裁。",
+                    "store.download": "免費製作我的 A裁",
+                    "store.sub": "無需訂閱即可開始 · 一張自拍就夠",
+                    "store.app.name": "App Store",
+                    "store.google.name": "Google Play",
+                    "lang.select.aria": "語言選擇",
+                    "store.app.aria": "前往 App Store",
+                    "store.google.aria": "前往 Google Play",
+                    "footer.contact": "需要幫助或有建議？<br>信箱：<a href=\"mailto:myme@mymecorp.xyz\">myme@mymecorp.xyz</a>",
+                    "footer.meta": "© 2026 myme studio. 保留所有權利。",
+                    "footer.business": "商號：myme Corp. OÜ | 註冊國家：愛沙尼亞 | 法律形式：有限公司 | 註冊號：17506092<br>地址：Sepapaja tn 6, 15551 Tallinn, Harju Maakond, Estonia",
+                    "footer.logo.alt": "myme studio 標誌",
+                    "footer.privacy": "隱私權政策",
+                    "footer.terms": "服務條款",
+                    "footer.deletion": "刪除帳號"
+                },
+                de: {
+                    "meta.title": "myme studio — Triff dich, wie du noch nie fotografiert wurdest",
+                    "meta.desc": "myme studio: ein Selfie, ein kurzes Gespräch mit JUN—deinem KI-Foto-Concierge—und ein Profil-A-cut, der immer noch wie du aussieht. Ohne Abo starten.",
+                    "lang.select.label": "Sprache",
+                    "hero.badge": "JUN · dein KI-Foto-Concierge",
+                    "hero.title": "Triff dich,<br><span class=\"highlight\">wie du noch nie fotografiert wurdest</span>",
+                    "hero.logo.alt": "myme studio Logo",
+                    "hero.desc": "Mit einem Selfie und einem kurzen Chat entsteht ein Profil-A-cut, der immer noch wie du aussieht.",
+                    "hero.ba.before": "Selfie",
+                    "hero.ba.after": "A-cut",
+                    "hero.ba.before.alt": "Alltägliches Selfie vor myme studio",
+                    "hero.ba.after.alt": "Fertiger Profil-A-cut nach myme studio",
+                    "use.heading": "Ein Selfie. Profil-, Karriere- und Fashion-A-cuts.",
+                    "use.sub": "Sag JUN, wofür es ist—dein Look wird passend kuratiert.",
+                    "use.profile.title": "Profil",
+                    "use.profile.desc": "Warme, natürliche Profilfotos für Apps und Communities.",
+                    "use.profile.alt": "Profil-A-cut Beispiel",
+                    "use.career.title": "Karriere",
+                    "use.career.desc": "LinkedIn-taugliche Porträts, die auf einen Blick Vertrauen schaffen.",
+                    "use.career.alt": "Karriere-Porträt Beispiel",
+                    "use.fashion.title": "Fashion",
+                    "use.fashion.desc": "Polierte Fashion- und Personal-Brand-A-cuts für deinen Feed.",
+                    "use.fashion.alt": "Fashion-A-cut Beispiel",
+                    "feat.heading": "Drei Räume in einem Studio",
+                    "feat.sub": "Mit JUN shooten, Community-Styles entdecken und fertige A-cuts in einem Portfolio halten.",
+                    "feat.studio.title": "Studio",
+                    "feat.studio.desc": "Chatte mit JUN, deinem KI-Foto-Concierge, über Zweck und Stimmung—dann fertige A-cuts, die zu dir passen.",
+                    "feat.studio.alt": "Studio-Start — mit JUN shooten",
+                    "feat.gallery.title": "Galerie",
+                    "feat.gallery.desc": "Öffentliche Styles der Community browsen, Looks speichern oder „Mit diesem Style machen“ auf dein Gesicht anwenden.",
+                    "feat.gallery.alt": "Galerie entdecken — öffentliche Styles",
+                    "feat.album.title": "Mein Album",
+                    "feat.album.desc": "Fertige A-cuts und gespeicherte Styles in einem Portfolio—zum Ansehen, Feinschliff oder Teilen.",
+                    "feat.album.alt": "Mein Album — A-cut Portfolio",
+                    "how.heading": "So funktioniert das Studio",
+                    "how.sub": "Vom Selfie zum fertigen A-cut in vier geführten Schritten.",
+                    "how.step1.title": "Mit einem Selfie starten",
+                    "how.step1.desc": "Ein klares Frontalfoto aufnehmen oder hochladen—mehr braucht das Studio nicht.",
+                    "how.step2.title": "Kurz das Briefing klären",
+                    "how.step2.desc": "Teile Zweck und gewünschten Eindruck—JUN, dein KI-Foto-Concierge, hört zu und führt weiter.",
+                    "how.step3.title": "Eine Richtung wählen",
+                    "how.step3.desc": "Kuratierte Shoot-Konzepte prüfen, Favoriten wählen und gemeinsam ausarbeiten.",
+                    "how.step4.title": "A-cuts speichern",
+                    "how.step4.desc": "Finish verfeinern oder so speichern—dann polierte A-cuts herunterladen, sofort nutzbar.",
+                    "shots.heading": "In der App",
+                    "shots.sub": "Vom Studio-Home bis Gallery Discover—der volle myme studio Flow.",
+                    "shots.home.cap": "Home",
+                    "shots.home.alt": "Studio-Home",
+                    "shots.purpose.cap": "Zweck",
+                    "shots.purpose.alt": "Zweck-Beratung",
+                    "shots.concepts.cap": "Konzepte",
+                    "shots.concepts.alt": "Konzept-Richtungen",
+                    "shots.finals.cap": "Finals",
+                    "shots.finals.alt": "A-cut Finals",
+                    "shots.beauty.cap": "Beauty",
+                    "shots.beauty.alt": "Beauty-Retusche",
+                    "shots.album.cap": "Mein Album",
+                    "shots.album.alt": "Mein Album",
+                    "shots.discover.cap": "Entdecken",
+                    "shots.discover.alt": "Galerie entdecken",
+                    "note.heading": "Warum Menschen myme studio vertrauen",
+                    "note.sub": "Nach dem ersten A-cut zählen diese Details.",
+                    "note.face.label": "Ähnlichkeit",
+                    "note.face.title": "Dein Gesicht bleibt deins",
+                    "note.face.desc": "A-cuts bewahren deine Identität—poliert, ohne jemand anderes zu werden.",
+                    "note.chat.label": "Kuratierung",
+                    "note.chat.title": "Ein kurzer Chat mit JUN",
+                    "note.chat.desc": "JUN, dein KI-Foto-Concierge, hört Zweck und Stimmung—und richtet den Look.",
+                    "note.token.label": "Preise",
+                    "note.token.title": "Tokens, kein Abo",
+                    "note.token.desc": "Generierung nutzt verbrauchbare Tokens. Kauf nur, was du brauchst—keine wiederkehrenden Kosten.",
+                    "note.id.footnote": "Ausweis- oder Pass-Looks sind nur gerichtete Styles—keine Garantie für amtliche Dokumentenkonformität.",
+                    "cta.title": "Triff dich, wie du noch nie fotografiert wurdest",
+                    "cta.desc": "Ein Selfie. Ein kurzer Chat mit JUN. Ein Profil-A-cut, der immer noch wie du aussieht.",
+                    "store.download": "Meinen A-cut kostenlos machen",
+                    "store.sub": "Ohne Abo starten · Ein Selfie reicht",
+                    "store.app.name": "App Store",
+                    "store.google.name": "Google Play",
+                    "lang.select.aria": "Sprachauswahl",
+                    "store.app.aria": "Zum App Store",
+                    "store.google.aria": "Zu Google Play",
+                    "footer.contact": "Brauchst du Hilfe oder hast einen Vorschlag?<br>E-Mail: <a href=\"mailto:myme@mymecorp.xyz\">myme@mymecorp.xyz</a>",
+                    "footer.meta": "© 2026 myme studio. Alle Rechte vorbehalten.",
+                    "footer.business": "Firmenname: myme Corp. OÜ | Registrierungsland: Estland | Rechtsform: Limited company | Registercode: 17506092<br>Adresse: Sepapaja tn 6, 15551 Tallinn, Harju Maakond, Estonia",
+                    "footer.logo.alt": "myme studio Logo",
+                    "footer.privacy": "Datenschutzrichtlinie",
+                    "footer.terms": "Nutzungsbedingungen",
+                    "footer.deletion": "Konto löschen"
+                },
+                fr: {
+                    "meta.title": "myme studio — Rencontrez le vous que vous n’avez jamais photographié",
+                    "meta.desc": "myme studio : un selfie, une courte discussion avec JUN—votre concierge photo IA—et un A-cut profil qui vous ressemble encore. Commencez sans abonnement.",
+                    "lang.select.label": "Langue",
+                    "hero.badge": "JUN · votre concierge photo IA",
+                    "hero.title": "Rencontrez le vous<br><span class=\"highlight\">que vous n’avez jamais photographié</span>",
+                    "hero.logo.alt": "logo myme studio",
+                    "hero.desc": "Avec un selfie et une courte discussion, obtenez un A-cut profil qui vous ressemble encore.",
+                    "hero.ba.before": "Selfie",
+                    "hero.ba.after": "A-cut",
+                    "hero.ba.before.alt": "Selfie du quotidien avant myme studio",
+                    "hero.ba.after.alt": "A-cut profil terminé après myme studio",
+                    "use.heading": "Un selfie. A-cuts profil, carrière et mode.",
+                    "use.sub": "Dites à JUN l’usage—votre look est curaté pour s’y adapter.",
+                    "use.profile.title": "Profil",
+                    "use.profile.desc": "Photos de profil chaleureuses et naturelles pour apps et communautés.",
+                    "use.profile.alt": "Exemple d’A-cut profil",
+                    "use.career.title": "Carrière",
+                    "use.career.desc": "Portraits prêts pour LinkedIn, qui inspirent confiance au premier regard.",
+                    "use.career.alt": "Exemple de portrait carrière",
+                    "use.fashion.title": "Mode",
+                    "use.fashion.desc": "A-cuts mode et personal brand soignés pour votre fil.",
+                    "use.fashion.alt": "Exemple d’A-cut mode",
+                    "feat.heading": "Trois espaces dans un studio",
+                    "feat.sub": "Shootez avec JUN, explorez les styles de la communauté, et gardez vos A-cuts dans un portfolio.",
+                    "feat.studio.title": "Studio",
+                    "feat.studio.desc": "Discutez avec JUN, votre concierge photo IA, du but et de l’ambiance—puis terminez des A-cuts fidèles à vous.",
+                    "feat.studio.alt": "Accueil studio — commencer avec JUN",
+                    "feat.gallery.title": "Galerie",
+                    "feat.gallery.desc": "Parcourez les styles publics, enregistrez vos looks préférés, ou appuyez sur « Faire avec ce style » pour les appliquer à votre visage.",
+                    "feat.gallery.alt": "Découvrir la galerie — styles publics",
+                    "feat.album.title": "Mon album",
+                    "feat.album.desc": "Gardez A-cuts terminés et styles enregistrés dans un portfolio—à revoir, peaufiner ou partager.",
+                    "feat.album.alt": "Mon album — portfolio d’A-cuts",
+                    "how.heading": "Comment fonctionne le studio",
+                    "how.sub": "D’un selfie à un A-cut terminé, en quatre étapes guidées.",
+                    "how.step1.title": "Commencer par un selfie",
+                    "how.step1.desc": "Prenez ou importez une photo frontale nette—c’est tout ce dont le studio a besoin.",
+                    "how.step2.title": "Parler du brief",
+                    "how.step2.desc": "Partagez l’usage et l’impression souhaitée—JUN, votre concierge photo IA, écoute et guide la suite.",
+                    "how.step3.title": "Choisir une direction",
+                    "how.step3.desc": "Parcourez des concepts de shooting curatés, choisissez un favori et développez-le ensemble.",
+                    "how.step4.title": "Enregistrer vos A-cuts",
+                    "how.step4.desc": "Affinez la finition ou enregistrez tel quel—puis téléchargez des A-cuts polis, prêts à l’emploi.",
+                    "shots.heading": "Dans l’app",
+                    "shots.sub": "De l’accueil studio à Gallery Discover—voyez tout le parcours myme studio.",
+                    "shots.home.cap": "Accueil",
+                    "shots.home.alt": "Accueil studio",
+                    "shots.purpose.cap": "Usage",
+                    "shots.purpose.alt": "Consultation d’usage",
+                    "shots.concepts.cap": "Concepts",
+                    "shots.concepts.alt": "Directions de concept",
+                    "shots.finals.cap": "Finales",
+                    "shots.finals.alt": "Finales A-cut",
+                    "shots.beauty.cap": "Beauté",
+                    "shots.beauty.alt": "Retouche beauté",
+                    "shots.album.cap": "Mon album",
+                    "shots.album.alt": "Mon album",
+                    "shots.discover.cap": "Découvrir",
+                    "shots.discover.alt": "Découvrir la galerie",
+                    "note.heading": "Pourquoi on fait confiance à myme studio",
+                    "note.sub": "Après le premier A-cut, ce sont ces détails qui comptent.",
+                    "note.face.label": "Ressemblance",
+                    "note.face.title": "Votre visage reste le vôtre",
+                    "note.face.desc": "Les A-cuts gardent votre identité—un look soigné sans devenir quelqu’un d’autre.",
+                    "note.chat.label": "Curation",
+                    "note.chat.title": "Une courte discussion avec JUN",
+                    "note.chat.desc": "JUN, votre concierge photo IA, écoute le but et l’ambiance—puis dirige le look.",
+                    "note.token.label": "Tarifs",
+                    "note.token.title": "Des jetons, pas un abonnement",
+                    "note.token.desc": "La génération utilise des jetons consommables. Achetez seulement ce qu’il vous faut—sans frais récurrents.",
+                    "note.id.footnote": "Les looks type pièce d’identité ou passeport sont des styles dirigés—pas une garantie de conformité aux documents officiels.",
+                    "cta.title": "Rencontrez le vous que vous n’avez jamais photographié",
+                    "cta.desc": "Un selfie. Une courte discussion avec JUN. Un A-cut profil qui vous ressemble encore.",
+                    "store.download": "Créer mon A-cut gratuitement",
+                    "store.sub": "Commencer sans abonnement · Un selfie suffit",
+                    "store.app.name": "App Store",
+                    "store.google.name": "Google Play",
+                    "lang.select.aria": "Sélecteur de langue",
+                    "store.app.aria": "Aller sur l’App Store",
+                    "store.google.aria": "Aller sur Google Play",
+                    "footer.contact": "Besoin d’aide ou une suggestion ?<br>E-mail : <a href=\"mailto:myme@mymecorp.xyz\">myme@mymecorp.xyz</a>",
+                    "footer.meta": "© 2026 myme studio. Tous droits réservés.",
+                    "footer.business": "Raison sociale : myme Corp. OÜ | Pays d’enregistrement : Estonie | Forme juridique : Limited company | Code registre : 17506092<br>Adresse : Sepapaja tn 6, 15551 Tallinn, Harju Maakond, Estonia",
+                    "footer.logo.alt": "logo myme studio",
+                    "footer.privacy": "Politique de confidentialité",
+                    "footer.terms": "Conditions d’utilisation",
+                    "footer.deletion": "Suppression du compte"
+                },
+
             };
 
+            var SUPPORTED = {
+                en: true, ko: true, ja: true, et: true,
+                "zh-cn": true, "zh-tw": true, de: true, fr: true
+            };
+
+            var HTML_LANG = {
+                en: "en", ko: "ko", ja: "ja", et: "et",
+                "zh-cn": "zh-CN", "zh-tw": "zh-TW", de: "de", fr: "fr"
+            };
+
+            function normalize(lang) {
+                lang = String(lang || "en").toLowerCase().replace(/_/g, "-");
+                if (SUPPORTED[lang]) return lang;
+                if (lang.indexOf("ko") === 0) return "ko";
+                if (lang.indexOf("ja") === 0) return "ja";
+                if (lang.indexOf("et") === 0) return "et";
+                if (lang.indexOf("de") === 0) return "de";
+                if (lang.indexOf("fr") === 0) return "fr";
+                if (
+                    lang === "zh-hant" || lang.indexOf("zh-hant") === 0 ||
+                    lang === "zh-tw" || lang.indexOf("zh-tw") === 0 ||
+                    lang === "zh-hk" || lang.indexOf("zh-hk") === 0 ||
+                    lang === "zh-mo" || lang.indexOf("zh-mo") === 0
+                ) return "zh-tw";
+                if (lang.indexOf("zh") === 0) return "zh-cn";
+                return "en";
+            }
+
             function applyLanguage(lang) {
-                var normalized = (lang === "ko" || lang === "ja" || lang === "et") ? lang : "en";
+                var normalized = normalize(lang);
                 var dict = copy[normalized] || copy.en;
                 var nodes = document.querySelectorAll("[data-i18n-key]");
                 var i;
                 var selector = document.getElementById("lang-select");
 
-                document.documentElement.setAttribute("lang", normalized);
+                document.documentElement.setAttribute("lang", HTML_LANG[normalized] || normalized);
                 if (selector) selector.value = normalized;
 
                 for (i = 0; i < nodes.length; i += 1) {
@@ -1531,40 +1927,54 @@
 
             function getStoredLanguage() {
                 try {
-                    var stored = (localStorage.getItem("myme_lang") || "").toLowerCase();
-                    if (stored === "ko" || stored === "ja" || stored === "et" || stored === "en") return stored;
+                    var stored = (localStorage.getItem("myme_lang") || "").toLowerCase().replace(/_/g, "-");
+                    if (!stored) return null;
+                    if (SUPPORTED[stored]) return stored;
+                    if (
+                        stored.indexOf("zh") === 0 ||
+                        stored.indexOf("de") === 0 ||
+                        stored.indexOf("fr") === 0 ||
+                        stored.indexOf("ko") === 0 ||
+                        stored.indexOf("ja") === 0 ||
+                        stored.indexOf("et") === 0 ||
+                        stored.indexOf("en") === 0
+                    ) {
+                        return normalize(stored);
+                    }
                 } catch (e) {}
                 return null;
             }
 
             function setStoredLanguage(lang) {
                 try {
-                    localStorage.setItem("myme_lang", (lang === "ko" || lang === "ja" || lang === "et") ? lang : "en");
+                    localStorage.setItem("myme_lang", normalize(lang));
                 } catch (e) {}
             }
 
             function getPathLanguage() {
                 var path = (window.location.pathname || "").toLowerCase();
-                if (path === "/ko" || path.indexOf("/ko/") === 0) return "ko";
-                if (path === "/ja" || path.indexOf("/ja/") === 0) return "ja";
-                if (path === "/et" || path.indexOf("/et/") === 0) return "et";
-                if (path === "/en" || path.indexOf("/en/") === 0) return "en";
+                var keys = ["zh-cn", "zh-tw", "ko", "ja", "et", "en", "de", "fr"];
+                var i;
+                for (i = 0; i < keys.length; i += 1) {
+                    var key = keys[i];
+                    if (path === "/" + key || path.indexOf("/" + key + "/") === 0) return key;
+                }
                 return null;
             }
 
             function getForcedLanguage() {
                 var params = new URLSearchParams(window.location.search);
-                var lang = (params.get("lang") || "").toLowerCase();
-                if (lang === "ko" || lang === "ja" || lang === "et" || lang === "en") return lang;
+                var lang = (params.get("lang") || "").toLowerCase().replace(/_/g, "-");
+                if (lang) {
+                    var normalized = normalize(lang);
+                    if (SUPPORTED[normalized]) return normalized;
+                }
                 return getPathLanguage();
             }
 
             function getBrowserLanguage() {
                 var browserLang = (navigator.language || "").toLowerCase();
-                if (browserLang.indexOf("ko") === 0) return "ko";
-                if (browserLang.indexOf("ja") === 0) return "ja";
-                if (browserLang.indexOf("et") === 0) return "et";
-                return "en";
+                return normalize(browserLang);
             }
 
             function fetchCountryCodeWithTimeout() {
@@ -1592,8 +2002,7 @@
             var langSelector = document.getElementById("lang-select");
             if (langSelector) {
                 langSelector.addEventListener("change", function (event) {
-                    var selected = event.target.value;
-                    var nextLang = (selected === "ko" || selected === "ja" || selected === "et") ? selected : "en";
+                    var nextLang = normalize(event.target.value);
                     setStoredLanguage(nextLang);
                     applyLanguage(nextLang);
                 });
@@ -1622,6 +2031,10 @@
                     if (countryCode === "KR") geoLang = "ko";
                     else if (countryCode === "JP") geoLang = "ja";
                     else if (countryCode === "EE") geoLang = "et";
+                    else if (countryCode === "CN" || countryCode === "SG") geoLang = "zh-cn";
+                    else if (countryCode === "TW" || countryCode === "HK" || countryCode === "MO") geoLang = "zh-tw";
+                    else if (countryCode === "DE" || countryCode === "AT") geoLang = "de";
+                    else if (countryCode === "FR" || countryCode === "BE" || countryCode === "LU") geoLang = "fr";
                     if (geoLang && geoLang !== browserLang) {
                         applyLanguage(geoLang);
                     }
