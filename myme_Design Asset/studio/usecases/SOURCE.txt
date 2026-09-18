@@ -1,7 +1,6 @@
-# Usecase card sources (app Gallery bundled assets)
-
-- profile.jpg  <- g30_f_profile_20s.jpg
-- linkedin.jpg <- g21_f_linkedin_20s.jpg (Career)
-- fashion.jpg  <- g25_f_dating_20s.jpg (Fashion/dating A-cut)
-
-Source: flutter_app/assets/photographer/gallery (node2 + local viral).
+profile.jpg  <- z-profile outputs/viral_results/female/a00.png (화이트 패턴 가디건 프로필 A-cut)
+linkedin.jpg <- z-profile outputs/viral_results/male/a01.png (베이지 해링턴 + 스카프 + 토트백 댄디 커리어 A-cut)
+fashion.jpg  <- z-profile outputs/viral_results/female/a01.png (네이비 집업 후디 + 스트라이프 셔츠 패션 화보 A-cut)
+sns.jpg      <- z-profile outputs/viral_results/male/a00.png (블랙 토글 보머 프로필 A-cut)
+hero_before.jpg <- z-profile assets/viral/viral_female_selfie.png (일상 셀카)
+hero_after.jpg  <- z-profile outputs/viral_results/female/a00.png (압도적 프로필 A-cut)
