@@ -1,5 +1,6 @@
-profile.jpg  <- z-profile outputs/viral_results/female/a00.png
-linkedin.jpg <- z-profile assets/viral/viral_results/male/a03_id_formal.png (하늘색 그라디언트 면접 정장)
-fashion.jpg  <- z-profile outputs/viral_results/female/a01.png
-id.jpg       <- z-profile assets/viral/viral_results/female/a03_id_formal.png (하늘색 그라디언트 면접 증명사진)
-sns.jpg      <- z-profile outputs/viral_results/male/a00.png
+profile.jpg  <- viral female a00 (화이트 패턴 가디건)
+fashion.jpg  <- viral female a01 (네이비 후디 에디토리얼)
+id.jpg       <- viral female a03_id_formal (하늘색 면접 증명사진)
+linkedin.jpg <- viral male a03_id_formal (면접 정장)
+hero_before.jpg <- viral_female_selfie.png
+hero_after.jpg  <- viral female a00
