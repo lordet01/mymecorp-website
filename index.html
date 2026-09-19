@@ -12,8 +12,8 @@
     <meta property="og:title" content="myme studio — AI Photo Studio">
     <meta property="og:description" content="myme studio: meet the you you’ve never photographed. One selfie, a short chat with JUN—your AI photo concierge—and a profile A-cut that still looks like you.">
     <meta property="og:url" content="https://mymecorp.xyz/">
-    <meta property="og:image" content="https://mymecorp.xyz/myme_Design%20Asset/studio/before_after/hero_after.jpg">
-    <meta property="og:image:secure_url" content="https://mymecorp.xyz/myme_Design%20Asset/studio/before_after/hero_after.jpg">
+    <meta property="og:image" content="https://mymecorp.xyz/myme_Design%20Asset/studio/before_after/hero_after.jpg?v=20260919f">
+    <meta property="og:image:secure_url" content="https://mymecorp.xyz/myme_Design%20Asset/studio/before_after/hero_after.jpg?v=20260919f">
     <meta property="og:image:type" content="image/jpeg">
     <meta property="og:image:width" content="768">
     <meta property="og:image:height" content="1024">
@@ -21,7 +21,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="myme studio — AI Photo Studio">
     <meta name="twitter:description" content="myme studio: meet the you you’ve never photographed. One selfie, a short chat with JUN—your AI photo concierge—and a profile A-cut that still looks like you.">
-    <meta name="twitter:image" content="https://mymecorp.xyz/myme_Design%20Asset/studio/before_after/hero_after.jpg">
+    <meta name="twitter:image" content="https://mymecorp.xyz/myme_Design%20Asset/studio/before_after/hero_after.jpg?v=20260919f">
 
     <!-- Favicon and Icons -->
     <link rel="icon" type="image/x-icon" href="./myme_Design Asset/favicon/favicon.ico">
@@ -626,6 +626,7 @@
 
         .promo-showcase__cell img {
             object-fit: cover;
+            object-position: center 18%;
             width: 100%;
             height: 100%;
             display: block;
@@ -915,12 +916,12 @@
                 <h1 data-i18n-key="hero.title">Meet the you<br><span class="highlight">you’ve never photographed</span></h1>
                 <div class="hero-ba" aria-hidden="false">
                     <div class="hero-ba__card">
-                        <img src="./myme_Design Asset/studio/before_after/hero_before.jpg" alt="Selfie before" data-i18n-alt-key="hero.ba.before.alt" width="768" height="1024" loading="eager">
+                        <img src="./myme_Design Asset/studio/before_after/hero_before.jpg?v=20260919f" alt="Selfie before" data-i18n-alt-key="hero.ba.before.alt" width="768" height="1024" loading="eager">
                         <span class="hero-ba__label" data-i18n-key="hero.ba.before">Selfie</span>
                     </div>
                     <div class="hero-ba__arrow" aria-hidden="true">→</div>
                     <div class="hero-ba__card">
-                        <img src="./myme_Design Asset/studio/before_after/hero_after.jpg" alt="Profile A-cut after" data-i18n-alt-key="hero.ba.after.alt" width="768" height="1024" loading="eager">
+                        <img src="./myme_Design Asset/studio/before_after/hero_after.jpg?v=20260919f" alt="Profile A-cut after" data-i18n-alt-key="hero.ba.after.alt" width="768" height="1024" loading="eager">
                         <span class="hero-ba__label" data-i18n-key="hero.ba.after">A-cut</span>
                     </div>
                 </div>
@@ -966,21 +967,21 @@
                 <p class="section-sub" data-i18n-key="use.sub">Tell JUN where it’s going—your look is curated to fit.</p>
                 <div class="usecase-grid">
                     <div class="usecase-card">
-                        <img src="./myme_Design Asset/studio/usecases/profile.jpg" alt="Profile photo example" data-i18n-alt-key="use.profile.alt" loading="lazy" width="900" height="1189">
+                        <img src="./myme_Design Asset/studio/usecases/profile.jpg?v=20260919f" alt="Profile photo example" data-i18n-alt-key="use.profile.alt" loading="lazy" width="900" height="1200">
                         <div class="usecase-body">
                             <div class="usecase-title" data-i18n-key="use.profile.title">Profile</div>
                             <p class="usecase-desc" data-i18n-key="use.profile.desc">Warm, natural profile photos for apps and communities.</p>
                         </div>
                     </div>
                     <div class="usecase-card">
-                        <img src="./myme_Design Asset/studio/usecases/linkedin.jpg" alt="Career portrait example" data-i18n-alt-key="use.career.alt" loading="lazy" width="900" height="1196">
+                        <img src="./myme_Design Asset/studio/usecases/linkedin.jpg?v=20260919f" alt="Career portrait example" data-i18n-alt-key="use.career.alt" loading="lazy" width="900" height="1200">
                         <div class="usecase-body">
                             <div class="usecase-title" data-i18n-key="use.career.title">Career</div>
                             <p class="usecase-desc" data-i18n-key="use.career.desc">LinkedIn-ready portraits that earn trust at a glance.</p>
                         </div>
                     </div>
                     <div class="usecase-card">
-                        <img src="./myme_Design Asset/studio/usecases/fashion.jpg" alt="Fashion A-cut example" data-i18n-alt-key="use.fashion.alt" loading="lazy" width="900" height="1172">
+                        <img src="./myme_Design Asset/studio/usecases/fashion.jpg?v=20260919f" alt="Fashion A-cut example" data-i18n-alt-key="use.fashion.alt" loading="lazy" width="900" height="1200">
                         <div class="usecase-body">
                             <div class="usecase-title" data-i18n-key="use.fashion.title">Fashion</div>
                             <p class="usecase-desc" data-i18n-key="use.fashion.desc">Polished fashion and personal-brand A-cuts for your feed.</p>
@@ -2091,20 +2092,13 @@
             var timeoutId = null;
             var imageBase = "./myme_Design%20Asset/studio/wall/";
 
-            // App Gallery cards (female/male) + Discover child A-cuts — see wall/manifest.json
+            // Female A-cuts from the 2026-09-19 carousel — see wall/manifest.json
             var fallbackPromoImages = [
-                "g30_f_profile_20s.jpg",
-                "g21_f_linkedin_20s.jpg",
-                "g25_f_dating_20s.jpg",
-                "g33_f_profile_viral.jpg",
-                "g05_m_profile_20s.jpg",
-                "g01_m_linkedin_20s.jpg",
-                "g02_m_dating_20s.jpg",
-                "g34_m_profile_viral.jpg",
-                "child_cf02.jpg",
-                "child_cf04.jpg",
-                "child_cm00.jpg",
-                "child_cm03.jpg"
+                "f_natural.jpg",
+                "f_career.jpg",
+                "f_cinematic.jpg",
+                "f_editorial.jpg",
+                "f_id.jpg"
             ];
 
             var imagePool = fallbackPromoImages.slice();

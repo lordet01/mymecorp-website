@@ -1,6 +1,8 @@
-profile.jpg  <- viral female a00 (화이트 패턴 가디건)
-fashion.jpg  <- viral female a01 (네이비 후디 에디토리얼)
-id.jpg       <- viral female a03_id_formal (하늘색 면접 증명사진)
-linkedin.jpg <- viral male a03_id_formal (면접 정장)
-hero_before.jpg <- viral_female_selfie.png
-hero_after.jpg  <- viral female a00
+hero_before.jpg <- 02_before_after.png left panel (grey-tee selfie, no watermark)
+hero_after.jpg  <- source_editorial.png (black turtleneck studio)
+profile.jpg     <- source_natural.png (white shirt, outdoor)
+linkedin.jpg    <- source_career.png (navy blazer, office)
+fashion.jpg     <- source_cinematic.png (charcoal coat)
+
+Sources: outputs/viral_carousel_20260919/female/
+Exported 2026-09-19. Watermarked slides (01/04/05) are not used on the site.
