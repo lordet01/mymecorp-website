@@ -626,7 +626,6 @@
 
         .promo-showcase__cell img {
             object-fit: cover;
-            object-position: center 18%;
             width: 100%;
             height: 100%;
             display: block;
@@ -2092,13 +2091,20 @@
             var timeoutId = null;
             var imageBase = "./myme_Design%20Asset/studio/wall/";
 
-            // Female A-cuts from the 2026-09-19 carousel — see wall/manifest.json
+            // App Gallery cards (female/male) + Discover child A-cuts — see wall/manifest.json
             var fallbackPromoImages = [
-                "f_natural.jpg",
-                "f_career.jpg",
-                "f_cinematic.jpg",
-                "f_editorial.jpg",
-                "f_id.jpg"
+                "g30_f_profile_20s.jpg",
+                "g21_f_linkedin_20s.jpg",
+                "g25_f_dating_20s.jpg",
+                "g33_f_profile_viral.jpg",
+                "g05_m_profile_20s.jpg",
+                "g01_m_linkedin_20s.jpg",
+                "g02_m_dating_20s.jpg",
+                "g34_m_profile_viral.jpg",
+                "child_cf02.jpg",
+                "child_cf04.jpg",
+                "child_cm00.jpg",
+                "child_cm03.jpg"
             ];
 
             var imagePool = fallbackPromoImages.slice();

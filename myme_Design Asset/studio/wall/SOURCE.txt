@@ -1,11 +1,10 @@
 # Promo wall image sources
 
-2026-09-19 female A-cuts only (same person as the hero and usecase cards):
+App Gallery (bundled Discover cards):
+  node2:~/works/z-profile/flutter_app/assets/photographer/gallery/g*.jpg
+  + local viral g33_f_profile_viral.jpg / g34_m_profile_viral.jpg
 
-  outputs/viral_carousel_20260919/female/source_id.png        -> f_id.jpg
-  outputs/viral_carousel_20260919/female/source_career.png    -> f_career.jpg
-  outputs/viral_carousel_20260919/female/source_editorial.png -> f_editorial.jpg
-  outputs/viral_carousel_20260919/female/source_natural.png   -> f_natural.jpg
-  outputs/viral_carousel_20260919/female/source_cinematic.png -> f_cinematic.jpg
+Children (Discover init_gen child track A-cuts):
+  outputs/app_sim2_kpop_frontal/session_seed_c*/complete/gallery/a00.png
 
-Older gallery / child tiles remain in this folder but are not listed in manifest.json.
+Replaces older model_* + acut_g* copies that did not match current app gallery paths.
