@@ -1,11 +1,35 @@
 {
-  "updated_at": "2026-09-27T00:48:01Z",
+  "updated_at": "2026-09-27T01:30:00Z",
   "currency": "USD",
   "totals": {
     "revenue_usd": 7.49,
     "downloads": 777,
+    "purchases": 3,
+    "ad_spend_usd": 0.0,
     "openai_cost_usd": 22.68,
-    "purchases": 3
+    "app_reported_installs": 777,
+    "net_after_ads_usd": 7.49,
+    "net_after_ads_and_openai_usd": -15.19,
+    "platforms": {
+      "ios": {
+        "downloads": 0,
+        "purchases": 3,
+        "revenue_usd": 7.49,
+        "ad_spend_usd": 0.0
+      },
+      "android": {
+        "downloads": 0,
+        "purchases": 0,
+        "revenue_usd": 0.0,
+        "ad_spend_usd": 0.0
+      },
+      "unknown": {
+        "downloads": 777,
+        "purchases": 0,
+        "revenue_usd": 0.0,
+        "ad_spend_usd": 0.0
+      }
+    }
   },
   "monthly": [
     {
@@ -13,41 +37,79 @@
       "downloads": 15,
       "purchases": 2,
       "revenue_usd": 5.09,
+      "ad_spend_usd": 0.0,
       "openai_cost_usd": 0.0,
       "openai_cost_source": "estimated",
-      "completed_gens": 0
+      "completed_gens": 0,
+      "app_reported_installs": 15,
+      "platforms": {
+        "ios": { "downloads": 0, "purchases": 2, "revenue_usd": 5.09, "ad_spend_usd": 0.0 },
+        "android": { "downloads": 0, "purchases": 0, "revenue_usd": 0.0, "ad_spend_usd": 0.0 },
+        "unknown": { "downloads": 15, "purchases": 0, "revenue_usd": 0.0, "ad_spend_usd": 0.0 }
+      }
     },
     {
       "month": "2026-07",
       "downloads": 357,
       "purchases": 0,
       "revenue_usd": 0.0,
+      "ad_spend_usd": 0.0,
       "openai_cost_usd": 0.0,
       "openai_cost_source": "estimated",
-      "completed_gens": 0
+      "completed_gens": 0,
+      "app_reported_installs": 357,
+      "platforms": {
+        "ios": { "downloads": 0, "purchases": 0, "revenue_usd": 0.0, "ad_spend_usd": 0.0 },
+        "android": { "downloads": 0, "purchases": 0, "revenue_usd": 0.0, "ad_spend_usd": 0.0 },
+        "unknown": { "downloads": 357, "purchases": 0, "revenue_usd": 0.0, "ad_spend_usd": 0.0 }
+      }
     },
     {
       "month": "2026-08",
       "downloads": 56,
       "purchases": 0,
       "revenue_usd": 0.0,
+      "ad_spend_usd": 0.0,
       "openai_cost_usd": 0.0,
       "openai_cost_source": "estimated",
-      "completed_gens": 0
+      "completed_gens": 0,
+      "app_reported_installs": 56,
+      "platforms": {
+        "ios": { "downloads": 0, "purchases": 0, "revenue_usd": 0.0, "ad_spend_usd": 0.0 },
+        "android": { "downloads": 0, "purchases": 0, "revenue_usd": 0.0, "ad_spend_usd": 0.0 },
+        "unknown": { "downloads": 56, "purchases": 0, "revenue_usd": 0.0, "ad_spend_usd": 0.0 }
+      }
     },
     {
       "month": "2026-09",
       "downloads": 349,
       "purchases": 1,
       "revenue_usd": 2.4,
+      "ad_spend_usd": 0.0,
       "openai_cost_usd": 22.68,
       "openai_cost_source": "estimated",
-      "completed_gens": 189
+      "completed_gens": 189,
+      "app_reported_installs": 349,
+      "platforms": {
+        "ios": { "downloads": 0, "purchases": 1, "revenue_usd": 2.4, "ad_spend_usd": 0.0 },
+        "android": { "downloads": 0, "purchases": 0, "revenue_usd": 0.0, "ad_spend_usd": 0.0 },
+        "unknown": { "downloads": 349, "purchases": 0, "revenue_usd": 0.0, "ad_spend_usd": 0.0 }
+      }
     }
   ],
+  "sources": {
+    "ios_downloads": "asc_instances_pending",
+    "android_downloads": "app_reported_unattributed",
+    "ios_revenue": "payments",
+    "android_revenue": "payments",
+    "ad_spend": "none"
+  },
   "notes": {
-    "downloads": "App-reported first installs (referral_installs device_id).",
-    "revenue": "RevenueCat PRODUCTION success payments; amount field treated as USD.",
-    "openai_cost": "Estimated from completed generation tasks × $0.12 until OPENAI_ADMIN_KEY is configured."
+    "downloads_ios": "App Store Connect Analytics pending first report instances; fill override or wait for ASC.",
+    "downloads_android": "Set monthly.android.downloads in corp_platform_metrics.json (Play Console export).",
+    "revenue": "RevenueCat PRODUCTION payments by store. Legacy UUID rows counted as iOS.",
+    "ad_spend": "Fill monthly.{ios|android}.ad_spend_usd in corp_platform_metrics.json.",
+    "openai_cost": "Estimated from completed generation tasks × $0.12 until OPENAI_ADMIN_KEY is configured.",
+    "asc": "asc_instances_pending"
   }
 }
