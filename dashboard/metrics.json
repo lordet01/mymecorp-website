@@ -1,0 +1,53 @@
+{
+  "updated_at": "2026-09-27T00:48:01Z",
+  "currency": "USD",
+  "totals": {
+    "revenue_usd": 7.49,
+    "downloads": 777,
+    "openai_cost_usd": 22.68,
+    "purchases": 3
+  },
+  "monthly": [
+    {
+      "month": "2026-06",
+      "downloads": 15,
+      "purchases": 2,
+      "revenue_usd": 5.09,
+      "openai_cost_usd": 0.0,
+      "openai_cost_source": "estimated",
+      "completed_gens": 0
+    },
+    {
+      "month": "2026-07",
+      "downloads": 357,
+      "purchases": 0,
+      "revenue_usd": 0.0,
+      "openai_cost_usd": 0.0,
+      "openai_cost_source": "estimated",
+      "completed_gens": 0
+    },
+    {
+      "month": "2026-08",
+      "downloads": 56,
+      "purchases": 0,
+      "revenue_usd": 0.0,
+      "openai_cost_usd": 0.0,
+      "openai_cost_source": "estimated",
+      "completed_gens": 0
+    },
+    {
+      "month": "2026-09",
+      "downloads": 349,
+      "purchases": 1,
+      "revenue_usd": 2.4,
+      "openai_cost_usd": 22.68,
+      "openai_cost_source": "estimated",
+      "completed_gens": 189
+    }
+  ],
+  "notes": {
+    "downloads": "App-reported first installs (referral_installs device_id).",
+    "revenue": "RevenueCat PRODUCTION success payments; amount field treated as USD.",
+    "openai_cost": "Estimated from completed generation tasks × $0.12 until OPENAI_ADMIN_KEY is configured."
+  }
+}
