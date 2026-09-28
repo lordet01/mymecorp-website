@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>myme — Get the app</title>
+  <meta name="description" content="Open myme on the App Store or Google Play.">
+  <meta name="robots" content="noindex">
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #0b0b0b;
+      color: #f5f5f5;
+      text-align: center;
+      padding: 32px 20px;
+    }
+    .box { max-width: 420px; }
+    h1 { font-size: 1.35rem; font-weight: 700; margin: 0 0 8px; }
+    p { margin: 0 0 20px; color: #bdbdbd; line-height: 1.45; font-size: 0.95rem; }
+    .btn {
+      display: inline-block;
+      margin: 6px;
+      padding: 14px 22px;
+      border-radius: 14px;
+      background: #fff;
+      color: #111;
+      text-decoration: none;
+      font-weight: 700;
+    }
+  </style>
+  <script>
+    (function () {
+      var IOS = "https://apps.apple.com/app/id6759363960";
+      var ANDROID = "https://play.google.com/store/apps/details?id=com.mymecorp.myme";
+      var ua = navigator.userAgent || navigator.vendor || "";
+      var isIOS = /iPhone|iPad|iPod/i.test(ua);
+      var isAndroid = /Android/i.test(ua);
+      // Immediate redirect on phone; desktop keeps both buttons below.
+      if (isIOS) {
+        window.location.replace(IOS);
+      } else if (isAndroid) {
+        window.location.replace(ANDROID);
+      }
+      window.__MYME_STORE__ = { ios: IOS, android: ANDROID };
+    })();
+  </script>
+</head>
+<body>
+  <div class="box">
+    <h1>myme studio</h1>
+    <p>Opening the store for your phone…<br>If nothing happens, pick one below.</p>
+    <a class="btn" id="ios" href="https://apps.apple.com/app/id6759363960">App Store</a>
+    <a class="btn" id="android" href="https://play.google.com/store/apps/details?id=com.mymecorp.myme">Google Play</a>
+  </div>
+</body>
+</html>
