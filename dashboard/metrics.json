@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-01T10:05:27Z",
+  "updated_at": "2026-10-01T10:11:36Z",
   "currency": "USD",
   "daily_days": 30,
   "totals": {
@@ -1244,19 +1244,19 @@
   "funnel_summary": {
     "window_days": 30,
     "signup": 26,
-    "session": 60,
-    "generated": 39,
-    "unlock": 5,
+    "session": 34,
+    "generated": 17,
+    "unlock": 2,
     "paywall": 2,
     "purchase": 1,
     "revenue_usd": 0.0,
     "rates": {
-      "signup_to_session": 2.3077,
-      "session_to_generated": 0.65,
-      "generated_to_paywall": 0.0513,
+      "signup_to_session": 1.3077,
+      "session_to_generated": 0.5,
+      "generated_to_paywall": 0.1176,
       "paywall_to_purchase": 0.5,
-      "generated_to_purchase": 0.0256,
-      "session_to_purchase": 0.0167
+      "generated_to_purchase": 0.0588,
+      "session_to_purchase": 0.0294
     }
   },
   "retention": {
@@ -1538,7 +1538,7 @@
     "downloads_ios": "App Store Connect Analytics (App Downloads Standard) when instances are ready; else override file; else unattributed app installs.",
     "downloads_android": "Set monthly.android.downloads in corp_platform_metrics.json (Play Console export) until Play Reporting API is wired.",
     "revenue": "RevenueCat PRODUCTION payments by store (APP_STORE/PLAY_STORE). Legacy rows without store: UUID→iOS, GPA.*→Android.",
-    "funnel": "Real-only distinct users/day: signup→session→generated→unlock→paywall→purchase (sim/internal domains excluded).",
+    "funnel": "Real-only distinct users in the window: signup→session→generated→unlock→paywall→purchase (sim/internal domains excluded). Daily table shows per-day uniques; summary rates use window uniques.",
     "retention": "Classic calendar D1/D7/D30: cohort = users.created_at; activity = sessions, funnel events, or completed gens.",
     "ad_spend": "Fill monthly.{ios|android}.ad_spend_usd in corp_platform_metrics.json (see config/corp_platform_metrics.example.json).",
     "openai_cost": "Estimated from completed generation tasks × $0.12 (set OPENAI_ADMIN_KEY for billed costs).",
