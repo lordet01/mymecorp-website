@@ -1,20 +1,19 @@
 {
-  "updated_at": "2026-09-27T01:30:00Z",
+  "updated_at": "2026-10-01T10:02:48Z",
   "currency": "USD",
+  "daily_days": 30,
   "totals": {
-    "revenue_usd": 7.49,
-    "downloads": 777,
-    "purchases": 3,
+    "revenue_usd": 0.0,
+    "downloads": 0,
+    "purchases": 0,
     "ad_spend_usd": 0.0,
-    "openai_cost_usd": 22.68,
-    "app_reported_installs": 777,
-    "net_after_ads_usd": 7.49,
-    "net_after_ads_and_openai_usd": -15.19,
+    "openai_cost_usd": 4.44,
+    "app_reported_installs": 0,
     "platforms": {
       "ios": {
         "downloads": 0,
-        "purchases": 3,
-        "revenue_usd": 7.49,
+        "purchases": 0,
+        "revenue_usd": 0.0,
         "ad_spend_usd": 0.0
       },
       "android": {
@@ -24,92 +23,1190 @@
         "ad_spend_usd": 0.0
       },
       "unknown": {
-        "downloads": 777,
+        "downloads": 0,
         "purchases": 0,
         "revenue_usd": 0.0,
         "ad_spend_usd": 0.0
       }
-    }
+    },
+    "net_after_ads_usd": 0.0,
+    "net_after_ads_and_openai_usd": -4.44
   },
   "monthly": [
     {
-      "month": "2026-06",
-      "downloads": 15,
-      "purchases": 2,
-      "revenue_usd": 5.09,
-      "ad_spend_usd": 0.0,
-      "openai_cost_usd": 0.0,
-      "openai_cost_source": "estimated",
-      "completed_gens": 0,
-      "app_reported_installs": 15,
-      "platforms": {
-        "ios": { "downloads": 0, "purchases": 2, "revenue_usd": 5.09, "ad_spend_usd": 0.0 },
-        "android": { "downloads": 0, "purchases": 0, "revenue_usd": 0.0, "ad_spend_usd": 0.0 },
-        "unknown": { "downloads": 15, "purchases": 0, "revenue_usd": 0.0, "ad_spend_usd": 0.0 }
-      }
-    },
-    {
-      "month": "2026-07",
-      "downloads": 357,
-      "purchases": 0,
-      "revenue_usd": 0.0,
-      "ad_spend_usd": 0.0,
-      "openai_cost_usd": 0.0,
-      "openai_cost_source": "estimated",
-      "completed_gens": 0,
-      "app_reported_installs": 357,
-      "platforms": {
-        "ios": { "downloads": 0, "purchases": 0, "revenue_usd": 0.0, "ad_spend_usd": 0.0 },
-        "android": { "downloads": 0, "purchases": 0, "revenue_usd": 0.0, "ad_spend_usd": 0.0 },
-        "unknown": { "downloads": 357, "purchases": 0, "revenue_usd": 0.0, "ad_spend_usd": 0.0 }
-      }
-    },
-    {
-      "month": "2026-08",
-      "downloads": 56,
-      "purchases": 0,
-      "revenue_usd": 0.0,
-      "ad_spend_usd": 0.0,
-      "openai_cost_usd": 0.0,
-      "openai_cost_source": "estimated",
-      "completed_gens": 0,
-      "app_reported_installs": 56,
-      "platforms": {
-        "ios": { "downloads": 0, "purchases": 0, "revenue_usd": 0.0, "ad_spend_usd": 0.0 },
-        "android": { "downloads": 0, "purchases": 0, "revenue_usd": 0.0, "ad_spend_usd": 0.0 },
-        "unknown": { "downloads": 56, "purchases": 0, "revenue_usd": 0.0, "ad_spend_usd": 0.0 }
-      }
-    },
-    {
       "month": "2026-09",
-      "downloads": 349,
-      "purchases": 1,
-      "revenue_usd": 2.4,
+      "downloads": 0,
+      "purchases": 0,
+      "revenue_usd": 0.0,
       "ad_spend_usd": 0.0,
-      "openai_cost_usd": 22.68,
+      "openai_cost_usd": 4.44,
       "openai_cost_source": "estimated",
-      "completed_gens": 189,
-      "app_reported_installs": 349,
+      "completed_gens": 37,
+      "app_reported_installs": 0,
       "platforms": {
-        "ios": { "downloads": 0, "purchases": 1, "revenue_usd": 2.4, "ad_spend_usd": 0.0 },
-        "android": { "downloads": 0, "purchases": 0, "revenue_usd": 0.0, "ad_spend_usd": 0.0 },
-        "unknown": { "downloads": 349, "purchases": 0, "revenue_usd": 0.0, "ad_spend_usd": 0.0 }
+        "ios": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0,
+          "ad_spend_usd": 0.0
+        },
+        "android": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0,
+          "ad_spend_usd": 0.0
+        },
+        "unknown": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0,
+          "ad_spend_usd": 0.0
+        }
       }
     }
   ],
+  "daily": [
+    {
+      "day": "2026-09-02",
+      "downloads": 0,
+      "purchases": 0,
+      "revenue_usd": 0.0,
+      "openai_cost_usd": 0.0,
+      "completed_gens": 0,
+      "app_reported_installs": 0,
+      "platforms": {
+        "ios": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        },
+        "android": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        },
+        "unknown": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        }
+      },
+      "funnel": {
+        "signup": 0,
+        "session": 0,
+        "generated": 0,
+        "unlock": 0,
+        "paywall": 0,
+        "result_viewed": 0,
+        "home_viewed": 0
+      }
+    },
+    {
+      "day": "2026-09-03",
+      "downloads": 0,
+      "purchases": 0,
+      "revenue_usd": 0.0,
+      "openai_cost_usd": 0.0,
+      "completed_gens": 0,
+      "app_reported_installs": 0,
+      "platforms": {
+        "ios": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        },
+        "android": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        },
+        "unknown": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        }
+      },
+      "funnel": {
+        "signup": 0,
+        "session": 0,
+        "generated": 0,
+        "unlock": 0,
+        "paywall": 0,
+        "result_viewed": 0,
+        "home_viewed": 0
+      }
+    },
+    {
+      "day": "2026-09-04",
+      "downloads": 0,
+      "purchases": 0,
+      "revenue_usd": 0.0,
+      "openai_cost_usd": 0.0,
+      "completed_gens": 0,
+      "app_reported_installs": 0,
+      "platforms": {
+        "ios": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        },
+        "android": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        },
+        "unknown": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        }
+      },
+      "funnel": {
+        "signup": 0,
+        "session": 0,
+        "generated": 0,
+        "unlock": 0,
+        "paywall": 0,
+        "result_viewed": 0,
+        "home_viewed": 0
+      }
+    },
+    {
+      "day": "2026-09-05",
+      "downloads": 0,
+      "purchases": 0,
+      "revenue_usd": 0.0,
+      "openai_cost_usd": 0.0,
+      "completed_gens": 0,
+      "app_reported_installs": 0,
+      "platforms": {
+        "ios": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        },
+        "android": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        },
+        "unknown": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        }
+      },
+      "funnel": {
+        "signup": 0,
+        "session": 0,
+        "generated": 0,
+        "unlock": 0,
+        "paywall": 0,
+        "result_viewed": 0,
+        "home_viewed": 0
+      }
+    },
+    {
+      "day": "2026-09-06",
+      "downloads": 0,
+      "purchases": 0,
+      "revenue_usd": 0.0,
+      "openai_cost_usd": 0.0,
+      "completed_gens": 0,
+      "app_reported_installs": 0,
+      "platforms": {
+        "ios": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        },
+        "android": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        },
+        "unknown": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        }
+      },
+      "funnel": {
+        "signup": 0,
+        "session": 0,
+        "generated": 0,
+        "unlock": 0,
+        "paywall": 0,
+        "result_viewed": 0,
+        "home_viewed": 0
+      }
+    },
+    {
+      "day": "2026-09-07",
+      "downloads": 0,
+      "purchases": 0,
+      "revenue_usd": 0.0,
+      "openai_cost_usd": 0.0,
+      "completed_gens": 0,
+      "app_reported_installs": 0,
+      "platforms": {
+        "ios": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        },
+        "android": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        },
+        "unknown": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        }
+      },
+      "funnel": {
+        "signup": 0,
+        "session": 0,
+        "generated": 0,
+        "unlock": 0,
+        "paywall": 0,
+        "result_viewed": 0,
+        "home_viewed": 0
+      }
+    },
+    {
+      "day": "2026-09-08",
+      "downloads": 0,
+      "purchases": 0,
+      "revenue_usd": 0.0,
+      "openai_cost_usd": 0.0,
+      "completed_gens": 0,
+      "app_reported_installs": 0,
+      "platforms": {
+        "ios": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        },
+        "android": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        },
+        "unknown": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        }
+      },
+      "funnel": {
+        "signup": 0,
+        "session": 0,
+        "generated": 0,
+        "unlock": 0,
+        "paywall": 0,
+        "result_viewed": 0,
+        "home_viewed": 0
+      }
+    },
+    {
+      "day": "2026-09-09",
+      "downloads": 0,
+      "purchases": 0,
+      "revenue_usd": 0.0,
+      "openai_cost_usd": 0.0,
+      "completed_gens": 0,
+      "app_reported_installs": 0,
+      "platforms": {
+        "ios": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        },
+        "android": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        },
+        "unknown": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        }
+      },
+      "funnel": {
+        "signup": 0,
+        "session": 0,
+        "generated": 0,
+        "unlock": 0,
+        "paywall": 0,
+        "result_viewed": 0,
+        "home_viewed": 0
+      }
+    },
+    {
+      "day": "2026-09-10",
+      "downloads": 0,
+      "purchases": 0,
+      "revenue_usd": 0.0,
+      "openai_cost_usd": 0.0,
+      "completed_gens": 0,
+      "app_reported_installs": 0,
+      "platforms": {
+        "ios": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        },
+        "android": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        },
+        "unknown": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        }
+      },
+      "funnel": {
+        "signup": 0,
+        "session": 0,
+        "generated": 0,
+        "unlock": 0,
+        "paywall": 0,
+        "result_viewed": 0,
+        "home_viewed": 0
+      }
+    },
+    {
+      "day": "2026-09-11",
+      "downloads": 0,
+      "purchases": 0,
+      "revenue_usd": 0.0,
+      "openai_cost_usd": 0.0,
+      "completed_gens": 0,
+      "app_reported_installs": 0,
+      "platforms": {
+        "ios": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        },
+        "android": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        },
+        "unknown": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        }
+      },
+      "funnel": {
+        "signup": 0,
+        "session": 0,
+        "generated": 0,
+        "unlock": 0,
+        "paywall": 0,
+        "result_viewed": 0,
+        "home_viewed": 0
+      }
+    },
+    {
+      "day": "2026-09-12",
+      "downloads": 0,
+      "purchases": 0,
+      "revenue_usd": 0.0,
+      "openai_cost_usd": 0.0,
+      "completed_gens": 0,
+      "app_reported_installs": 0,
+      "platforms": {
+        "ios": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        },
+        "android": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        },
+        "unknown": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        }
+      },
+      "funnel": {
+        "signup": 0,
+        "session": 0,
+        "generated": 0,
+        "unlock": 0,
+        "paywall": 0,
+        "result_viewed": 0,
+        "home_viewed": 0
+      }
+    },
+    {
+      "day": "2026-09-13",
+      "downloads": 0,
+      "purchases": 0,
+      "revenue_usd": 0.0,
+      "openai_cost_usd": 0.6,
+      "completed_gens": 5,
+      "app_reported_installs": 0,
+      "platforms": {
+        "ios": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        },
+        "android": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        },
+        "unknown": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        }
+      },
+      "funnel": {
+        "signup": 0,
+        "session": 0,
+        "generated": 0,
+        "unlock": 0,
+        "paywall": 0,
+        "result_viewed": 0,
+        "home_viewed": 0
+      }
+    },
+    {
+      "day": "2026-09-14",
+      "downloads": 0,
+      "purchases": 0,
+      "revenue_usd": 0.0,
+      "openai_cost_usd": 0.0,
+      "completed_gens": 0,
+      "app_reported_installs": 0,
+      "platforms": {
+        "ios": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        },
+        "android": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        },
+        "unknown": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        }
+      },
+      "funnel": {
+        "signup": 0,
+        "session": 0,
+        "generated": 0,
+        "unlock": 0,
+        "paywall": 0,
+        "result_viewed": 0,
+        "home_viewed": 0
+      }
+    },
+    {
+      "day": "2026-09-15",
+      "downloads": 0,
+      "purchases": 0,
+      "revenue_usd": 0.0,
+      "openai_cost_usd": 3.6,
+      "completed_gens": 30,
+      "app_reported_installs": 0,
+      "platforms": {
+        "ios": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        },
+        "android": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        },
+        "unknown": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        }
+      },
+      "funnel": {
+        "signup": 0,
+        "session": 0,
+        "generated": 0,
+        "unlock": 0,
+        "paywall": 0,
+        "result_viewed": 0,
+        "home_viewed": 0
+      }
+    },
+    {
+      "day": "2026-09-16",
+      "downloads": 0,
+      "purchases": 0,
+      "revenue_usd": 0.0,
+      "openai_cost_usd": 0.0,
+      "completed_gens": 0,
+      "app_reported_installs": 0,
+      "platforms": {
+        "ios": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        },
+        "android": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        },
+        "unknown": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        }
+      },
+      "funnel": {
+        "signup": 0,
+        "session": 0,
+        "generated": 0,
+        "unlock": 0,
+        "paywall": 0,
+        "result_viewed": 0,
+        "home_viewed": 0
+      }
+    },
+    {
+      "day": "2026-09-17",
+      "downloads": 0,
+      "purchases": 0,
+      "revenue_usd": 0.0,
+      "openai_cost_usd": 0.0,
+      "completed_gens": 0,
+      "app_reported_installs": 0,
+      "platforms": {
+        "ios": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        },
+        "android": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        },
+        "unknown": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        }
+      },
+      "funnel": {
+        "signup": 0,
+        "session": 0,
+        "generated": 0,
+        "unlock": 0,
+        "paywall": 0,
+        "result_viewed": 0,
+        "home_viewed": 0
+      }
+    },
+    {
+      "day": "2026-09-18",
+      "downloads": 0,
+      "purchases": 0,
+      "revenue_usd": 0.0,
+      "openai_cost_usd": 0.0,
+      "completed_gens": 0,
+      "app_reported_installs": 0,
+      "platforms": {
+        "ios": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        },
+        "android": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        },
+        "unknown": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        }
+      },
+      "funnel": {
+        "signup": 0,
+        "session": 0,
+        "generated": 0,
+        "unlock": 0,
+        "paywall": 0,
+        "result_viewed": 0,
+        "home_viewed": 0
+      }
+    },
+    {
+      "day": "2026-09-19",
+      "downloads": 0,
+      "purchases": 0,
+      "revenue_usd": 0.0,
+      "openai_cost_usd": 0.0,
+      "completed_gens": 0,
+      "app_reported_installs": 0,
+      "platforms": {
+        "ios": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        },
+        "android": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        },
+        "unknown": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        }
+      },
+      "funnel": {
+        "signup": 0,
+        "session": 0,
+        "generated": 0,
+        "unlock": 0,
+        "paywall": 0,
+        "result_viewed": 0,
+        "home_viewed": 0
+      }
+    },
+    {
+      "day": "2026-09-20",
+      "downloads": 0,
+      "purchases": 0,
+      "revenue_usd": 0.0,
+      "openai_cost_usd": 0.0,
+      "completed_gens": 0,
+      "app_reported_installs": 0,
+      "platforms": {
+        "ios": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        },
+        "android": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        },
+        "unknown": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        }
+      },
+      "funnel": {
+        "signup": 0,
+        "session": 0,
+        "generated": 0,
+        "unlock": 0,
+        "paywall": 0,
+        "result_viewed": 0,
+        "home_viewed": 0
+      }
+    },
+    {
+      "day": "2026-09-21",
+      "downloads": 0,
+      "purchases": 0,
+      "revenue_usd": 0.0,
+      "openai_cost_usd": 0.0,
+      "completed_gens": 0,
+      "app_reported_installs": 0,
+      "platforms": {
+        "ios": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        },
+        "android": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        },
+        "unknown": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        }
+      },
+      "funnel": {
+        "signup": 0,
+        "session": 0,
+        "generated": 0,
+        "unlock": 0,
+        "paywall": 0,
+        "result_viewed": 0,
+        "home_viewed": 0
+      }
+    },
+    {
+      "day": "2026-09-22",
+      "downloads": 0,
+      "purchases": 0,
+      "revenue_usd": 0.0,
+      "openai_cost_usd": 0.0,
+      "completed_gens": 0,
+      "app_reported_installs": 0,
+      "platforms": {
+        "ios": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        },
+        "android": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        },
+        "unknown": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        }
+      },
+      "funnel": {
+        "signup": 0,
+        "session": 0,
+        "generated": 0,
+        "unlock": 0,
+        "paywall": 0,
+        "result_viewed": 0,
+        "home_viewed": 0
+      }
+    },
+    {
+      "day": "2026-09-23",
+      "downloads": 0,
+      "purchases": 0,
+      "revenue_usd": 0.0,
+      "openai_cost_usd": 0.24,
+      "completed_gens": 2,
+      "app_reported_installs": 0,
+      "platforms": {
+        "ios": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        },
+        "android": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        },
+        "unknown": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        }
+      },
+      "funnel": {
+        "signup": 0,
+        "session": 0,
+        "generated": 0,
+        "unlock": 0,
+        "paywall": 0,
+        "result_viewed": 0,
+        "home_viewed": 0
+      }
+    },
+    {
+      "day": "2026-09-24",
+      "downloads": 0,
+      "purchases": 0,
+      "revenue_usd": 0.0,
+      "openai_cost_usd": 0.0,
+      "completed_gens": 0,
+      "app_reported_installs": 0,
+      "platforms": {
+        "ios": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        },
+        "android": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        },
+        "unknown": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        }
+      },
+      "funnel": {
+        "signup": 0,
+        "session": 0,
+        "generated": 0,
+        "unlock": 0,
+        "paywall": 0,
+        "result_viewed": 0,
+        "home_viewed": 0
+      }
+    },
+    {
+      "day": "2026-09-25",
+      "downloads": 0,
+      "purchases": 0,
+      "revenue_usd": 0.0,
+      "openai_cost_usd": 0.0,
+      "completed_gens": 0,
+      "app_reported_installs": 0,
+      "platforms": {
+        "ios": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        },
+        "android": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        },
+        "unknown": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        }
+      },
+      "funnel": {
+        "signup": 0,
+        "session": 0,
+        "generated": 0,
+        "unlock": 0,
+        "paywall": 0,
+        "result_viewed": 0,
+        "home_viewed": 0
+      }
+    },
+    {
+      "day": "2026-09-26",
+      "downloads": 0,
+      "purchases": 0,
+      "revenue_usd": 0.0,
+      "openai_cost_usd": 0.0,
+      "completed_gens": 0,
+      "app_reported_installs": 0,
+      "platforms": {
+        "ios": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        },
+        "android": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        },
+        "unknown": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        }
+      },
+      "funnel": {
+        "signup": 0,
+        "session": 0,
+        "generated": 0,
+        "unlock": 0,
+        "paywall": 0,
+        "result_viewed": 0,
+        "home_viewed": 0
+      }
+    },
+    {
+      "day": "2026-09-27",
+      "downloads": 0,
+      "purchases": 0,
+      "revenue_usd": 0.0,
+      "openai_cost_usd": 0.0,
+      "completed_gens": 0,
+      "app_reported_installs": 0,
+      "platforms": {
+        "ios": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        },
+        "android": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        },
+        "unknown": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        }
+      },
+      "funnel": {
+        "signup": 0,
+        "session": 0,
+        "generated": 0,
+        "unlock": 0,
+        "paywall": 0,
+        "result_viewed": 0,
+        "home_viewed": 0
+      }
+    },
+    {
+      "day": "2026-09-28",
+      "downloads": 0,
+      "purchases": 0,
+      "revenue_usd": 0.0,
+      "openai_cost_usd": 0.0,
+      "completed_gens": 0,
+      "app_reported_installs": 0,
+      "platforms": {
+        "ios": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        },
+        "android": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        },
+        "unknown": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        }
+      },
+      "funnel": {
+        "signup": 0,
+        "session": 0,
+        "generated": 0,
+        "unlock": 0,
+        "paywall": 0,
+        "result_viewed": 0,
+        "home_viewed": 0
+      }
+    },
+    {
+      "day": "2026-09-29",
+      "downloads": 0,
+      "purchases": 0,
+      "revenue_usd": 0.0,
+      "openai_cost_usd": 0.0,
+      "completed_gens": 0,
+      "app_reported_installs": 0,
+      "platforms": {
+        "ios": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        },
+        "android": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        },
+        "unknown": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        }
+      },
+      "funnel": {
+        "signup": 0,
+        "session": 0,
+        "generated": 0,
+        "unlock": 0,
+        "paywall": 0,
+        "result_viewed": 0,
+        "home_viewed": 0
+      }
+    },
+    {
+      "day": "2026-09-30",
+      "downloads": 0,
+      "purchases": 0,
+      "revenue_usd": 0.0,
+      "openai_cost_usd": 0.0,
+      "completed_gens": 0,
+      "app_reported_installs": 0,
+      "platforms": {
+        "ios": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        },
+        "android": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        },
+        "unknown": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        }
+      },
+      "funnel": {
+        "signup": 0,
+        "session": 0,
+        "generated": 0,
+        "unlock": 0,
+        "paywall": 0,
+        "result_viewed": 0,
+        "home_viewed": 0
+      }
+    },
+    {
+      "day": "2026-10-01",
+      "downloads": 0,
+      "purchases": 0,
+      "revenue_usd": 0.0,
+      "openai_cost_usd": 0.0,
+      "completed_gens": 0,
+      "app_reported_installs": 0,
+      "platforms": {
+        "ios": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        },
+        "android": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        },
+        "unknown": {
+          "downloads": 0,
+          "purchases": 0,
+          "revenue_usd": 0.0
+        }
+      },
+      "funnel": {
+        "signup": 0,
+        "session": 0,
+        "generated": 0,
+        "unlock": 0,
+        "paywall": 0,
+        "result_viewed": 0,
+        "home_viewed": 0
+      }
+    }
+  ],
+  "funnel_summary": {
+    "window_days": 30,
+    "signup": 0,
+    "session": 0,
+    "generated": 0,
+    "unlock": 0,
+    "paywall": 0,
+    "purchase": 0,
+    "revenue_usd": 0.0,
+    "rates": {
+      "signup_to_session": null,
+      "session_to_generated": null,
+      "generated_to_paywall": null,
+      "paywall_to_purchase": null,
+      "generated_to_purchase": null,
+      "session_to_purchase": null
+    }
+  },
+  "retention": {
+    "cohort_days": 30,
+    "averages": {
+      "d1": null,
+      "d7": null,
+      "d30": null,
+      "d1_cohorts": 0,
+      "d7_cohorts": 0,
+      "d30_cohorts": 0
+    },
+    "cohorts": []
+  },
+  "recent": {
+    "today": {
+      "day": "2026-10-01",
+      "downloads": 0,
+      "purchases": 0,
+      "revenue_usd": 0.0,
+      "funnel": {
+        "signup": 0,
+        "session": 0,
+        "generated": 0,
+        "unlock": 0,
+        "paywall": 0,
+        "result_viewed": 0,
+        "home_viewed": 0
+      }
+    },
+    "yesterday": {
+      "day": "2026-09-30",
+      "downloads": 0,
+      "purchases": 0,
+      "revenue_usd": 0.0,
+      "funnel": {
+        "signup": 0,
+        "session": 0,
+        "generated": 0,
+        "unlock": 0,
+        "paywall": 0,
+        "result_viewed": 0,
+        "home_viewed": 0
+      }
+    },
+    "last_7d": {
+      "downloads": 0,
+      "purchases": 0,
+      "revenue_usd": 0.0
+    },
+    "prev_7d": {
+      "downloads": 0,
+      "purchases": 0,
+      "revenue_usd": 0.0
+    }
+  },
   "sources": {
-    "ios_downloads": "asc_instances_pending",
-    "android_downloads": "app_reported_unattributed",
+    "ios_downloads": "missing_asc_credentials",
+    "android_downloads": "none",
     "ios_revenue": "payments",
     "android_revenue": "payments",
-    "ad_spend": "none"
+    "ad_spend": "none",
+    "funnel": "db",
+    "retention": "users+sessions"
   },
   "notes": {
-    "downloads_ios": "App Store Connect Analytics pending first report instances; fill override or wait for ASC.",
-    "downloads_android": "Set monthly.android.downloads in corp_platform_metrics.json (Play Console export).",
-    "revenue": "RevenueCat PRODUCTION payments by store. Legacy UUID rows counted as iOS.",
-    "ad_spend": "Fill monthly.{ios|android}.ad_spend_usd in corp_platform_metrics.json.",
-    "openai_cost": "Estimated from completed generation tasks × $0.12 until OPENAI_ADMIN_KEY is configured.",
-    "asc": "asc_instances_pending"
+    "daily": "Last 30 calendar days. Live API refreshes on each load; snapshot metrics.json is a daily fallback.",
+    "downloads_ios": "App Store Connect Analytics (App Downloads Standard) when instances are ready; else override file; else unattributed app installs.",
+    "downloads_android": "Set monthly.android.downloads in corp_platform_metrics.json (Play Console export) until Play Reporting API is wired.",
+    "revenue": "RevenueCat PRODUCTION payments by store (APP_STORE/PLAY_STORE). Legacy rows without store: UUID→iOS, GPA.*→Android.",
+    "funnel": "Real-only distinct users/day: signup→session→generated→unlock→paywall→purchase (sim/internal domains excluded).",
+    "retention": "Classic calendar D1/D7/D30: cohort = users.created_at; activity = sessions, funnel events, or completed gens.",
+    "ad_spend": "Fill monthly.{ios|android}.ad_spend_usd in corp_platform_metrics.json (see config/corp_platform_metrics.example.json).",
+    "openai_cost": "Estimated from completed generation tasks × $0.12 (set OPENAI_ADMIN_KEY for billed costs).",
+    "asc": "missing_asc_credentials"
   }
 }

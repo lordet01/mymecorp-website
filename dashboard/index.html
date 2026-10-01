@@ -27,6 +27,7 @@
             --border: rgba(243, 199, 190, 0.18);
             --ios: #7eb6ff;
             --android: #8fd6b5;
+            --accent: #e8c07a;
             --font: 'Outfit', 'Pretendard Variable', Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
         }
         * { box-sizing: border-box; }
@@ -69,14 +70,18 @@
         .err { min-height: 1.2em; margin-top: 12px; color: #f0a0a0; font-size: 0.88rem; }
         .hidden { display: none !important; }
         .top { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 28px; flex-wrap: wrap; }
-        .kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-bottom: 18px; }
+        .top-actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+        .kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-bottom: 14px; }
+        .kpis.six { grid-template-columns: repeat(6, minmax(0, 1fr)); }
         .kpi, .plat, .panel {
             background: var(--bg-panel); border: 1px solid var(--border); border-radius: 18px;
         }
         .kpi { padding: 18px 16px; min-height: 112px; }
         .kpi .label { color: var(--text-light); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 8px; }
-        .kpi .value { font-size: clamp(1.35rem, 2.6vw, 1.9rem); font-weight: 750; letter-spacing: -0.03em; line-height: 1.1; }
+        .kpi .value { font-size: clamp(1.2rem, 2.4vw, 1.75rem); font-weight: 750; letter-spacing: -0.03em; line-height: 1.1; }
         .kpi .hint { margin-top: 8px; color: var(--text-light); font-size: 0.78rem; }
+        .delta-up { color: #8fd6b5; }
+        .delta-down { color: #f0a0a0; }
         .plat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 16px; }
         .plat { padding: 18px; }
         .plat-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
@@ -88,6 +93,17 @@
         .plat-stats .v { font-size: 1.15rem; font-weight: 700; margin-top: 4px; font-variant-numeric: tabular-nums; }
         .panel { padding: 20px; margin-bottom: 16px; }
         .chart-wrap { position: relative; height: 300px; }
+        .chart-wrap.tall { height: 340px; }
+        .funnel-bars { display: grid; gap: 10px; margin-top: 8px; }
+        .funnel-row { display: grid; grid-template-columns: 110px 1fr 64px; gap: 10px; align-items: center; }
+        .funnel-row .name { color: var(--text-regular); font-size: 0.85rem; }
+        .funnel-row .track { height: 10px; background: rgba(255,255,255,0.06); border-radius: 999px; overflow: hidden; }
+        .funnel-row .fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, rgba(243,199,190,0.85), rgba(126,182,255,0.7)); }
+        .funnel-row .n { text-align: right; font-variant-numeric: tabular-nums; color: var(--text-dark); font-size: 0.9rem; font-weight: 650; }
+        .rate-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 16px; }
+        .rate-card { background: #0b0b0d; border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 12px; }
+        .rate-card .k { color: var(--text-light); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.04em; }
+        .rate-card .v { margin-top: 6px; font-size: 1.25rem; font-weight: 700; }
         table { width: 100%; border-collapse: collapse; font-size: 0.86rem; }
         th, td { text-align: right; padding: 10px 8px; border-bottom: 1px solid rgba(255,255,255,0.06); white-space: nowrap; }
         th:first-child, td:first-child { text-align: left; }
@@ -98,12 +114,22 @@
         .meta { display: flex; flex-wrap: wrap; gap: 10px 18px; color: var(--text-light); font-size: 0.82rem; margin-top: 8px; }
         .badge { display: inline-block; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--border); color: var(--studio-rose-soft); font-size: 0.72rem; }
         .notes { margin: 0; padding-left: 18px; color: var(--text-light); font-size: 0.82rem; line-height: 1.55; }
+        .tabs { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+        .tab {
+            border: 1px solid var(--border); background: transparent; color: var(--text-regular);
+            border-radius: 999px; padding: 7px 12px; font: inherit; font-size: 0.82rem; cursor: pointer;
+        }
+        .tab.active { color: #1a1210; background: var(--studio-rose-soft); border-color: transparent; font-weight: 650; }
+        @media (max-width: 1100px) {
+            .kpis.six { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        }
         @media (max-width: 900px) {
-            .kpis { grid-template-columns: 1fr 1fr; }
-            .plat-grid { grid-template-columns: 1fr; }
+            .kpis, .kpis.six { grid-template-columns: 1fr 1fr; }
+            .plat-grid, .rate-grid { grid-template-columns: 1fr; }
         }
         @media (max-width: 560px) {
-            .kpis { grid-template-columns: 1fr; }
+            .kpis, .kpis.six { grid-template-columns: 1fr; }
+            .funnel-row { grid-template-columns: 88px 1fr 52px; }
         }
     </style>
 </head>
@@ -112,7 +138,7 @@
         <div class="gate-card">
             <div class="brand">myme studio</div>
             <h1>Ops Dashboard</h1>
-            <p class="sub">iOS / Android 다운로드·수익·광고비와 OpenAI 지출을 월 단위로 확인합니다.</p>
+            <p class="sub">일간 다운로드·구매·리텐션·퍼널과 월간 수익/광고비를 확인합니다. Live API가 최신 수치를 제공합니다.</p>
             <form id="login-form">
                 <label for="password">암호</label>
                 <input id="password" name="password" type="password" autocomplete="current-password" autofocus required>
@@ -127,29 +153,42 @@
             <div>
                 <div class="brand">myme studio</div>
                 <h1>Ops Dashboard</h1>
-                <p class="sub" style="margin-bottom:0">플랫폼별 성과 · 광고비 · OpenAI 지출</p>
+                <p class="sub" style="margin-bottom:0">일간 변화 · 퍼널 · 리텐션 · 플랫폼 성과</p>
             </div>
-            <button type="button" class="btn secondary" id="logout">잠금</button>
+            <div class="top-actions">
+                <button type="button" class="btn secondary" id="refresh">새로고침</button>
+                <button type="button" class="btn secondary" id="logout">잠금</button>
+            </div>
         </div>
 
-        <div class="kpis">
+        <div class="kpis six">
+            <article class="kpi">
+                <div class="label">오늘 다운로드</div>
+                <div class="value" id="kpi-today-dl">—</div>
+                <div class="hint" id="kpi-today-dl-delta">전일 대비 —</div>
+            </article>
+            <article class="kpi">
+                <div class="label">오늘 구매</div>
+                <div class="value" id="kpi-today-buy">—</div>
+                <div class="hint" id="kpi-today-rev">수익 —</div>
+            </article>
+            <article class="kpi">
+                <div class="label">최근 7일 다운로드</div>
+                <div class="value" id="kpi-7d-dl">—</div>
+                <div class="hint" id="kpi-7d-dl-delta">직전 7일 대비 —</div>
+            </article>
+            <article class="kpi">
+                <div class="label">D1 리텐션</div>
+                <div class="value" id="kpi-d1">—</div>
+                <div class="hint" id="kpi-d7">D7 —</div>
+            </article>
             <article class="kpi">
                 <div class="label">총 수익</div>
                 <div class="value" id="kpi-revenue">—</div>
                 <div class="hint" id="kpi-purchases">구매 —건</div>
             </article>
             <article class="kpi">
-                <div class="label">총 다운로드</div>
-                <div class="value" id="kpi-downloads">—</div>
-                <div class="hint" id="kpi-installs">앱 신고 설치 —</div>
-            </article>
-            <article class="kpi">
-                <div class="label">총 광고비</div>
-                <div class="value" id="kpi-ads">—</div>
-                <div class="hint" id="kpi-net">순이익(수익−광고) —</div>
-            </article>
-            <article class="kpi">
-                <div class="label">총 OpenAI 지출</div>
+                <div class="label">총 OpenAI</div>
                 <div class="value" id="kpi-openai">—</div>
                 <div class="hint" id="kpi-openai-src">—</div>
             </article>
@@ -183,8 +222,58 @@
         </div>
 
         <section class="panel">
-            <h2>월별 추이 (다운로드 · 수익 · 광고비)</h2>
-            <div class="chart-wrap"><canvas id="chart"></canvas></div>
+            <h2>퍼널 분석 <span class="badge" id="funnel-window">—</span></h2>
+            <div class="funnel-bars" id="funnel-bars"></div>
+            <div class="rate-grid" id="funnel-rates"></div>
+        </section>
+
+        <section class="panel">
+            <div class="tabs">
+                <button type="button" class="tab active" data-chart="daily">일간</button>
+                <button type="button" class="tab" data-chart="funnel">퍼널 추이</button>
+                <button type="button" class="tab" data-chart="monthly">월간</button>
+            </div>
+            <h2 id="chart-title">일간 다운로드 · 구매 · 수익</h2>
+            <div class="chart-wrap tall"><canvas id="chart"></canvas></div>
+        </section>
+
+        <section class="panel">
+            <h2>일간 상세</h2>
+            <div style="overflow-x:auto">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>날짜</th>
+                            <th>다운로드</th>
+                            <th>구매</th>
+                            <th>수익</th>
+                            <th>가입</th>
+                            <th>세션</th>
+                            <th>생성</th>
+                            <th>페이월</th>
+                        </tr>
+                    </thead>
+                    <tbody id="daily-rows"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="panel">
+            <h2>리텐션 코호트 (최근)</h2>
+            <div style="overflow-x:auto">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>코호트</th>
+                            <th>규모</th>
+                            <th>D1</th>
+                            <th>D7</th>
+                            <th>D30</th>
+                        </tr>
+                    </thead>
+                    <tbody id="retention-rows"></tbody>
+                </table>
+            </div>
         </section>
 
         <section class="panel">
@@ -207,6 +296,7 @@
             <div class="meta">
                 <span>업데이트 <span id="updated-at">—</span></span>
                 <span class="badge" id="data-source">—</span>
+                <span id="auto-refresh-hint">15분마다 자동 갱신</span>
             </div>
         </section>
 
@@ -224,22 +314,46 @@
             "https://myme-https.external.intflow.dev/api/corp/dashboard/metrics",
             "./metrics.json"
         ];
+        const REFRESH_MS = 15 * 60 * 1000;
         const gate = document.getElementById("gate");
         const dash = document.getElementById("dash");
         const form = document.getElementById("login-form");
         const err = document.getElementById("login-error");
         let chart;
+        let chartMode = "daily";
+        let lastData = null;
+        let refreshTimer = null;
 
         function unlocked() { return sessionStorage.getItem(SESSION_KEY) === "1"; }
-        function showDash() { gate.classList.add("hidden"); dash.classList.remove("hidden"); loadMetrics(); }
-        function showGate() { dash.classList.add("hidden"); gate.classList.remove("hidden"); }
+        function showDash() { gate.classList.add("hidden"); dash.classList.remove("hidden"); loadMetrics(); startAutoRefresh(); }
+        function showGate() {
+            dash.classList.add("hidden"); gate.classList.remove("hidden");
+            if (refreshTimer) { clearInterval(refreshTimer); refreshTimer = null; }
+        }
+        function startAutoRefresh() {
+            if (refreshTimer) clearInterval(refreshTimer);
+            refreshTimer = setInterval(function () {
+                if (unlocked() && !document.hidden) loadMetrics();
+            }, REFRESH_MS);
+        }
         function fmtMoney(n) {
             const v = Number(n) || 0;
             return "$" + v.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
         }
         function fmtInt(n) { return (Number(n) || 0).toLocaleString("en-US"); }
+        function fmtPct(v) {
+            if (v === null || v === undefined || Number.isNaN(Number(v))) return "n/a";
+            return (Number(v) * 100).toFixed(1) + "%";
+        }
         function plat(totals, name) {
             return ((totals && totals.platforms) || {})[name] || {};
+        }
+        function deltaHtml(cur, prev, label) {
+            if (prev === null || prev === undefined) return label + " —";
+            const d = Number(cur || 0) - Number(prev || 0);
+            const cls = d > 0 ? "delta-up" : (d < 0 ? "delta-down" : "");
+            const sign = d > 0 ? "+" : "";
+            return label + ' <span class="' + cls + '">' + sign + fmtInt(d) + "</span>";
         }
 
         async function fetchMetrics() {
@@ -258,21 +372,132 @@
             throw lastErr || new Error("no metrics");
         }
 
+        function renderFunnel(data) {
+            const fs = data.funnel_summary || {};
+            document.getElementById("funnel-window").textContent =
+                "최근 " + (fs.window_days || data.daily_days || 30) + "일 · 실사용자";
+            const steps = [
+                ["signup", "가입"],
+                ["session", "세션"],
+                ["generated", "생성"],
+                ["unlock", "언락"],
+                ["paywall", "페이월"],
+                ["purchase", "구매"]
+            ];
+            const max = Math.max(1, ...steps.map(function (s) { return Number(fs[s[0]]) || 0; }));
+            const bars = document.getElementById("funnel-bars");
+            bars.innerHTML = "";
+            steps.forEach(function (s) {
+                const n = Number(fs[s[0]]) || 0;
+                const row = document.createElement("div");
+                row.className = "funnel-row";
+                row.innerHTML =
+                    '<div class="name">' + s[1] + "</div>" +
+                    '<div class="track"><div class="fill" style="width:' + Math.max(2, (n / max) * 100) + '%"></div></div>' +
+                    '<div class="n">' + fmtInt(n) + "</div>";
+                bars.appendChild(row);
+            });
+            const rates = fs.rates || {};
+            const rateItems = [
+                ["signup_to_session", "가입→세션"],
+                ["session_to_generated", "세션→생성"],
+                ["generated_to_paywall", "생성→페이월"],
+                ["paywall_to_purchase", "페이월→구매"],
+                ["generated_to_purchase", "생성→구매"],
+                ["session_to_purchase", "세션→구매"]
+            ];
+            const rg = document.getElementById("funnel-rates");
+            rg.innerHTML = "";
+            rateItems.forEach(function (item) {
+                const card = document.createElement("div");
+                card.className = "rate-card";
+                card.innerHTML =
+                    '<div class="k">' + item[1] + '</div><div class="v">' + fmtPct(rates[item[0]]) + "</div>";
+                rg.appendChild(card);
+            });
+        }
+
+        function renderChart(data) {
+            if (typeof Chart === "undefined") return;
+            const daily = Array.isArray(data.daily) ? data.daily.slice() : [];
+            const monthly = Array.isArray(data.monthly) ? data.monthly.slice() : [];
+            monthly.sort(function (a, b) { return String(a.month).localeCompare(String(b.month)); });
+
+            let labels = [];
+            let datasets = [];
+            const title = document.getElementById("chart-title");
+
+            if (chartMode === "monthly") {
+                title.textContent = "월간 다운로드 · 수익 · 광고비";
+                labels = monthly.map(function (r) { return r.month; });
+                datasets = [
+                    { type: "bar", label: "iOS downloads", data: monthly.map(function (r) { return Number((r.platforms && r.platforms.ios || {}).downloads) || 0; }), yAxisID: "y", backgroundColor: "rgba(126,182,255,0.55)", borderRadius: 5, stack: "dl" },
+                    { type: "bar", label: "Android downloads", data: monthly.map(function (r) { return Number((r.platforms && r.platforms.android || {}).downloads) || 0; }), yAxisID: "y", backgroundColor: "rgba(143,214,181,0.55)", borderRadius: 5, stack: "dl" },
+                    { type: "line", label: "Revenue", data: monthly.map(function (r) { return Number(r.revenue_usd) || 0; }), yAxisID: "y1", borderColor: "#F3C7BE", tension: 0.25, backgroundColor: "transparent" },
+                    { type: "line", label: "Ad spend", data: monthly.map(function (r) { return Number(r.ad_spend_usd) || 0; }), yAxisID: "y1", borderColor: "#e8c07a", borderDash: [5, 4], tension: 0.25, backgroundColor: "transparent" }
+                ];
+            } else if (chartMode === "funnel") {
+                title.textContent = "일간 퍼널 (가입 · 세션 · 생성 · 페이월 · 구매)";
+                labels = daily.map(function (r) { return String(r.day).slice(5); });
+                datasets = [
+                    { type: "line", label: "Signup", data: daily.map(function (r) { return Number((r.funnel || {}).signup) || 0; }), yAxisID: "y", borderColor: "#F3C7BE", tension: 0.25, backgroundColor: "transparent" },
+                    { type: "line", label: "Session", data: daily.map(function (r) { return Number((r.funnel || {}).session) || 0; }), yAxisID: "y", borderColor: "#7eb6ff", tension: 0.25, backgroundColor: "transparent" },
+                    { type: "line", label: "Generated", data: daily.map(function (r) { return Number((r.funnel || {}).generated) || 0; }), yAxisID: "y", borderColor: "#8fd6b5", tension: 0.25, backgroundColor: "transparent" },
+                    { type: "line", label: "Paywall", data: daily.map(function (r) { return Number((r.funnel || {}).paywall) || 0; }), yAxisID: "y", borderColor: "#e8c07a", tension: 0.25, backgroundColor: "transparent" },
+                    { type: "bar", label: "Purchase", data: daily.map(function (r) { return Number(r.purchases) || 0; }), yAxisID: "y1", backgroundColor: "rgba(243,199,190,0.45)", borderRadius: 4 }
+                ];
+            } else {
+                title.textContent = "일간 다운로드 · 구매 · 수익";
+                labels = daily.map(function (r) { return String(r.day).slice(5); });
+                datasets = [
+                    { type: "bar", label: "Downloads", data: daily.map(function (r) { return Number(r.downloads) || 0; }), yAxisID: "y", backgroundColor: "rgba(126,182,255,0.5)", borderRadius: 4 },
+                    { type: "bar", label: "Purchases", data: daily.map(function (r) { return Number(r.purchases) || 0; }), yAxisID: "y", backgroundColor: "rgba(243,199,190,0.55)", borderRadius: 4 },
+                    { type: "line", label: "Revenue USD", data: daily.map(function (r) { return Number(r.revenue_usd) || 0; }), yAxisID: "y1", borderColor: "#8fd6b5", tension: 0.25, backgroundColor: "transparent" }
+                ];
+            }
+
+            const ctx = document.getElementById("chart");
+            if (chart) chart.destroy();
+            chart = new Chart(ctx, {
+                data: { labels: labels, datasets: datasets },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    interaction: { mode: "index", intersect: false },
+                    plugins: { legend: { labels: { color: "#BCC1CB", boxWidth: 12, font: { family: "Outfit" } } } },
+                    scales: {
+                        x: { ticks: { color: "#8E929A", maxRotation: 0, autoSkip: true, maxTicksLimit: 12 }, grid: { color: "rgba(255,255,255,0.04)" } },
+                        y: { position: "left", ticks: { color: "#8E929A" }, grid: { color: "rgba(255,255,255,0.06)" } },
+                        y1: { position: "right", ticks: { color: "#8E929A" }, grid: { drawOnChartArea: false } }
+                    }
+                }
+            });
+        }
+
         function render(data) {
+            lastData = data;
             const totals = data.totals || {};
             const sources = data.sources || {};
+            const recent = data.recent || {};
+            const today = recent.today || {};
+            const yday = recent.yesterday || {};
+            const last7 = recent.last_7d || {};
+            const prev7 = recent.prev_7d || {};
+            const retention = (data.retention && data.retention.averages) || {};
             const monthly = Array.isArray(data.monthly) ? data.monthly.slice() : [];
-            monthly.sort((a, b) => String(a.month).localeCompare(String(b.month)));
+            monthly.sort(function (a, b) { return String(a.month).localeCompare(String(b.month)); });
+            const daily = Array.isArray(data.daily) ? data.daily.slice() : [];
 
+            document.getElementById("kpi-today-dl").textContent = fmtInt(today.downloads);
+            document.getElementById("kpi-today-dl-delta").innerHTML = deltaHtml(today.downloads, yday.downloads, "전일 대비");
+            document.getElementById("kpi-today-buy").textContent = fmtInt(today.purchases);
+            document.getElementById("kpi-today-rev").textContent = "수익 " + fmtMoney(today.revenue_usd);
+            document.getElementById("kpi-7d-dl").textContent = fmtInt(last7.downloads);
+            document.getElementById("kpi-7d-dl-delta").innerHTML = deltaHtml(last7.downloads, prev7.downloads, "직전 7일 대비");
+            document.getElementById("kpi-d1").textContent = fmtPct(retention.d1);
+            document.getElementById("kpi-d7").textContent = "D7 " + fmtPct(retention.d7) + " · D30 " + fmtPct(retention.d30);
             document.getElementById("kpi-revenue").textContent = fmtMoney(totals.revenue_usd);
-            document.getElementById("kpi-downloads").textContent = fmtInt(totals.downloads);
-            document.getElementById("kpi-ads").textContent = fmtMoney(totals.ad_spend_usd);
-            document.getElementById("kpi-openai").textContent = fmtMoney(totals.openai_cost_usd);
             document.getElementById("kpi-purchases").textContent = "구매 " + fmtInt(totals.purchases) + "건";
-            document.getElementById("kpi-installs").textContent =
-                "앱 신고 설치 " + fmtInt(totals.app_reported_installs || totals.downloads);
-            document.getElementById("kpi-net").textContent =
-                "순이익(수익−광고) " + fmtMoney(totals.net_after_ads_usd);
+            document.getElementById("kpi-openai").textContent = fmtMoney(totals.openai_cost_usd);
             const oaiSrc = (monthly[monthly.length - 1] && monthly[monthly.length - 1].openai_cost_source) || "";
             document.getElementById("kpi-openai-src").textContent =
                 oaiSrc === "openai_admin" ? "OpenAI 청구 실적" : "추정(생성 건수 × 단가)";
@@ -292,7 +517,9 @@
 
             document.getElementById("updated-at").textContent = data.updated_at || "—";
             document.getElementById("data-source").textContent =
-                data._source === "live" ? "Live API" : "Local snapshot";
+                data._source === "live" ? "Live API (최신)" : "Local snapshot";
+
+            renderFunnel(data);
 
             const notes = data.notes || {};
             const ul = document.getElementById("notes");
@@ -302,6 +529,40 @@
                 li.textContent = k + ": " + notes[k];
                 ul.appendChild(li);
             });
+
+            const dailyBody = document.getElementById("daily-rows");
+            dailyBody.innerHTML = "";
+            daily.slice().reverse().forEach(function (row) {
+                const f = row.funnel || {};
+                const tr = document.createElement("tr");
+                tr.innerHTML =
+                    "<td>" + row.day + "</td>" +
+                    "<td class='num'>" + fmtInt(row.downloads) + "</td>" +
+                    "<td class='num'>" + fmtInt(row.purchases) + "</td>" +
+                    "<td class='num'>" + fmtMoney(row.revenue_usd) + "</td>" +
+                    "<td class='num'>" + fmtInt(f.signup) + "</td>" +
+                    "<td class='num'>" + fmtInt(f.session) + "</td>" +
+                    "<td class='num'>" + fmtInt(f.generated) + "</td>" +
+                    "<td class='num'>" + fmtInt(f.paywall) + "</td>";
+                dailyBody.appendChild(tr);
+            });
+
+            const retBody = document.getElementById("retention-rows");
+            retBody.innerHTML = "";
+            const cohorts = ((data.retention || {}).cohorts || []).slice().reverse();
+            cohorts.forEach(function (c) {
+                const tr = document.createElement("tr");
+                tr.innerHTML =
+                    "<td>" + c.cohort_day + "</td>" +
+                    "<td class='num'>" + fmtInt(c.size) + "</td>" +
+                    "<td class='num'>" + fmtPct(c.d1_rate) + "</td>" +
+                    "<td class='num'>" + fmtPct(c.d7_rate) + "</td>" +
+                    "<td class='num'>" + fmtPct(c.d30_rate) + "</td>";
+                retBody.appendChild(tr);
+            });
+            if (!cohorts.length) {
+                retBody.innerHTML = "<tr><td colspan='5'>아직 측정 가능한 코호트가 없습니다.</td></tr>";
+            }
 
             const tbody = document.getElementById("month-rows");
             tbody.innerHTML = "";
@@ -330,38 +591,7 @@
                 });
             });
 
-            const labels = monthly.map(function (r) { return r.month; });
-            const iosDl = monthly.map(function (r) { return Number((r.platforms && r.platforms.ios || {}).downloads) || 0; });
-            const andDl = monthly.map(function (r) { return Number((r.platforms && r.platforms.android || {}).downloads) || 0; });
-            const iosRev = monthly.map(function (r) { return Number((r.platforms && r.platforms.ios || {}).revenue_usd) || 0; });
-            const andRev = monthly.map(function (r) { return Number((r.platforms && r.platforms.android || {}).revenue_usd) || 0; });
-            const ads = monthly.map(function (r) { return Number(r.ad_spend_usd) || 0; });
-
-            const ctx = document.getElementById("chart");
-            if (chart) chart.destroy();
-            if (typeof Chart === "undefined") return;
-            chart = new Chart(ctx, {
-                data: {
-                    labels: labels,
-                    datasets: [
-                        { type: "bar", label: "iOS downloads", data: iosDl, yAxisID: "y", backgroundColor: "rgba(126,182,255,0.55)", borderRadius: 5, stack: "dl" },
-                        { type: "bar", label: "Android downloads", data: andDl, yAxisID: "y", backgroundColor: "rgba(143,214,181,0.55)", borderRadius: 5, stack: "dl" },
-                        { type: "line", label: "iOS revenue", data: iosRev, yAxisID: "y1", borderColor: "#7eb6ff", tension: 0.25, backgroundColor: "transparent" },
-                        { type: "line", label: "Android revenue", data: andRev, yAxisID: "y1", borderColor: "#8fd6b5", tension: 0.25, backgroundColor: "transparent" },
-                        { type: "line", label: "Ad spend", data: ads, yAxisID: "y1", borderColor: "#e8c07a", borderDash: [5, 4], tension: 0.25, backgroundColor: "transparent" }
-                    ]
-                },
-                options: {
-                    responsive: true, maintainAspectRatio: false,
-                    interaction: { mode: "index", intersect: false },
-                    plugins: { legend: { labels: { color: "#BCC1CB", boxWidth: 12, font: { family: "Outfit" } } } },
-                    scales: {
-                        x: { stacked: true, ticks: { color: "#8E929A" }, grid: { color: "rgba(255,255,255,0.04)" } },
-                        y: { stacked: true, position: "left", ticks: { color: "#8E929A" }, grid: { color: "rgba(255,255,255,0.06)" }, title: { display: true, text: "Downloads", color: "#8E929A" } },
-                        y1: { position: "right", ticks: { color: "#8E929A" }, grid: { drawOnChartArea: false }, title: { display: true, text: "USD", color: "#8E929A" } }
-                    }
-                }
-            });
+            renderChart(data);
         }
 
         async function loadMetrics() {
@@ -385,6 +615,15 @@
         });
         document.getElementById("logout").addEventListener("click", function () {
             sessionStorage.removeItem(SESSION_KEY); showGate();
+        });
+        document.getElementById("refresh").addEventListener("click", function () { loadMetrics(); });
+        document.querySelectorAll(".tab").forEach(function (btn) {
+            btn.addEventListener("click", function () {
+                document.querySelectorAll(".tab").forEach(function (b) { b.classList.remove("active"); });
+                btn.classList.add("active");
+                chartMode = btn.getAttribute("data-chart") || "daily";
+                if (lastData) renderChart(lastData);
+            });
         });
         if (unlocked()) showDash();
     })();
