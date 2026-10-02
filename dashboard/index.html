@@ -72,11 +72,19 @@
         .top { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 28px; flex-wrap: wrap; }
         .top-actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
         .kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-bottom: 14px; }
+        .kpis.five { grid-template-columns: repeat(5, minmax(0, 1fr)); }
         .kpis.six { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+        .section-label {
+            margin: 0 0 10px; color: var(--text-light); font-size: 0.72rem;
+            letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600;
+        }
         .kpi, .plat, .panel {
             background: var(--bg-panel); border: 1px solid var(--border); border-radius: 18px;
         }
         .kpi { padding: 18px 16px; min-height: 112px; }
+        .kpi.emphasis {
+            background: linear-gradient(180deg, rgba(243, 199, 190, 0.08), transparent 55%), var(--bg-panel);
+        }
         .kpi .label { color: var(--text-light); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 8px; }
         .kpi .value { font-size: clamp(1.2rem, 2.4vw, 1.75rem); font-weight: 750; letter-spacing: -0.03em; line-height: 1.1; }
         .kpi .hint { margin-top: 8px; color: var(--text-light); font-size: 0.78rem; }
@@ -121,14 +129,14 @@
         }
         .tab.active { color: #1a1210; background: var(--studio-rose-soft); border-color: transparent; font-weight: 650; }
         @media (max-width: 1100px) {
-            .kpis.six { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+            .kpis.five, .kpis.six { grid-template-columns: repeat(3, minmax(0, 1fr)); }
         }
         @media (max-width: 900px) {
-            .kpis, .kpis.six { grid-template-columns: 1fr 1fr; }
+            .kpis, .kpis.five, .kpis.six { grid-template-columns: 1fr 1fr; }
             .plat-grid, .rate-grid { grid-template-columns: 1fr; }
         }
         @media (max-width: 560px) {
-            .kpis, .kpis.six { grid-template-columns: 1fr; }
+            .kpis, .kpis.five, .kpis.six { grid-template-columns: 1fr; }
             .funnel-row { grid-template-columns: 88px 1fr 52px; }
         }
     </style>
@@ -153,7 +161,7 @@
             <div>
                 <div class="brand">myme studio</div>
                 <h1>Ops Dashboard</h1>
-                <p class="sub" style="margin-bottom:0">일간 변화 · 퍼널 · 리텐션 · 플랫폼 성과</p>
+                <p class="sub" style="margin-bottom:0">누적 총계 · 일간 변화 · 퍼널 · 리텐션 · 플랫폼 성과</p>
             </div>
             <div class="top-actions">
                 <button type="button" class="btn secondary" id="refresh">새로고침</button>
@@ -161,7 +169,37 @@
             </div>
         </div>
 
-        <div class="kpis six">
+        <p class="section-label">누적 총계</p>
+        <div class="kpis five">
+            <article class="kpi emphasis">
+                <div class="label">총 다운로드</div>
+                <div class="value" id="kpi-downloads">—</div>
+                <div class="hint" id="kpi-installs">앱 신고 설치 —</div>
+            </article>
+            <article class="kpi emphasis">
+                <div class="label">총 수익</div>
+                <div class="value" id="kpi-revenue">—</div>
+                <div class="hint" id="kpi-purchases">구매 —건</div>
+            </article>
+            <article class="kpi">
+                <div class="label">총 구매</div>
+                <div class="value" id="kpi-purchases-value">—</div>
+                <div class="hint" id="kpi-arppu">ARPPU —</div>
+            </article>
+            <article class="kpi">
+                <div class="label">총 광고비</div>
+                <div class="value" id="kpi-ads">—</div>
+                <div class="hint" id="kpi-net">순이익(수익−광고) —</div>
+            </article>
+            <article class="kpi">
+                <div class="label">총 OpenAI</div>
+                <div class="value" id="kpi-openai">—</div>
+                <div class="hint" id="kpi-openai-src">—</div>
+            </article>
+        </div>
+
+        <p class="section-label">일간 · 리텐션</p>
+        <div class="kpis">
             <article class="kpi">
                 <div class="label">오늘 다운로드</div>
                 <div class="value" id="kpi-today-dl">—</div>
@@ -181,16 +219,6 @@
                 <div class="label">D1 리텐션</div>
                 <div class="value" id="kpi-d1">—</div>
                 <div class="hint" id="kpi-d7">D7 —</div>
-            </article>
-            <article class="kpi">
-                <div class="label">총 수익</div>
-                <div class="value" id="kpi-revenue">—</div>
-                <div class="hint" id="kpi-purchases">구매 —건</div>
-            </article>
-            <article class="kpi">
-                <div class="label">총 OpenAI</div>
-                <div class="value" id="kpi-openai">—</div>
-                <div class="hint" id="kpi-openai-src">—</div>
             </article>
         </div>
 
@@ -487,6 +515,28 @@
             monthly.sort(function (a, b) { return String(a.month).localeCompare(String(b.month)); });
             const daily = Array.isArray(data.daily) ? data.daily.slice() : [];
 
+            const totalPurchases = Number(totals.purchases) || 0;
+            const totalRevenue = Number(totals.revenue_usd) || 0;
+            const arppu = totalPurchases > 0 ? totalRevenue / totalPurchases : null;
+
+            document.getElementById("kpi-downloads").textContent = fmtInt(totals.downloads);
+            document.getElementById("kpi-installs").textContent =
+                "앱 신고 설치 " + fmtInt(totals.app_reported_installs || totals.downloads);
+            document.getElementById("kpi-revenue").textContent = fmtMoney(totalRevenue);
+            document.getElementById("kpi-purchases").textContent = "구매 " + fmtInt(totalPurchases) + "건";
+            document.getElementById("kpi-purchases-value").textContent = fmtInt(totalPurchases);
+            document.getElementById("kpi-arppu").textContent =
+                "ARPPU " + (arppu === null ? "—" : fmtMoney(arppu));
+            document.getElementById("kpi-ads").textContent = fmtMoney(totals.ad_spend_usd);
+            document.getElementById("kpi-net").textContent =
+                "순이익(수익−광고) " + fmtMoney(totals.net_after_ads_usd);
+            document.getElementById("kpi-openai").textContent = fmtMoney(totals.openai_cost_usd);
+            const oaiSrc = (monthly[monthly.length - 1] && monthly[monthly.length - 1].openai_cost_source) || "";
+            document.getElementById("kpi-openai-src").textContent =
+                oaiSrc === "openai_admin"
+                    ? "OpenAI 청구 실적 · 순(−AI) " + fmtMoney(totals.net_after_ads_and_openai_usd)
+                    : "추정(생성 × 단가) · 순(−AI) " + fmtMoney(totals.net_after_ads_and_openai_usd);
+
             document.getElementById("kpi-today-dl").textContent = fmtInt(today.downloads);
             document.getElementById("kpi-today-dl-delta").innerHTML = deltaHtml(today.downloads, yday.downloads, "전일 대비");
             document.getElementById("kpi-today-buy").textContent = fmtInt(today.purchases);
@@ -495,12 +545,6 @@
             document.getElementById("kpi-7d-dl-delta").innerHTML = deltaHtml(last7.downloads, prev7.downloads, "직전 7일 대비");
             document.getElementById("kpi-d1").textContent = fmtPct(retention.d1);
             document.getElementById("kpi-d7").textContent = "D7 " + fmtPct(retention.d7) + " · D30 " + fmtPct(retention.d30);
-            document.getElementById("kpi-revenue").textContent = fmtMoney(totals.revenue_usd);
-            document.getElementById("kpi-purchases").textContent = "구매 " + fmtInt(totals.purchases) + "건";
-            document.getElementById("kpi-openai").textContent = fmtMoney(totals.openai_cost_usd);
-            const oaiSrc = (monthly[monthly.length - 1] && monthly[monthly.length - 1].openai_cost_source) || "";
-            document.getElementById("kpi-openai-src").textContent =
-                oaiSrc === "openai_admin" ? "OpenAI 청구 실적" : "추정(생성 건수 × 단가)";
 
             const ios = plat(totals, "ios");
             const and = plat(totals, "android");
