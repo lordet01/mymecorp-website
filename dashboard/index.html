@@ -302,6 +302,30 @@
         </section>
 
         <section class="panel">
+            <h2>이미지 생성 카테고리 <span class="badge" id="gen-cat-badge">개별 리포트</span></h2>
+            <p class="sub" id="gen-cat-summary" style="margin-bottom:14px">—</p>
+            <div class="rate-grid" id="gen-cat-cards"></div>
+            <p class="section-label" style="margin-top:18px">목적(갤러리 칩) 분포</p>
+            <div class="rate-grid" id="gen-purpose-cards"></div>
+            <div style="overflow-x:auto; margin-top:16px">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>날짜</th>
+                            <th>스타일카드</th>
+                            <th>A컷</th>
+                            <th>한축수정</th>
+                            <th>무드</th>
+                            <th>기타</th>
+                            <th>합계</th>
+                        </tr>
+                    </thead>
+                    <tbody id="gen-cat-rows"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="panel">
             <h2>퍼널 분석 <span class="badge" id="funnel-window">—</span></h2>
             <div class="funnel-bars" id="funnel-bars"></div>
             <div class="rate-grid" id="funnel-rates"></div>
@@ -459,6 +483,79 @@
             if (id === "customer_generation") return "고객 이미지 생성";
             if (id === "other_unattributed") return "기타/미분류";
             return id || "—";
+        }
+
+        function renderGenerationCategories(data) {
+            const gc = data.generation_categories || {};
+            const totals = Array.isArray(gc.totals) ? gc.totals : [];
+            const purposes = Array.isArray(gc.purpose_buckets) ? gc.purpose_buckets : [];
+            const daily = Array.isArray(gc.daily) ? gc.daily.slice().reverse().slice(0, 14) : [];
+            const summary = document.getElementById("gen-cat-summary");
+            const top = totals[0];
+            if (top) {
+                summary.textContent =
+                    "윈도우 " + (gc.window_days || data.daily_days || 30) + "일 · 최다: "
+                    + (top.label || top.id) + " " + fmtInt(top.count) + "회 ("
+                    + Math.round((Number(top.share) || 0) * 100) + "%). "
+                    + (gc.notes || "");
+            } else {
+                summary.textContent = gc.notes || "카테고리 데이터가 없습니다. Live API 동기화 후 표시됩니다.";
+            }
+
+            const cards = document.getElementById("gen-cat-cards");
+            cards.innerHTML = "";
+            (gc.last_7d || totals).forEach(function (c) {
+                const el = document.createElement("div");
+                el.className = "rate-card";
+                el.innerHTML =
+                    "<div class='k'>" + (c.label || c.id) + "</div>" +
+                    "<div class='v'>" + fmtInt(c.count) + "</div>" +
+                    "<div style='margin-top:6px;color:var(--text-light);font-size:0.75rem'>" +
+                    Math.round((Number(c.share) || 0) * 100) + "% · est " + fmtMoney(c.est_usd) +
+                    "</div>";
+                cards.appendChild(el);
+            });
+            if (!(gc.last_7d || totals).length) {
+                cards.innerHTML = "<div class='rate-card'><div class='k'>카테고리</div><div class='v'>—</div></div>";
+            }
+
+            const pcards = document.getElementById("gen-purpose-cards");
+            pcards.innerHTML = "";
+            (gc.purpose_buckets_last_7d || purposes).forEach(function (c) {
+                const el = document.createElement("div");
+                el.className = "rate-card";
+                el.innerHTML =
+                    "<div class='k'>" + (c.label || c.id) + "</div>" +
+                    "<div class='v'>" + fmtInt(c.count) + "</div>" +
+                    "<div style='margin-top:6px;color:var(--text-light);font-size:0.75rem'>" +
+                    Math.round((Number(c.share) || 0) * 100) + "%</div>";
+                pcards.appendChild(el);
+            });
+
+            const body = document.getElementById("gen-cat-rows");
+            body.innerHTML = "";
+            daily.forEach(function (row) {
+                const c = row.categories || {};
+                const total =
+                    (Number(c.style_card_recreate) || 0) +
+                    (Number(c.a_cut) || 0) +
+                    (Number(c.single_axis_edit) || 0) +
+                    (Number(c.mood_sample) || 0) +
+                    (Number(c.customer_other) || 0);
+                const tr = document.createElement("tr");
+                tr.innerHTML =
+                    "<td>" + row.day + "</td>" +
+                    "<td class='num'>" + fmtInt(c.style_card_recreate) + "</td>" +
+                    "<td class='num'>" + fmtInt(c.a_cut) + "</td>" +
+                    "<td class='num'>" + fmtInt(c.single_axis_edit) + "</td>" +
+                    "<td class='num'>" + fmtInt(c.mood_sample) + "</td>" +
+                    "<td class='num'>" + fmtInt(c.customer_other) + "</td>" +
+                    "<td class='num'>" + fmtInt(total) + "</td>";
+                body.appendChild(tr);
+            });
+            if (!daily.length) {
+                body.innerHTML = "<tr><td colspan='7'>카테고리 일간 데이터가 없습니다.</td></tr>";
+            }
         }
 
         function renderApiSpend(data) {
@@ -712,6 +809,7 @@
                 + " 후 · 그로스 " + fmtMoney(totalRevenue);
 
             renderApiSpend(data);
+            renderGenerationCategories(data);
 
             document.getElementById("kpi-today-dl").textContent = fmtInt(today.downloads);
             document.getElementById("kpi-today-dl-delta").innerHTML = deltaHtml(today.downloads, yday.downloads, "전일 대비");
