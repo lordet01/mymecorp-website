@@ -177,9 +177,9 @@
                 <div class="hint" id="kpi-installs">앱 신고 설치 —</div>
             </article>
             <article class="kpi emphasis">
-                <div class="label">총 수익</div>
+                <div class="label">총 수익 (그로스)</div>
                 <div class="value" id="kpi-revenue">—</div>
-                <div class="hint" id="kpi-purchases">구매 —건</div>
+                <div class="hint" id="kpi-purchases">구매 —건 · 스토어순 —</div>
             </article>
             <article class="kpi">
                 <div class="label">총 구매</div>
@@ -231,7 +231,7 @@
                 <div class="plat-stats">
                     <div><div class="k">다운로드</div><div class="v" id="ios-dl">—</div></div>
                     <div><div class="k">구매</div><div class="v" id="ios-buy">—</div></div>
-                    <div><div class="k">수익</div><div class="v" id="ios-rev">—</div></div>
+                    <div><div class="k">수익(그로스)</div><div class="v" id="ios-rev">—</div></div>
                     <div><div class="k">광고비</div><div class="v" id="ios-ads">—</div></div>
                 </div>
             </section>
@@ -243,10 +243,34 @@
                 <div class="plat-stats">
                     <div><div class="k">다운로드</div><div class="v" id="android-dl">—</div></div>
                     <div><div class="k">구매</div><div class="v" id="android-buy">—</div></div>
-                    <div><div class="k">수익</div><div class="v" id="android-rev">—</div></div>
+                    <div><div class="k">수익(그로스)</div><div class="v" id="android-rev">—</div></div>
                     <div><div class="k">광고비</div><div class="v" id="android-ads">—</div></div>
                 </div>
             </section>
+        </div>
+
+        <p class="section-label">수익성 판단용 (분리 기록)</p>
+        <div class="kpis">
+            <article class="kpi emphasis">
+                <div class="label">api_generation_request_count</div>
+                <div class="value" id="kpi-api-calls">—</div>
+                <div class="hint">실제 모델 호출 횟수</div>
+            </article>
+            <article class="kpi emphasis">
+                <div class="label">successful_acut_count</div>
+                <div class="value" id="kpi-acuts">—</div>
+                <div class="hint">정상 A컷 수</div>
+            </article>
+            <article class="kpi emphasis">
+                <div class="label">actual_ai_cost</div>
+                <div class="value" id="kpi-ai-cost">—</div>
+                <div class="hint" id="kpi-ai-cost-src">실제/추정 API 비용</div>
+            </article>
+            <article class="kpi emphasis">
+                <div class="label">store_net_revenue</div>
+                <div class="value" id="kpi-store-net">—</div>
+                <div class="hint" id="kpi-store-fee">수수료 후 순매출</div>
+            </article>
         </div>
 
         <section class="panel">
@@ -523,7 +547,8 @@
         function renderFunnel(data) {
             const fs = data.funnel_summary || {};
             document.getElementById("funnel-window").textContent =
-                "최근 " + (fs.window_days || data.daily_days || 30) + "일 · 실사용자";
+                "최근 " + (fs.window_days || data.daily_days || 30)
+                + "일 · 실사용자 · 전환율=막대 기준";
             const steps = [
                 ["signup", "가입"],
                 ["session", "세션"],
@@ -545,7 +570,8 @@
                     '<div class="n">' + fmtInt(n) + "</div>";
                 bars.appendChild(row);
             });
-            const rates = fs.rates || {};
+            // Primary rates must match bar volumes (e.g. paywall 9 → purchase 1 = 11.1%).
+            const rates = fs.volume_rates || fs.rates || {};
             const rateItems = [
                 ["signup_to_session", "가입→세션"],
                 ["session_to_generated", "세션→생성"],
@@ -560,7 +586,7 @@
                 const card = document.createElement("div");
                 card.className = "rate-card";
                 card.innerHTML =
-                    '<div class="k">' + item[1] + '</div><div class="v">' + fmtPct(rates[item[0]]) + "</div>";
+                    '<div class="k">' + item[1] + ' (막대)</div><div class="v">' + fmtPct(rates[item[0]]) + "</div>";
                 rg.appendChild(card);
             });
         }
@@ -642,22 +668,48 @@
             document.getElementById("kpi-downloads").textContent = fmtInt(totals.downloads);
             document.getElementById("kpi-installs").textContent =
                 "앱 신고 설치 " + fmtInt(totals.app_reported_installs || totals.downloads);
+            const storeNet = Number(totals.store_net_revenue != null ? totals.store_net_revenue : totalRevenue) || 0;
+            const feeRate = Number(totals.store_fee_rate);
             document.getElementById("kpi-revenue").textContent = fmtMoney(totalRevenue);
-            document.getElementById("kpi-purchases").textContent = "구매 " + fmtInt(totalPurchases) + "건";
+            document.getElementById("kpi-purchases").textContent =
+                "구매 " + fmtInt(totalPurchases) + "건 · 스토어순 " + fmtMoney(storeNet);
             document.getElementById("kpi-purchases-value").textContent = fmtInt(totalPurchases);
             document.getElementById("kpi-arppu").textContent =
                 "ARPPU " + (arppu === null ? "—" : fmtMoney(arppu));
             document.getElementById("kpi-ads").textContent = fmtMoney(totals.ad_spend_usd);
             document.getElementById("kpi-net").textContent =
-                "순이익(수익−광고) " + fmtMoney(totals.net_after_ads_usd);
-            document.getElementById("kpi-openai").textContent = fmtMoney(totals.openai_cost_usd);
-            const oaiSrc = (monthly[monthly.length - 1] && monthly[monthly.length - 1].openai_cost_source) || "";
+                "순(스토어순−광고) " + fmtMoney(totals.net_after_ads_usd);
+            const aiCost = totals.actual_ai_cost != null ? totals.actual_ai_cost : totals.openai_cost_usd;
+            document.getElementById("kpi-openai").textContent = fmtMoney(aiCost);
+            const oaiSrc = totals.actual_ai_cost_source
+                || (monthly[monthly.length - 1] && monthly[monthly.length - 1].openai_cost_source)
+                || "";
             document.getElementById("kpi-openai-src").textContent =
-                oaiSrc === "openai_admin"
-                    ? "OpenAI 청구 실적 · 순(−AI) " + fmtMoney(totals.net_after_ads_and_openai_usd)
-                    : oaiSrc === "estimated_customer_plus_style_cards"
-                    ? "추정(고객생성+스타일카드) · 순(−AI) " + fmtMoney(totals.net_after_ads_and_openai_usd)
-                    : "추정(생성 × 단가) · 순(−AI) " + fmtMoney(totals.net_after_ads_and_openai_usd);
+                (oaiSrc === "openai_admin" ? "OpenAI 청구 실적" : "추정 API 비용")
+                + " · 순(−AI) " + fmtMoney(totals.net_after_ads_and_openai_usd);
+
+            const prof = data.profitability || {};
+            document.getElementById("kpi-api-calls").textContent = fmtInt(
+                prof.api_generation_request_count != null
+                    ? prof.api_generation_request_count
+                    : totals.api_generation_request_count
+            );
+            document.getElementById("kpi-acuts").textContent = fmtInt(
+                prof.successful_acut_count != null
+                    ? prof.successful_acut_count
+                    : totals.successful_acut_count
+            );
+            document.getElementById("kpi-ai-cost").textContent = fmtMoney(
+                prof.actual_ai_cost != null ? prof.actual_ai_cost : aiCost
+            );
+            document.getElementById("kpi-ai-cost-src").textContent =
+                "source: " + (prof.actual_ai_cost_source || oaiSrc || "—");
+            document.getElementById("kpi-store-net").textContent = fmtMoney(
+                prof.store_net_revenue != null ? prof.store_net_revenue : storeNet
+            );
+            document.getElementById("kpi-store-fee").textContent =
+                "수수료 " + (isFinite(feeRate) ? Math.round(feeRate * 100) + "%" : "15%")
+                + " 후 · 그로스 " + fmtMoney(totalRevenue);
 
             renderApiSpend(data);
 
