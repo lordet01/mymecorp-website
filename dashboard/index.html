@@ -250,6 +250,34 @@
         </div>
 
         <section class="panel">
+            <h2>OpenAI API 호출 원인 <span class="badge" id="api-spend-badge">—</span></h2>
+            <p class="sub" id="api-spend-summary" style="margin-bottom:14px">—</p>
+            <div class="rate-grid" id="api-spend-causes"></div>
+            <div class="plat-stats" style="margin-top:16px; grid-template-columns: repeat(4, minmax(0, 1fr));">
+                <div><div class="k">오늘 스타일카드</div><div class="v" id="api-today-style">—</div></div>
+                <div><div class="k">오늘 고객 생성</div><div class="v" id="api-today-cust">—</div></div>
+                <div><div class="k">7일 스타일카드</div><div class="v" id="api-7d-style">—</div></div>
+                <div><div class="k">7일 고객 생성</div><div class="v" id="api-7d-cust">—</div></div>
+            </div>
+            <p class="sub" id="api-poller-hint" style="margin:14px 0 0; font-size:0.82rem; color:var(--text-light)">—</p>
+            <div style="overflow-x:auto; margin-top:16px">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>날짜</th>
+                            <th>스타일카드 $</th>
+                            <th>틱 / 발행</th>
+                            <th>고객생성 $</th>
+                            <th>완료 생성</th>
+                            <th>합계 $</th>
+                        </tr>
+                    </thead>
+                    <tbody id="api-spend-rows"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="panel">
             <h2>퍼널 분석 <span class="badge" id="funnel-window">—</span></h2>
             <div class="funnel-bars" id="funnel-bars"></div>
             <div class="rate-grid" id="funnel-rates"></div>
@@ -278,6 +306,8 @@
                             <th>가입</th>
                             <th>세션</th>
                             <th>생성</th>
+                            <th>스타일카드$</th>
+                            <th>고객생성$</th>
                             <th>페이월</th>
                         </tr>
                     </thead>
@@ -398,6 +428,96 @@
                 } catch (e) { lastErr = e; }
             }
             throw lastErr || new Error("no metrics");
+        }
+
+        function causeLabel(id) {
+            if (id === "style_card_recreate") return "스타일 카드 폴러";
+            if (id === "customer_generation") return "고객 이미지 생성";
+            if (id === "other_unattributed") return "기타/미분류";
+            return id || "—";
+        }
+
+        function renderApiSpend(data) {
+            const spend = data.api_spend || {};
+            const today = spend.today || {};
+            const last7 = spend.last_7d || {};
+            const poller = spend.poller || {};
+            const causes = today.causes || last7.causes || [];
+            const dominant = spend.dominant_cause || "";
+            const badge = document.getElementById("api-spend-badge");
+            badge.textContent = dominant === "style_card_recreate"
+                ? "주원인: 스타일카드"
+                : dominant === "customer_generation"
+                ? "주원인: 고객생성"
+                : "원인 분석";
+
+            const top = causes[0];
+            const summary = document.getElementById("api-spend-summary");
+            if (top) {
+                summary.textContent =
+                    "오늘 기준 최대 원인: " + causeLabel(top.id) + " " + fmtMoney(top.usd) +
+                    " (" + Math.round((Number(top.share) || 0) * 100) + "%). " +
+                    (spend.notes || "");
+            } else {
+                summary.textContent = spend.notes || "API 원인 데이터가 아직 없습니다. Live API 동기화 후 표시됩니다.";
+            }
+
+            const grid = document.getElementById("api-spend-causes");
+            grid.innerHTML = "";
+            (last7.causes || causes).forEach(function (c) {
+                const card = document.createElement("div");
+                card.className = "rate-card";
+                card.innerHTML =
+                    "<div class='k'>" + causeLabel(c.id) + " · 7일</div>" +
+                    "<div class='v'>" + fmtMoney(c.usd) + "</div>" +
+                    "<div style='margin-top:6px;color:var(--text-light);font-size:0.75rem'>" +
+                    Math.round((Number(c.share) || 0) * 100) + "% · " + (c.detail || "") +
+                    "</div>";
+                grid.appendChild(card);
+            });
+
+            document.getElementById("api-today-style").textContent =
+                fmtMoney(today.causes && today.causes.find(function (c) { return c.id === "style_card_recreate"; })
+                    ? today.causes.find(function (c) { return c.id === "style_card_recreate"; }).usd
+                    : 0) +
+                " / " + fmtInt(today.style_card_ticks) + "틱";
+            document.getElementById("api-today-cust").textContent =
+                fmtMoney(today.causes && today.causes.find(function (c) { return c.id === "customer_generation"; })
+                    ? today.causes.find(function (c) { return c.id === "customer_generation"; }).usd
+                    : 0) +
+                " / " + fmtInt(today.customer_completed_gens) + "건";
+            const s7 = (last7.causes || []).find(function (c) { return c.id === "style_card_recreate"; });
+            const c7 = (last7.causes || []).find(function (c) { return c.id === "customer_generation"; });
+            document.getElementById("api-7d-style").textContent =
+                fmtMoney(s7 && s7.usd) + " / " + fmtInt(last7.style_card_ticks) + "틱";
+            document.getElementById("api-7d-cust").textContent =
+                fmtMoney(c7 && c7.usd) + " / " + fmtInt(last7.customer_completed_gens) + "건";
+
+            const stale = poller.stale === true ? " · 지연/정체 가능" : (poller.stale === false ? " · 최근 동작" : "");
+            document.getElementById("api-poller-hint").textContent =
+                "폴러 interval " + (poller.interval_sec || 600) + "s · last " +
+                (poller.last_tick_at || "—") + " · last_usd " +
+                (poller.last_usd == null ? "—" : fmtMoney(poller.last_usd)) +
+                stale + " · 중지: scripts/threads_style_poller.sh --host stop";
+
+            const body = document.getElementById("api-spend-rows");
+            body.innerHTML = "";
+            const rows = (spend.daily || []).slice().reverse().slice(0, 14);
+            rows.forEach(function (row) {
+                const tr = document.createElement("tr");
+                const total = (Number(row.style_card_recreate_usd) || 0) + (Number(row.customer_generation_usd) || 0);
+                tr.innerHTML =
+                    "<td>" + row.day + "</td>" +
+                    "<td class='num'>" + fmtMoney(row.style_card_recreate_usd) + "</td>" +
+                    "<td class='num'>" + fmtInt(row.style_card_ticks) + " / " + fmtInt(row.style_card_published) + "</td>" +
+                    "<td class='num'>" + fmtMoney(row.customer_generation_usd) + "</td>" +
+                    "<td class='num'>" + fmtInt(row.customer_completed_gens) + "</td>" +
+                    "<td class='num'>" + fmtMoney(total) + "</td>";
+                body.appendChild(tr);
+            });
+            if (!rows.length) {
+                body.innerHTML = "<tr><td colspan='6'>원인별 일간 데이터가 없습니다 (API 동기화 필요).</td></tr>";
+            }
         }
 
         function renderFunnel(data) {
@@ -535,7 +655,11 @@
             document.getElementById("kpi-openai-src").textContent =
                 oaiSrc === "openai_admin"
                     ? "OpenAI 청구 실적 · 순(−AI) " + fmtMoney(totals.net_after_ads_and_openai_usd)
+                    : oaiSrc === "estimated_customer_plus_style_cards"
+                    ? "추정(고객생성+스타일카드) · 순(−AI) " + fmtMoney(totals.net_after_ads_and_openai_usd)
                     : "추정(생성 × 단가) · 순(−AI) " + fmtMoney(totals.net_after_ads_and_openai_usd);
+
+            renderApiSpend(data);
 
             document.getElementById("kpi-today-dl").textContent = fmtInt(today.downloads);
             document.getElementById("kpi-today-dl-delta").innerHTML = deltaHtml(today.downloads, yday.downloads, "전일 대비");
@@ -587,6 +711,8 @@
                     "<td class='num'>" + fmtInt(f.signup) + "</td>" +
                     "<td class='num'>" + fmtInt(f.session) + "</td>" +
                     "<td class='num'>" + fmtInt(f.generated) + "</td>" +
+                    "<td class='num'>" + fmtMoney(row.style_card_recreate_usd) + "</td>" +
+                    "<td class='num'>" + fmtMoney(row.customer_generation_usd) + "</td>" +
                     "<td class='num'>" + fmtInt(f.paywall) + "</td>";
                 dailyBody.appendChild(tr);
             });
