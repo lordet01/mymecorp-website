@@ -96,9 +96,12 @@
         .plat-title { font-weight: 700; font-size: 1.05rem; }
         .plat-title.ios { color: var(--ios); }
         .plat-title.android { color: var(--android); }
-        .plat-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 14px; }
+        .plat-stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px 14px; }
         .plat-stats .k { color: var(--text-light); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.04em; }
         .plat-stats .v { font-size: 1.15rem; font-weight: 700; margin-top: 4px; font-variant-numeric: tabular-nums; }
+        @media (max-width: 560px) {
+            .plat-stats { grid-template-columns: 1fr 1fr; }
+        }
         .panel { padding: 20px; margin-bottom: 16px; }
         .chart-wrap { position: relative; height: 300px; }
         .chart-wrap.tall { height: 340px; }
@@ -170,7 +173,7 @@
         </div>
 
         <p class="section-label">누적 총계</p>
-        <div class="kpis five">
+        <div class="kpis six">
             <article class="kpi emphasis">
                 <div class="label">총 다운로드</div>
                 <div class="value" id="kpi-downloads">—</div>
@@ -190,6 +193,11 @@
                 <div class="label">총 광고비</div>
                 <div class="value" id="kpi-ads">—</div>
                 <div class="hint" id="kpi-net">순이익(수익−광고) —</div>
+            </article>
+            <article class="kpi">
+                <div class="label">총 광고 수익</div>
+                <div class="value" id="kpi-ad-rev">—</div>
+                <div class="hint" id="kpi-ad-rev-src">AdMob 추정</div>
             </article>
             <article class="kpi">
                 <div class="label">총 OpenAI</div>
@@ -232,6 +240,7 @@
                     <div><div class="k">다운로드</div><div class="v" id="ios-dl">—</div></div>
                     <div><div class="k">구매</div><div class="v" id="ios-buy">—</div></div>
                     <div><div class="k">수익(그로스)</div><div class="v" id="ios-rev">—</div></div>
+                    <div><div class="k">광고 수익</div><div class="v" id="ios-ad-rev">—</div></div>
                     <div><div class="k">광고비</div><div class="v" id="ios-ads">—</div></div>
                 </div>
             </section>
@@ -244,6 +253,7 @@
                     <div><div class="k">다운로드</div><div class="v" id="android-dl">—</div></div>
                     <div><div class="k">구매</div><div class="v" id="android-buy">—</div></div>
                     <div><div class="k">수익(그로스)</div><div class="v" id="android-rev">—</div></div>
+                    <div><div class="k">광고 수익</div><div class="v" id="android-ad-rev">—</div></div>
                     <div><div class="k">광고비</div><div class="v" id="android-ads">—</div></div>
                 </div>
             </section>
@@ -392,6 +402,7 @@
                             <th>다운로드</th>
                             <th>구매</th>
                             <th>수익</th>
+                            <th>광고 수익</th>
                             <th>광고비</th>
                             <th>OpenAI</th>
                         </tr>
@@ -775,7 +786,10 @@
                 "ARPPU " + (arppu === null ? "—" : fmtMoney(arppu));
             document.getElementById("kpi-ads").textContent = fmtMoney(totals.ad_spend_usd);
             document.getElementById("kpi-net").textContent =
-                "순(스토어순−광고) " + fmtMoney(totals.net_after_ads_usd);
+                "순(스토어순−광고비) " + fmtMoney(totals.net_after_ads_usd);
+            document.getElementById("kpi-ad-rev").textContent = fmtMoney(totals.ad_revenue_usd);
+            document.getElementById("kpi-ad-rev-src").textContent =
+                "AdMob · " + (sources.ad_revenue || "none");
             const aiCost = totals.actual_ai_cost != null ? totals.actual_ai_cost : totals.openai_cost_usd;
             document.getElementById("kpi-openai").textContent = fmtMoney(aiCost);
             const oaiSrc = totals.actual_ai_cost_source
@@ -825,10 +839,12 @@
             document.getElementById("ios-dl").textContent = fmtInt(ios.downloads);
             document.getElementById("ios-buy").textContent = fmtInt(ios.purchases);
             document.getElementById("ios-rev").textContent = fmtMoney(ios.revenue_usd);
+            document.getElementById("ios-ad-rev").textContent = fmtMoney(ios.ad_revenue_usd);
             document.getElementById("ios-ads").textContent = fmtMoney(ios.ad_spend_usd);
             document.getElementById("android-dl").textContent = fmtInt(and.downloads);
             document.getElementById("android-buy").textContent = fmtInt(and.purchases);
             document.getElementById("android-rev").textContent = fmtMoney(and.revenue_usd);
+            document.getElementById("android-ad-rev").textContent = fmtMoney(and.ad_revenue_usd);
             document.getElementById("android-ads").textContent = fmtMoney(and.ad_spend_usd);
             document.getElementById("ios-src").textContent = sources.ios_downloads || "payments";
             document.getElementById("android-src").textContent = sources.android_downloads || "payments";
@@ -890,14 +906,15 @@
                 const head = document.createElement("tr");
                 head.className = "month-head";
                 head.innerHTML =
-                    "<td colspan='6'>" + row.month +
+                    "<td colspan='7'>" + row.month +
                     " · 합계 수익 " + fmtMoney(row.revenue_usd) +
-                    " / 광고 " + fmtMoney(row.ad_spend_usd) +
+                    " / 광고수익 " + fmtMoney(row.ad_revenue_usd) +
+                    " / 광고비 " + fmtMoney(row.ad_spend_usd) +
                     " / OpenAI " + fmtMoney(row.openai_cost_usd) + "</td>";
                 tbody.appendChild(head);
                 ["ios", "android", "unknown"].forEach(function (p) {
                     const cell = (row.platforms && row.platforms[p]) || {};
-                    if (p === "unknown" && !(cell.downloads || cell.purchases || cell.revenue_usd || cell.ad_spend_usd)) return;
+                    if (p === "unknown" && !(cell.downloads || cell.purchases || cell.revenue_usd || cell.ad_spend_usd || cell.ad_revenue_usd)) return;
                     const label = p === "ios" ? "iOS" : p === "android" ? "Android" : "미분류";
                     const tr = document.createElement("tr");
                     tr.innerHTML =
@@ -905,6 +922,7 @@
                         "<td class='num'>" + fmtInt(cell.downloads) + "</td>" +
                         "<td class='num'>" + fmtInt(cell.purchases) + "</td>" +
                         "<td class='num'>" + fmtMoney(cell.revenue_usd) + "</td>" +
+                        "<td class='num'>" + fmtMoney(cell.ad_revenue_usd) + "</td>" +
                         "<td class='num'>" + fmtMoney(cell.ad_spend_usd) + "</td>" +
                         "<td class='num'>" + (p === "ios" ? fmtMoney(row.openai_cost_usd) : "—") + "</td>";
                     tbody.appendChild(tr);
