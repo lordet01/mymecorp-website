@@ -353,7 +353,9 @@
                 badges.push('<span class="badge">' + escapeHtml(n) + "</span>");
             });
             const img = card.thumb_url
-                ? '<img src="' + escapeHtml(card.thumb_url) + '" alt="" loading="lazy">'
+                ? '<img src="' + escapeHtml(card.thumb_url) + '" alt="" loading="lazy" '
+                  + 'onerror="this.replaceWith(Object.assign(document.createElement(\'div\'),'
+                  + '{className:\'empty\',textContent:\'no image\'}))">'
                 : '<div class="empty">no image</div>';
             return (
                 '<article class="card" data-id="' + escapeHtml(card.id) + '">'
