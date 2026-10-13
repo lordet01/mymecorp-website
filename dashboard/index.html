@@ -427,10 +427,8 @@
     (function () {
         const SESSION_KEY = "myme_corp_dash_ok";
         const PASSWORD = "3121";
-        const API_URLS = [
-            "https://myme-https.external.intflow.dev/api/corp/dashboard/metrics",
-            "./metrics.json"
-        ];
+        const LIVE_API = "https://myme-https.external.intflow.dev/api/corp/dashboard/metrics";
+        const SNAPSHOT_URL = "./metrics.json";
         const REFRESH_MS = 15 * 60 * 1000;
         const gate = document.getElementById("gate");
         const dash = document.getElementById("dash");
@@ -440,9 +438,10 @@
         let chartMode = "daily";
         let lastData = null;
         let refreshTimer = null;
+        let loadSeq = 0;
 
         function unlocked() { return sessionStorage.getItem(SESSION_KEY) === "1"; }
-        function showDash() { gate.classList.add("hidden"); dash.classList.remove("hidden"); loadMetrics(); startAutoRefresh(); }
+        function showDash() { gate.classList.add("hidden"); dash.classList.remove("hidden"); loadMetrics({ preferSnapshot: true }); startAutoRefresh(); }
         function showGate() {
             dash.classList.add("hidden"); gate.classList.remove("hidden");
             if (refreshTimer) { clearInterval(refreshTimer); refreshTimer = null; }
@@ -450,8 +449,12 @@
         function startAutoRefresh() {
             if (refreshTimer) clearInterval(refreshTimer);
             refreshTimer = setInterval(function () {
-                if (unlocked() && !document.hidden) loadMetrics();
+                if (unlocked() && !document.hidden) loadMetrics({ preferSnapshot: false });
             }, REFRESH_MS);
+        }
+        function setLoadHint(text) {
+            const hint = document.getElementById("auto-refresh-hint");
+            if (hint) hint.textContent = text;
         }
         function fmtMoney(n) {
             const v = Number(n) || 0;
@@ -473,20 +476,22 @@
             return label + ' <span class="' + cls + '">' + sign + fmtInt(d) + "</span>";
         }
 
-        async function fetchMetrics() {
-            let lastErr = null;
-            for (const url of API_URLS) {
-                try {
-                    const headers = {};
-                    if (!url.endsWith(".json")) headers["X-Corp-Dashboard-Password"] = PASSWORD;
-                    const res = await fetch(url, { headers, cache: "no-store" });
-                    if (!res.ok) throw new Error(url + " " + res.status);
-                    const data = await res.json();
-                    data._source = url.endsWith(".json") ? "snapshot" : "live";
-                    return data;
-                } catch (e) { lastErr = e; }
-            }
-            throw lastErr || new Error("no metrics");
+        async function fetchOne(url, opts) {
+            const headers = {};
+            if (!String(url).endsWith(".json")) headers["X-Corp-Dashboard-Password"] = PASSWORD;
+            const res = await fetch(url, { headers: headers, cache: "no-store" });
+            if (!res.ok) throw new Error(url + " " + res.status);
+            const data = await res.json();
+            data._source = String(url).indexOf("metrics.json") >= 0 ? "snapshot" : "live";
+            if (opts && opts.cacheHit != null) data._cacheHit = opts.cacheHit;
+            return data;
+        }
+
+        async function fetchLive(forceRefresh) {
+            const q = forceRefresh ? "?refresh=1" : "";
+            const data = await fetchOne(LIVE_API + q);
+            if (data && data.cache) data._cacheHit = !!data.cache.hit;
+            return data;
         }
 
         function causeLabel(id) {
@@ -850,8 +855,9 @@
             document.getElementById("android-src").textContent = sources.android_downloads || "payments";
 
             document.getElementById("updated-at").textContent = data.updated_at || "—";
-            document.getElementById("data-source").textContent =
-                data._source === "live" ? "Live API (최신)" : "Local snapshot";
+            let srcLabel = data._source === "live" ? "Live API (최신)" : "Local snapshot";
+            if (data._source === "live" && data._cacheHit) srcLabel = "Live API (캐시)";
+            document.getElementById("data-source").textContent = srcLabel;
 
             renderFunnel(data);
 
@@ -932,11 +938,38 @@
             renderChart(data);
         }
 
-        async function loadMetrics() {
-            try { render(await fetchMetrics()); }
-            catch (e) {
-                document.getElementById("notes").innerHTML =
-                    "<li>지표를 불러오지 못했습니다. API 또는 metrics.json을 확인하세요.</li>";
+        async function loadMetrics(opts) {
+            const preferSnapshot = !(opts && opts.preferSnapshot === false);
+            const forceRefresh = !!(opts && opts.forceRefresh);
+            const seq = ++loadSeq;
+
+            if (preferSnapshot && !forceRefresh) {
+                try {
+                    const snap = await fetchOne(SNAPSHOT_URL);
+                    if (seq !== loadSeq) return;
+                    render(snap);
+                    setLoadHint("스냅샷 표시 중 · Live 갱신…");
+                } catch (_snapErr) {
+                    setLoadHint("Live 로딩 중…");
+                }
+            } else {
+                setLoadHint(forceRefresh ? "강제 새로고침 중…" : "Live 갱신 중…");
+            }
+
+            try {
+                const live = await fetchLive(forceRefresh);
+                if (seq !== loadSeq) return;
+                render(live);
+                setLoadHint("15분마다 자동 갱신");
+            } catch (e) {
+                if (seq !== loadSeq) return;
+                if (!lastData) {
+                    document.getElementById("notes").innerHTML =
+                        "<li>지표를 불러오지 못했습니다. API 또는 metrics.json을 확인하세요.</li>";
+                    setLoadHint("로드 실패");
+                } else {
+                    setLoadHint("Live 실패 · 스냅샷 유지 · 15분마다 재시도");
+                }
             }
         }
 
@@ -954,7 +987,9 @@
         document.getElementById("logout").addEventListener("click", function () {
             sessionStorage.removeItem(SESSION_KEY); showGate();
         });
-        document.getElementById("refresh").addEventListener("click", function () { loadMetrics(); });
+        document.getElementById("refresh").addEventListener("click", function () {
+            loadMetrics({ preferSnapshot: false, forceRefresh: true });
+        });
         document.querySelectorAll(".tab").forEach(function (btn) {
             btn.addEventListener("click", function () {
                 document.querySelectorAll(".tab").forEach(function (b) { b.classList.remove("active"); });
