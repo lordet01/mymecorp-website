@@ -149,7 +149,7 @@
         <div class="gate-card">
             <div class="brand">myme studio</div>
             <h1>Ops Dashboard</h1>
-            <p class="sub">일간 다운로드·구매·리텐션·퍼널과 월간 수익/광고비를 확인합니다. Live API가 최신 수치를 제공합니다.</p>
+            <p class="sub">일간 다운로드·구매·리텐션·퍼널과 월간 수익/광고비를 확인합니다. 표시 기준은 Live API이며 열어 두는 동안 계속 동기화합니다.</p>
             <form id="login-form">
                 <label for="password">암호</label>
                 <input id="password" name="password" type="password" autocomplete="current-password" autofocus required>
@@ -413,7 +413,7 @@
             <div class="meta">
                 <span>업데이트 <span id="updated-at">—</span></span>
                 <span class="badge" id="data-source">—</span>
-                <span id="auto-refresh-hint">15분마다 자동 갱신</span>
+                <span id="auto-refresh-hint">Live 동기화 · 1분마다 갱신</span>
             </div>
         </section>
 
@@ -429,7 +429,9 @@
         const PASSWORD = "3121";
         const LIVE_API = "https://myme-https.external.intflow.dev/api/corp/dashboard/metrics";
         const SNAPSHOT_URL = "./metrics.json";
-        const REFRESH_MS = 15 * 60 * 1000;
+        // Live API is authoritative; poll while the tab is open (server TTL cache ≈0.3s warm).
+        const REFRESH_MS = 60 * 1000;
+        const HINT_LIVE = "Live 동기화 · 1분마다 갱신";
         const gate = document.getElementById("gate");
         const dash = document.getElementById("dash");
         const form = document.getElementById("login-form");
@@ -439,9 +441,16 @@
         let lastData = null;
         let refreshTimer = null;
         let loadSeq = 0;
+        let liveSynced = false;
 
         function unlocked() { return sessionStorage.getItem(SESSION_KEY) === "1"; }
-        function showDash() { gate.classList.add("hidden"); dash.classList.remove("hidden"); loadMetrics({ preferSnapshot: true }); startAutoRefresh(); }
+        function showDash() {
+            gate.classList.add("hidden");
+            dash.classList.remove("hidden");
+            liveSynced = false;
+            loadMetrics({ placeholder: true });
+            startAutoRefresh();
+        }
         function showGate() {
             dash.classList.add("hidden"); gate.classList.remove("hidden");
             if (refreshTimer) { clearInterval(refreshTimer); refreshTimer = null; }
@@ -449,7 +458,7 @@
         function startAutoRefresh() {
             if (refreshTimer) clearInterval(refreshTimer);
             refreshTimer = setInterval(function () {
-                if (unlocked() && !document.hidden) loadMetrics({ preferSnapshot: false });
+                if (unlocked() && !document.hidden) loadMetrics({ placeholder: false });
             }, REFRESH_MS);
         }
         function setLoadHint(text) {
@@ -855,8 +864,10 @@
             document.getElementById("android-src").textContent = sources.android_downloads || "payments";
 
             document.getElementById("updated-at").textContent = data.updated_at || "—";
-            let srcLabel = data._source === "live" ? "Live API (최신)" : "Local snapshot";
-            if (data._source === "live" && data._cacheHit) srcLabel = "Live API (캐시)";
+            let srcLabel = "Local snapshot (임시)";
+            if (data._source === "live") {
+                srcLabel = data._cacheHit ? "Live API (캐시)" : "Live API (최신)";
+            }
             document.getElementById("data-source").textContent = srcLabel;
 
             renderFunnel(data);
@@ -939,36 +950,44 @@
         }
 
         async function loadMetrics(opts) {
-            const preferSnapshot = !(opts && opts.preferSnapshot === false);
             const forceRefresh = !!(opts && opts.forceRefresh);
+            const usePlaceholder = !!(opts && opts.placeholder) && !forceRefresh && !liveSynced;
             const seq = ++loadSeq;
 
-            if (preferSnapshot && !forceRefresh) {
-                try {
-                    const snap = await fetchOne(SNAPSHOT_URL);
-                    if (seq !== loadSeq) return;
+            // Always start Live first — Pages follows Live as source of truth.
+            const livePromise = fetchLive(forceRefresh);
+            setLoadHint(forceRefresh ? "Live 강제 새로고침…" : "Live 동기화 중…");
+
+            // Snapshot is only a temporary placeholder until the first Live success.
+            if (usePlaceholder) {
+                fetchOne(SNAPSHOT_URL).then(function (snap) {
+                    if (seq !== loadSeq || liveSynced) return;
                     render(snap);
-                    setLoadHint("스냅샷 표시 중 · Live 갱신…");
-                } catch (_snapErr) {
-                    setLoadHint("Live 로딩 중…");
-                }
-            } else {
-                setLoadHint(forceRefresh ? "강제 새로고침 중…" : "Live 갱신 중…");
+                    setLoadHint("스냅샷 임시 표시 · Live 동기화 중…");
+                }).catch(function () { /* ignore */ });
             }
 
             try {
-                const live = await fetchLive(forceRefresh);
+                const live = await livePromise;
                 if (seq !== loadSeq) return;
+                liveSynced = true;
                 render(live);
-                setLoadHint("15분마다 자동 갱신");
+                setLoadHint(HINT_LIVE);
             } catch (e) {
                 if (seq !== loadSeq) return;
                 if (!lastData) {
-                    document.getElementById("notes").innerHTML =
-                        "<li>지표를 불러오지 못했습니다. API 또는 metrics.json을 확인하세요.</li>";
-                    setLoadHint("로드 실패");
+                    try {
+                        const snap = await fetchOne(SNAPSHOT_URL);
+                        if (seq !== loadSeq) return;
+                        render(snap);
+                        setLoadHint("Live 실패 · 스냅샷 폴백 · 1분마다 재시도");
+                    } catch (_snapErr) {
+                        document.getElementById("notes").innerHTML =
+                            "<li>지표를 불러오지 못했습니다. Live API 또는 metrics.json을 확인하세요.</li>";
+                        setLoadHint("로드 실패");
+                    }
                 } else {
-                    setLoadHint("Live 실패 · 스냅샷 유지 · 15분마다 재시도");
+                    setLoadHint("Live 실패 · 마지막 Live 유지 · 1분마다 재시도");
                 }
             }
         }
@@ -988,7 +1007,12 @@
             sessionStorage.removeItem(SESSION_KEY); showGate();
         });
         document.getElementById("refresh").addEventListener("click", function () {
-            loadMetrics({ preferSnapshot: false, forceRefresh: true });
+            loadMetrics({ placeholder: false, forceRefresh: true });
+        });
+        document.addEventListener("visibilitychange", function () {
+            if (!document.hidden && unlocked()) {
+                loadMetrics({ placeholder: false });
+            }
         });
         document.querySelectorAll(".tab").forEach(function (btn) {
             btn.addEventListener("click", function () {
