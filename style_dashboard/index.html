@@ -139,6 +139,31 @@
         .drawer-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
         .drawer-thumb { width: 100%; border-radius: 12px; border: 1px solid var(--border); margin: 10px 0 16px; }
         details summary { cursor: pointer; color: var(--text-light); font-size: 0.85rem; margin-bottom: 8px; }
+        .create-backdrop {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 50;
+            display: flex; align-items: center; justify-content: center; padding: 16px;
+        }
+        .create-modal {
+            width: min(560px, 100%); max-height: min(92vh, 860px); overflow: auto;
+            background: #101013; border: 1px solid var(--border); border-radius: 18px;
+            padding: 22px 18px 20px; box-shadow: 0 24px 80px rgba(0,0,0,0.5);
+        }
+        .create-modal h2 { margin: 0 0 6px; font-size: 1.2rem; }
+        .step-note { color: var(--text-light); font-size: 0.85rem; margin: 0 0 16px; }
+        .gender-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .gender-btn {
+            border: 1px solid var(--border); background: #0b0b0d; color: var(--text-dark);
+            border-radius: 14px; padding: 18px 10px; cursor: pointer; font: inherit; font-weight: 650;
+        }
+        .gender-btn:hover, .gender-btn.selected {
+            border-color: rgba(243, 199, 190, 0.55); box-shadow: 0 0 0 3px rgba(243, 199, 190, 0.12);
+        }
+        .gender-btn small { display: block; margin-top: 6px; color: var(--text-light); font-weight: 500; font-size: 0.75rem; }
+        .create-preview {
+            width: 100%; border-radius: 12px; border: 1px solid var(--border); margin: 8px 0 14px;
+            background: #0b0b0d; min-height: 220px; object-fit: cover; aspect-ratio: 3/4;
+        }
+        .create-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
     </style>
 </head>
 <body>
@@ -164,6 +189,7 @@
                 <p class="sub" style="margin:0">node2 StyleCardStore · 암호 게이트 전용</p>
             </div>
             <div class="top-actions">
+                <button class="btn" type="button" id="btn-create">스타일 프롬프트 추가</button>
                 <button class="btn secondary" type="button" id="btn-refresh">새로고침</button>
                 <button class="btn secondary" type="button" id="btn-lock">Lock</button>
             </div>
@@ -278,6 +304,57 @@
         </aside>
     </div>
 
+    <div class="create-backdrop hidden" id="create-modal">
+        <div class="create-modal" role="dialog" aria-modal="true">
+            <div class="top-actions" style="justify-content:space-between;margin-bottom:8px">
+                <div class="brand">New style</div>
+                <button class="btn secondary" type="button" id="create-close">닫기</button>
+            </div>
+            <h2 id="create-title">스타일 프롬프트 추가</h2>
+            <p class="step-note" id="create-note">1/3 · 텍스트 프롬프트를 입력하세요</p>
+
+            <section id="create-step-prompt">
+                <div class="row" style="margin-bottom:12px">
+                    <label for="c-prompt">생성 프롬프트</label>
+                    <textarea id="c-prompt" placeholder="예: soft window light portrait, ivory sweater, warm tone…"></textarea>
+                </div>
+                <div class="row" style="margin-bottom:12px">
+                    <label for="c-title">제목 (선택)</label>
+                    <input id="c-title" type="text" placeholder="비우면 프롬프트에서 자동 생성">
+                </div>
+                <div class="row" style="margin-bottom:12px">
+                    <label>Need 카테고리 (선택)</label>
+                    <div class="needs" id="c-needs"></div>
+                </div>
+                <div class="create-actions">
+                    <button class="btn" type="button" id="c-next-asset">다음 · 에셋 선택</button>
+                </div>
+            </section>
+
+            <section id="create-step-asset" class="hidden">
+                <div class="gender-grid" id="c-genders"></div>
+                <div class="create-actions">
+                    <button class="btn secondary" type="button" id="c-back-prompt">뒤로</button>
+                    <button class="btn" type="button" id="c-generate">A 컷 생성</button>
+                </div>
+            </section>
+
+            <section id="create-step-confirm" class="hidden">
+                <img class="create-preview" id="c-preview" alt="A-cut preview">
+                <div class="row" style="margin-bottom:10px">
+                    <label for="c-final-title">등록 제목</label>
+                    <input id="c-final-title" type="text">
+                </div>
+                <p class="stats" id="c-meta"></p>
+                <div class="create-actions">
+                    <button class="btn secondary" type="button" id="c-back-asset">다시 생성</button>
+                    <button class="btn" type="button" id="c-promote">등록 확인 · 스타일카드 승격</button>
+                </div>
+            </section>
+            <div class="err" id="c-err"></div>
+        </div>
+    </div>
+
     <script>
     (function () {
         const SESSION_KEY = "myme_style_dash_ok";
@@ -301,7 +378,12 @@
 
         function unlocked() { return sessionStorage.getItem(SESSION_KEY) === "1"; }
         function showDash() { gate.classList.add("hidden"); dash.classList.remove("hidden"); loadList(); }
-        function showGate() { dash.classList.add("hidden"); drawer.classList.add("hidden"); gate.classList.remove("hidden"); }
+        function showGate() {
+            dash.classList.add("hidden");
+            drawer.classList.add("hidden");
+            createModal.classList.add("hidden");
+            gate.classList.remove("hidden");
+        }
 
         function headers() {
             return { "X-Corp-Dashboard-Password": PASSWORD, "Content-Type": "application/json" };
@@ -494,6 +576,155 @@
             }
         }
 
+        const createModal = document.getElementById("create-modal");
+        let createStep = "prompt";
+        let selectedGender = "";
+        let createDraft = null;
+        let previewObjectUrl = "";
+
+        function setCreateStep(step) {
+            createStep = step;
+            document.getElementById("create-step-prompt").classList.toggle("hidden", step !== "prompt");
+            document.getElementById("create-step-asset").classList.toggle("hidden", step !== "asset");
+            document.getElementById("create-step-confirm").classList.toggle("hidden", step !== "confirm");
+            const notes = {
+                prompt: "1/3 · 텍스트 프롬프트를 입력하세요",
+                asset: "2/3 · 입력 에셋(남자 / 여자 / 어린이)을 고르세요",
+                confirm: "3/3 · A 컷을 확인하고 스타일카드로 등록하세요"
+            };
+            document.getElementById("create-note").textContent = notes[step] || "";
+            document.getElementById("c-err").textContent = "";
+        }
+
+        function renderCreateNeeds(selected) {
+            const box = document.getElementById("c-needs");
+            const sel = new Set(selected || ["creative"]);
+            box.innerHTML = NEED_LABELS.map(function (n) {
+                return '<label class="chip"><input type="checkbox" value="' + n + '"'
+                    + (sel.has(n) ? " checked" : "") + "> " + n + "</label>";
+            }).join("");
+        }
+
+        function selectedCreateNeeds() {
+            return Array.prototype.slice.call(document.querySelectorAll("#c-needs input:checked"))
+                .map(function (el) { return el.value; });
+        }
+
+        async function openCreateModal() {
+            createDraft = null;
+            selectedGender = "";
+            document.getElementById("c-prompt").value = "";
+            document.getElementById("c-title").value = "";
+            document.getElementById("c-final-title").value = "";
+            document.getElementById("c-meta").textContent = "";
+            if (previewObjectUrl) {
+                URL.revokeObjectURL(previewObjectUrl);
+                previewObjectUrl = "";
+            }
+            document.getElementById("c-preview").removeAttribute("src");
+            renderCreateNeeds(["creative"]);
+            setCreateStep("prompt");
+            createModal.classList.remove("hidden");
+            try {
+                const data = await api("/create/assets");
+                const box = document.getElementById("c-genders");
+                box.innerHTML = (data.assets || []).map(function (a) {
+                    return '<button type="button" class="gender-btn" data-gender="' + escapeHtml(a.gender) + '">'
+                        + escapeHtml(a.label_ko || a.gender)
+                        + "<small>" + escapeHtml(a.gender) + " · " + (a.plate_count || 0) + " plates</small>"
+                        + "</button>";
+                }).join("");
+            } catch (e) {
+                document.getElementById("c-err").textContent = "에셋 목록 실패: " + e.message;
+            }
+        }
+
+        function closeCreateModal() {
+            createModal.classList.add("hidden");
+            if (previewObjectUrl) {
+                URL.revokeObjectURL(previewObjectUrl);
+                previewObjectUrl = "";
+            }
+        }
+
+        async function loadDraftPreviewBlob(draftId) {
+            const res = await fetch(
+                API_BASE + "/create/drafts/" + encodeURIComponent(draftId) + "/preview",
+                { headers: { "X-Corp-Dashboard-Password": PASSWORD }, cache: "no-store" }
+            );
+            if (!res.ok) throw new Error("preview " + res.status);
+            const blob = await res.blob();
+            if (previewObjectUrl) URL.revokeObjectURL(previewObjectUrl);
+            previewObjectUrl = URL.createObjectURL(blob);
+            document.getElementById("c-preview").src = previewObjectUrl;
+        }
+
+        async function generateCreatePreview() {
+            if (!selectedGender) {
+                document.getElementById("c-err").textContent = "남자 / 여자 / 어린이 중 하나를 선택하세요.";
+                return;
+            }
+            const prompt = document.getElementById("c-prompt").value.trim();
+            if (prompt.length < 8) {
+                document.getElementById("c-err").textContent = "프롬프트를 더 자세히 입력하세요.";
+                return;
+            }
+            const needs = selectedCreateNeeds();
+            document.getElementById("c-err").textContent = "A 컷 생성 중… (1–3분 걸릴 수 있음)";
+            document.getElementById("c-generate").disabled = true;
+            try {
+                createDraft = await api("/create/preview", {
+                    method: "POST",
+                    body: JSON.stringify({
+                        prompt: prompt,
+                        gender: selectedGender,
+                        title: document.getElementById("c-title").value.trim(),
+                        need_categories: needs.length ? needs : null
+                    })
+                });
+                await loadDraftPreviewBlob(createDraft.draft_id);
+                document.getElementById("c-final-title").value =
+                    (createDraft.title && (createDraft.title.ko || createDraft.title.en)) || "";
+                document.getElementById("c-meta").textContent = [
+                    createDraft.card_id || "",
+                    "gender " + (createDraft.gender || ""),
+                    "asset " + (createDraft.asset_name || ""),
+                    (createDraft.need_categories || []).join(",")
+                ].join(" · ");
+                setCreateStep("confirm");
+            } catch (e) {
+                document.getElementById("c-err").textContent = "생성 실패: " + e.message;
+            } finally {
+                document.getElementById("c-generate").disabled = false;
+            }
+        }
+
+        async function promoteCreateDraft() {
+            if (!createDraft || !createDraft.draft_id) return;
+            if (!confirm("이 A 컷을 스타일카드로 승격해 서비스에 등록할까요?")) return;
+            document.getElementById("c-err").textContent = "등록 중…";
+            document.getElementById("c-promote").disabled = true;
+            try {
+                const card = await api("/create/promote", {
+                    method: "POST",
+                    body: JSON.stringify({
+                        draft_id: createDraft.draft_id,
+                        title: { ko: document.getElementById("c-final-title").value.trim() },
+                        need_categories: selectedCreateNeeds().length ? selectedCreateNeeds() : createDraft.need_categories
+                    })
+                });
+                closeCreateModal();
+                metaStatus.textContent = "등록됨: " + (card.id || "");
+                offset = 0;
+                await loadList();
+                if (card.id) openDetail(card.id);
+            } catch (e) {
+                document.getElementById("c-err").textContent = "등록 실패: " + e.message;
+            } finally {
+                document.getElementById("c-promote").disabled = false;
+            }
+        }
+
         form.addEventListener("submit", function (e) {
             e.preventDefault();
             const value = document.getElementById("password").value;
@@ -509,6 +740,36 @@
         document.getElementById("btn-lock").addEventListener("click", function () {
             sessionStorage.removeItem(SESSION_KEY); showGate();
         });
+        document.getElementById("btn-create").addEventListener("click", openCreateModal);
+        document.getElementById("create-close").addEventListener("click", closeCreateModal);
+        createModal.addEventListener("click", function (e) {
+            if (e.target === createModal) closeCreateModal();
+        });
+        document.getElementById("c-next-asset").addEventListener("click", function () {
+            const prompt = document.getElementById("c-prompt").value.trim();
+            if (prompt.length < 8) {
+                document.getElementById("c-err").textContent = "프롬프트를 더 자세히 입력하세요.";
+                return;
+            }
+            setCreateStep("asset");
+        });
+        document.getElementById("c-back-prompt").addEventListener("click", function () {
+            setCreateStep("prompt");
+        });
+        document.getElementById("c-back-asset").addEventListener("click", function () {
+            setCreateStep("asset");
+        });
+        document.getElementById("c-genders").addEventListener("click", function (e) {
+            const btn = e.target.closest(".gender-btn");
+            if (!btn) return;
+            selectedGender = btn.getAttribute("data-gender") || "";
+            Array.prototype.forEach.call(document.querySelectorAll(".gender-btn"), function (el) {
+                el.classList.toggle("selected", el === btn);
+            });
+            document.getElementById("c-err").textContent = "";
+        });
+        document.getElementById("c-generate").addEventListener("click", generateCreatePreview);
+        document.getElementById("c-promote").addEventListener("click", promoteCreateDraft);
         document.getElementById("btn-refresh").addEventListener("click", loadList);
         document.getElementById("btn-apply").addEventListener("click", function () { offset = 0; loadList(); });
         document.getElementById("btn-prev").addEventListener("click", function () {
