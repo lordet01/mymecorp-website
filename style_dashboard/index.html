@@ -75,7 +75,7 @@
         .top { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
         .top-actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
         .filters {
-            display: grid; grid-template-columns: 1.4fr repeat(3, minmax(0, 1fr)) auto;
+            display: grid; grid-template-columns: 1.4fr repeat(3, minmax(0, 1fr));
             gap: 10px; margin-bottom: 18px; align-items: end;
         }
         @media (max-width: 900px) {
@@ -234,10 +234,6 @@
                     <option value="title">제목</option>
                 </select>
             </div>
-            <div>
-                <label>&nbsp;</label>
-                <button class="btn secondary" type="button" id="btn-apply" style="width:100%">적용</button>
-            </div>
         </div>
 
         <div class="meta-bar">
@@ -375,6 +371,8 @@
         let offset = 0;
         let total = 0;
         let currentDetail = null;
+        let listSeq = 0;
+        let searchTimer = null;
 
         function unlocked() { return sessionStorage.getItem(SESSION_KEY) === "1"; }
         function showDash() { gate.classList.add("hidden"); dash.classList.remove("hidden"); loadList(); }
@@ -459,6 +457,7 @@
         }
 
         async function loadList() {
+            const seq = ++listSeq;
             metaStatus.textContent = "불러오는 중…";
             const q = document.getElementById("f-q").value.trim();
             const need = document.getElementById("f-need").value;
@@ -470,14 +469,29 @@
             });
             try {
                 const data = await api("/cards?" + params.toString());
+                if (seq !== listSeq) return;
                 total = data.total || 0;
                 metaCount.textContent = "총 " + total + "장 · " + offset + "–" + Math.min(offset + PAGE, total);
                 metaStatus.textContent = "";
                 grid.innerHTML = (data.cards || []).map(cardHtml).join("") || '<p class="sub">카드가 없습니다.</p>';
             } catch (e) {
+                if (seq !== listSeq) return;
                 metaStatus.textContent = "오류: " + e.message;
                 grid.innerHTML = "";
             }
+        }
+
+        function reloadFromStart() {
+            offset = 0;
+            loadList();
+        }
+
+        function scheduleSearchReload() {
+            if (searchTimer) clearTimeout(searchTimer);
+            searchTimer = setTimeout(function () {
+                searchTimer = null;
+                reloadFromStart();
+            }, 250);
         }
 
         async function openDetail(id) {
@@ -771,7 +785,22 @@
         document.getElementById("c-generate").addEventListener("click", generateCreatePreview);
         document.getElementById("c-promote").addEventListener("click", promoteCreateDraft);
         document.getElementById("btn-refresh").addEventListener("click", loadList);
-        document.getElementById("btn-apply").addEventListener("click", function () { offset = 0; loadList(); });
+        ["f-need", "f-status", "f-sort"].forEach(function (id) {
+            document.getElementById(id).addEventListener("change", reloadFromStart);
+        });
+        document.getElementById("f-q").addEventListener("input", scheduleSearchReload);
+        document.getElementById("f-q").addEventListener("search", function () {
+            if (searchTimer) clearTimeout(searchTimer);
+            searchTimer = null;
+            reloadFromStart();
+        });
+        document.getElementById("f-q").addEventListener("keydown", function (e) {
+            if (e.key !== "Enter") return;
+            e.preventDefault();
+            if (searchTimer) clearTimeout(searchTimer);
+            searchTimer = null;
+            reloadFromStart();
+        });
         document.getElementById("btn-prev").addEventListener("click", function () {
             offset = Math.max(0, offset - PAGE); loadList();
         });
