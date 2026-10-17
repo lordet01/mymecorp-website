@@ -213,6 +213,7 @@
                     <option value="kids">kids</option>
                     <option value="occasion">occasion</option>
                     <option value="creative">creative</option>
+                    <option value="k_photo">인생 4컷</option>
                 </select>
             </div>
             <div>
@@ -357,7 +358,9 @@
         const PASSWORD = "3121";
         const API_BASE = "https://myme-https.external.intflow.dev/api/corp/style-dashboard";
         const PAGE = 50;
-        const NEED_LABELS = ["id","apply","profile","dating","wedding","graduation","kids","occasion","creative"];
+        const NEED_LABELS = ["id","apply","profile","dating","wedding","graduation","kids","occasion","creative","k_photo"];
+        const NEED_TEXT = { k_photo: "인생 4컷" };
+        function needText(n) { return NEED_TEXT[n] || n; }
 
         const gate = document.getElementById("gate");
         const dash = document.getElementById("dash");
@@ -415,7 +418,7 @@
             const sel = new Set(selected || []);
             box.innerHTML = NEED_LABELS.map(function (n) {
                 return '<label class="chip"><input type="checkbox" value="' + n + '"'
-                    + (sel.has(n) ? " checked" : "") + "> " + n + "</label>";
+                    + (sel.has(n) ? " checked" : "") + "> " + needText(n) + "</label>";
             }).join("");
         }
 
@@ -424,13 +427,24 @@
                 .map(function (el) { return el.value; });
         }
 
+        async function suggestNeedsFromPrompt(prompt, gender) {
+            const data = await api("/suggest-needs", {
+                method: "POST",
+                body: JSON.stringify({
+                    prompt: String(prompt || ""),
+                    gender: String(gender || "")
+                })
+            });
+            return data.need_categories || ["creative"];
+        }
+
         function cardHtml(card) {
             const badges = [];
             if (card.is_new) badges.push('<span class="badge new">NEW</span>');
             if (card.status === "burned") badges.push('<span class="badge burned">burned</span>');
             if (!card.has_cut) badges.push('<span class="badge nocut">no cut</span>');
             (card.need_categories || []).slice(0, 2).forEach(function (n) {
-                badges.push('<span class="badge">' + escapeHtml(n) + "</span>");
+                badges.push('<span class="badge">' + escapeHtml(needText(n)) + "</span>");
             });
             const img = card.thumb_url
                 ? '<img src="' + escapeHtml(card.thumb_url) + '" alt="" loading="lazy" '
@@ -515,7 +529,9 @@
             document.getElementById("e-title-en").value = (currentDetail.title && currentDetail.title.en) || "";
             document.getElementById("e-desc-ko").value = (currentDetail.description && currentDetail.description.ko) || "";
             document.getElementById("e-desc-en").value = (currentDetail.description && currentDetail.description.en) || "";
-            renderNeedsEditor(currentDetail.need_categories || []);
+            const existingNeeds = currentDetail.need_categories || [];
+            const suggestedNeeds = currentDetail.suggested_need_categories || [];
+            renderNeedsEditor(existingNeeds.length ? existingNeeds : (suggestedNeeds.length ? suggestedNeeds : ["creative"]));
             document.getElementById("d-norm").textContent = currentDetail.normalized_prompt || "(empty)";
             document.getElementById("d-raw").textContent = currentDetail.raw_prompt || "(empty)";
             document.getElementById("d-neg").textContent = currentDetail.negative_prompt || "(empty)";
@@ -595,6 +611,7 @@
         let selectedGender = "";
         let createDraft = null;
         let previewObjectUrl = "";
+        let createNeedsTouched = false;
 
         function setCreateStep(step) {
             createStep = step;
@@ -615,8 +632,24 @@
             const sel = new Set(selected || ["creative"]);
             box.innerHTML = NEED_LABELS.map(function (n) {
                 return '<label class="chip"><input type="checkbox" value="' + n + '"'
-                    + (sel.has(n) ? " checked" : "") + "> " + n + "</label>";
+                    + (sel.has(n) ? " checked" : "") + "> " + needText(n) + "</label>";
             }).join("");
+            Array.prototype.forEach.call(box.querySelectorAll("input"), function (el) {
+                el.addEventListener("change", function () { createNeedsTouched = true; });
+            });
+        }
+
+        async function autoFillCreateNeeds(force) {
+            if (createNeedsTouched && !force) return;
+            const prompt = document.getElementById("c-prompt").value.trim();
+            if (prompt.length < 8) return;
+            try {
+                const needs = await suggestNeedsFromPrompt(prompt, selectedGender);
+                renderCreateNeeds(needs);
+                createNeedsTouched = false;
+            } catch (_) {
+                /* keep current chips */
+            }
         }
 
         function selectedCreateNeeds() {
@@ -627,6 +660,7 @@
         async function openCreateModal() {
             createDraft = null;
             selectedGender = "";
+            createNeedsTouched = false;
             document.getElementById("c-prompt").value = "";
             document.getElementById("c-title").value = "";
             document.getElementById("c-final-title").value = "";
@@ -759,13 +793,17 @@
         createModal.addEventListener("click", function (e) {
             if (e.target === createModal) closeCreateModal();
         });
-        document.getElementById("c-next-asset").addEventListener("click", function () {
+        document.getElementById("c-next-asset").addEventListener("click", async function () {
             const prompt = document.getElementById("c-prompt").value.trim();
             if (prompt.length < 8) {
                 document.getElementById("c-err").textContent = "프롬프트를 더 자세히 입력하세요.";
                 return;
             }
+            await autoFillCreateNeeds(false);
             setCreateStep("asset");
+        });
+        document.getElementById("c-prompt").addEventListener("blur", function () {
+            autoFillCreateNeeds(false);
         });
         document.getElementById("c-back-prompt").addEventListener("click", function () {
             setCreateStep("prompt");
@@ -781,6 +819,7 @@
                 el.classList.toggle("selected", el === btn);
             });
             document.getElementById("c-err").textContent = "";
+            if (selectedGender === "child") autoFillCreateNeeds(true);
         });
         document.getElementById("c-generate").addEventListener("click", generateCreatePreview);
         document.getElementById("c-promote").addEventListener("click", promoteCreateDraft);
