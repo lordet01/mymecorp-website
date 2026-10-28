@@ -413,7 +413,7 @@
             <div class="meta">
                 <span>업데이트 <span id="updated-at">—</span></span>
                 <span class="badge" id="data-source">—</span>
-                <span id="auto-refresh-hint">Live 동기화 · 1분마다 갱신</span>
+                <span id="auto-refresh-hint">Live 확인 · 1분마다 갱신</span>
             </div>
         </section>
 
@@ -431,7 +431,7 @@
         const SNAPSHOT_URL = "./metrics.json";
         // Live API is authoritative; poll while the tab is open (server TTL cache ≈0.3s warm).
         const REFRESH_MS = 60 * 1000;
-        const HINT_LIVE = "Live 동기화 · 1분마다 갱신";
+        const HINT_LIVE = "Live 확인 · 1분마다 갱신";
         const gate = document.getElementById("gate");
         const dash = document.getElementById("dash");
         const form = document.getElementById("login-form");
@@ -442,6 +442,9 @@
         let refreshTimer = null;
         let loadSeq = 0;
         let liveSynced = false;
+        let liveController = null;
+        let livePending = false;
+        let lastLiveAt = 0;
 
         function unlocked() { return sessionStorage.getItem(SESSION_KEY) === "1"; }
         function showDash() {
@@ -454,11 +457,15 @@
         function showGate() {
             dash.classList.add("hidden"); gate.classList.remove("hidden");
             if (refreshTimer) { clearInterval(refreshTimer); refreshTimer = null; }
+            ++loadSeq;
+            if (liveController) liveController.abort();
+            liveController = null; livePending = false;
+            document.getElementById("refresh").disabled = false;
         }
         function startAutoRefresh() {
             if (refreshTimer) clearInterval(refreshTimer);
             refreshTimer = setInterval(function () {
-                if (unlocked() && !document.hidden) loadMetrics({ placeholder: false });
+                if (unlocked() && !document.hidden && !livePending) loadMetrics({ placeholder: false });
             }, REFRESH_MS);
         }
         function setLoadHint(text) {
@@ -488,7 +495,7 @@
         async function fetchOne(url, opts) {
             const headers = {};
             if (!String(url).endsWith(".json")) headers["X-Corp-Dashboard-Password"] = PASSWORD;
-            const res = await fetch(url, { headers: headers, cache: "no-store" });
+            const res = await fetch(url, { headers: headers, cache: "no-store", signal: opts && opts.signal });
             if (!res.ok) throw new Error(url + " " + res.status);
             const data = await res.json();
             data._source = String(url).indexOf("metrics.json") >= 0 ? "snapshot" : "live";
@@ -496,9 +503,9 @@
             return data;
         }
 
-        async function fetchLive(forceRefresh) {
+        async function fetchLive(forceRefresh, signal) {
             const q = forceRefresh ? "?refresh=1" : "";
-            const data = await fetchOne(LIVE_API + q);
+            const data = await fetchOne(LIVE_API + q, { signal: signal });
             if (data && data.cache) data._cacheHit = !!data.cache.hit;
             return data;
         }
@@ -752,6 +759,7 @@
                 ];
             }
 
+            if (typeof Chart === "undefined") { title.textContent += " · 차트를 불러오지 못했습니다"; return; }
             const ctx = document.getElementById("chart");
             if (chart) chart.destroy();
             chart = new Chart(ctx, {
@@ -955,7 +963,12 @@
             const seq = ++loadSeq;
 
             // Always start Live first — Pages follows Live as source of truth.
-            const livePromise = fetchLive(forceRefresh);
+            if (liveController) liveController.abort();
+            const controller = new AbortController();
+            liveController = controller; livePending = true;
+            document.getElementById("refresh").disabled = true;
+            const timeout = setTimeout(function () { controller.abort(); }, 30000);
+            const livePromise = fetchLive(forceRefresh, controller.signal);
             setLoadHint(forceRefresh ? "Live 강제 새로고침…" : "Live 동기화 중…");
 
             // Snapshot is only a temporary placeholder until the first Live success.
@@ -971,8 +984,14 @@
                 const live = await livePromise;
                 if (seq !== loadSeq) return;
                 liveSynced = true;
+                lastLiveAt = Date.now();
                 render(live);
-                setLoadHint(HINT_LIVE);
+                const cache = live.cache || {};
+                const cacheHint = cache.hit && Number.isFinite(Number(cache.age_sec))
+                    ? " · 캐시 " + Math.round(Number(cache.age_sec)) + "초 전" : "";
+                const ttlHint = Number.isFinite(Number(cache.ttl_sec)) && Number(cache.ttl_sec) > 0
+                    ? " · 서버 캐시 최대 " + Math.round(Number(cache.ttl_sec)) + "초" : "";
+                setLoadHint(HINT_LIVE + cacheHint + ttlHint);
             } catch (e) {
                 if (seq !== loadSeq) return;
                 if (!lastData) {
@@ -987,8 +1006,11 @@
                         setLoadHint("로드 실패");
                     }
                 } else {
-                    setLoadHint("Live 실패 · 마지막 Live 유지 · 1분마다 재시도");
+                    setLoadHint("Live 실패 · 마지막 데이터 유지 · 1분마다 재시도");
                 }
+            } finally {
+                clearTimeout(timeout);
+                if (liveController === controller) { liveController = null; livePending = false; document.getElementById("refresh").disabled = false; }
             }
         }
 
@@ -1010,7 +1032,7 @@
             loadMetrics({ placeholder: false, forceRefresh: true });
         });
         document.addEventListener("visibilitychange", function () {
-            if (!document.hidden && unlocked()) {
+            if (!document.hidden && unlocked() && !livePending && Date.now() - lastLiveAt >= 30000) {
                 loadMetrics({ placeholder: false });
             }
         });

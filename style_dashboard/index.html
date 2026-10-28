@@ -86,9 +86,10 @@
             color: var(--text-light); font-size: 0.85rem; margin-bottom: 14px;
         }
         .grid {
-            display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px;
+            display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px;
         }
-        @media (max-width: 720px) { .grid { grid-template-columns: 1fr; } }
+        @media (max-width: 720px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; } }
+        @media (max-width: 350px) { .grid { grid-template-columns: 1fr; } }
         .card {
             background: var(--bg-panel); border: 1px solid var(--border); border-radius: 16px; overflow: hidden;
             display: flex; flex-direction: column;
@@ -186,7 +187,7 @@
             <div>
                 <div class="brand">myme studio</div>
                 <h1>Style Cards</h1>
-                <p class="sub" style="margin:0">node2 StyleCardStore · 암호 게이트 전용</p>
+                <p class="sub" style="margin:0">Live StyleCardStore · 2분마다 갱신</p>
             </div>
             <div class="top-actions">
                 <button class="btn" type="button" id="btn-create">스타일 프롬프트 추가</button>
@@ -239,7 +240,7 @@
 
         <div class="meta-bar">
             <span id="meta-count">—</span>
-            <span id="meta-status"></span>
+            <span id="meta-status" role="status" aria-live="polite"></span>
         </div>
         <div class="grid" id="grid"></div>
         <div class="pager">
@@ -376,14 +377,33 @@
         let currentDetail = null;
         let listSeq = 0;
         let searchTimer = null;
+        let listController = null;
+        let listPending = false;
+        let refreshTimer = null;
+        let lastListAt = 0;
+        let lastCards = "";
+        let mutationsPending = 0;
+        const REFRESH_MS = 120000;
 
         function unlocked() { return sessionStorage.getItem(SESSION_KEY) === "1"; }
-        function showDash() { gate.classList.add("hidden"); dash.classList.remove("hidden"); loadList(); }
+        function showDash() {
+            gate.classList.add("hidden"); dash.classList.remove("hidden"); loadList();
+            if (refreshTimer) clearInterval(refreshTimer);
+            refreshTimer = setInterval(autoRefresh, REFRESH_MS);
+        }
+        function autoRefresh() {
+            if (unlocked() && !document.hidden && !listPending && !mutationsPending &&
+                drawer.classList.contains("hidden") && createModal.classList.contains("hidden")) loadList();
+        }
         function showGate() {
             dash.classList.add("hidden");
             drawer.classList.add("hidden");
             createModal.classList.add("hidden");
             gate.classList.remove("hidden");
+            if (refreshTimer) clearInterval(refreshTimer);
+            refreshTimer = null; ++listSeq;
+            if (listController) listController.abort();
+            listController = null; listPending = false;
         }
 
         function headers() {
@@ -472,6 +492,10 @@
 
         async function loadList() {
             const seq = ++listSeq;
+            if (listController) listController.abort();
+            const controller = new AbortController();
+            listController = controller; listPending = true;
+            const timeout = setTimeout(function () { controller.abort(); }, 20000);
             metaStatus.textContent = "불러오는 중…";
             const q = document.getElementById("f-q").value.trim();
             const need = document.getElementById("f-need").value;
@@ -482,16 +506,23 @@
                 offset: String(offset), limit: String(PAGE)
             });
             try {
-                const data = await api("/cards?" + params.toString());
+                const data = await api("/cards?" + params.toString(), { signal: controller.signal });
                 if (seq !== listSeq) return;
                 total = data.total || 0;
-                metaCount.textContent = "총 " + total + "장 · " + offset + "–" + Math.min(offset + PAGE, total);
-                metaStatus.textContent = "";
-                grid.innerHTML = (data.cards || []).map(cardHtml).join("") || '<p class="sub">카드가 없습니다.</p>';
+                if (total && offset >= total) { offset = Math.floor((total - 1) / PAGE) * PAGE; loadList(); return; }
+                metaCount.textContent = "총 " + total + "장 · " + (total ? offset + 1 : 0) + "–" + Math.min(offset + PAGE, total);
+                document.getElementById("btn-prev").disabled = offset === 0;
+                document.getElementById("btn-next").disabled = offset + PAGE >= total;
+                lastListAt = Date.now();
+                metaStatus.textContent = "갱신 " + new Date(lastListAt).toLocaleTimeString("ko-KR") + " · 2분마다 자동 갱신";
+                const cards = (data.cards || []).map(cardHtml).join("") || '<p class="sub">카드가 없습니다.</p>';
+                if (cards !== lastCards) { grid.innerHTML = cards; lastCards = cards; }
             } catch (e) {
                 if (seq !== listSeq) return;
-                metaStatus.textContent = "오류: " + e.message;
-                grid.innerHTML = "";
+                metaStatus.textContent = "갱신 실패 · 기존 목록 유지 · 다시 시도해 주세요";
+            } finally {
+                clearTimeout(timeout);
+                if (listController === controller) { listController = null; listPending = false; }
             }
         }
 
@@ -583,6 +614,7 @@
         async function regenCard(id) {
             if (!confirm("갤러리 컷을 재생성할까요? (프롬프트/레시피는 그대로)")) return;
             metaStatus.textContent = "재생성 중… (수 분 걸릴 수 있음)";
+            mutationsPending++;
             try {
                 await api("/cards/" + encodeURIComponent(id) + "/regen", { method: "POST", body: "{}" });
                 metaStatus.textContent = "재생성 완료";
@@ -591,11 +623,12 @@
             } catch (e) {
                 metaStatus.textContent = "재생성 실패: " + e.message;
                 alert("재생성 실패: " + e.message);
-            }
+            } finally { mutationsPending--; }
         }
 
         async function deleteCard(id) {
             if (!confirm("이 카드를 burn(숨김)할까요? 앱 목록에서 사라집니다.")) return;
+            mutationsPending++;
             try {
                 await api("/cards/" + encodeURIComponent(id) + "/delete", { method: "POST", body: "{}" });
                 drawer.classList.add("hidden");
@@ -603,7 +636,7 @@
                 loadList();
             } catch (e) {
                 alert("삭제 실패: " + e.message);
-            }
+            } finally { mutationsPending--; }
         }
 
         const createModal = document.getElementById("create-modal");
@@ -824,6 +857,10 @@
         document.getElementById("c-generate").addEventListener("click", generateCreatePreview);
         document.getElementById("c-promote").addEventListener("click", promoteCreateDraft);
         document.getElementById("btn-refresh").addEventListener("click", loadList);
+        document.addEventListener("visibilitychange", function () {
+            if (!document.hidden && Date.now() - lastListAt >= 30000) autoRefresh();
+        });
+        window.addEventListener("online", autoRefresh);
         ["f-need", "f-status", "f-sort"].forEach(function (id) {
             document.getElementById(id).addEventListener("change", reloadFromStart);
         });
