@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Looks from Instagram | myme studio</title>
+<meta name="description" content="Choose a look from myme studio and make it yours.">
+<meta name="theme-color" content="#f5f2ec">
+<style>
+:root{color-scheme:light;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#22211f;background:#f5f2ec}*{box-sizing:border-box}body{margin:0}main{max-width:920px;margin:auto;padding:32px 18px 70px}.brand{font-weight:750;letter-spacing:-.04em;font-size:20px;text-decoration:none;color:inherit}header{padding:28px 0 24px}h1{font-size:clamp(34px,7vw,64px);line-height:1.02;letter-spacing:-.05em;margin:0 0 14px}header p{line-height:1.5;color:#625f58;max-width:550px;margin:0}.group{margin:24px 0 42px}.group h2{font-size:14px;text-transform:uppercase;letter-spacing:.12em;color:#6e6a63}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.look{display:block;border-radius:18px;overflow:hidden;background:white;color:inherit;text-decoration:none;box-shadow:0 3px 15px #27221810}.look img{width:100%;aspect-ratio:4/5;object-fit:cover;display:block;background:#e8e3dc}.label{padding:15px;font-weight:650;text-transform:capitalize}.action{display:block;margin-top:5px;color:#756b60;font-size:13px;font-weight:400;text-transform:none}.note{color:#625f58;line-height:1.5}.fallback{color:#26231e}@media(max-width:600px){main{padding:24px 14px 60px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.label{padding:12px;font-size:14px}}
+</style>
+</head>
+<body><main><a class="brand" href="https://mymecorp.xyz/">myme studio</a><header><h1>Find your look.</h1><p>Choose a look from our posts, then make it yours with one selfie.</p></header><div id="content" aria-live="polite"><p class="note">Loading looks…</p></div><p class="note">New to myme? <a class="fallback" href="https://mymecorp.xyz/get">Get the app</a>.</p></main>
+<script>
+(async function(){
+ const base='https://myme-https.external.intflow.dev/api';
+ fetch(base+'/viral/events',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({source:'instagram',event_name:'hub_view'}),keepalive:true}).catch(()=>{});
+ const content=document.getElementById('content');
+ try {
+  const response=await fetch(base+'/viral/styles',{cache:'no-store'}); if(!response.ok) throw Error('unavailable'); const data=await response.json();
+  content.replaceChildren();
+  if(!data.cards || !data.cards.length){content.textContent='Looks are being prepared. Please check back soon.';return;}
+  for(const card of data.cards){const section=document.createElement('section');section.className='group';const title=document.createElement('h2');const match=String(card.id||'').match(/^(\d{4})(\d{2})(\d{2})/);title.textContent=match?`${match[1]}.${match[2]}.${match[3]}`:'Featured looks';section.append(title);const grid=document.createElement('div');grid.className='grid';for(const look of card.looks){if(!look.url || !look.preview) continue;const a=document.createElement('a');a.className='look';a.href=look.url;const img=document.createElement('img');img.src=look.preview;img.alt=look.label||'Style';img.loading='lazy';const label=document.createElement('div');label.className='label';label.textContent=look.label||'Look';const action=document.createElement('span');action.className='action';action.textContent='Make it yours →';label.append(action);a.append(img,label);grid.append(a)}section.append(grid);content.append(section)}
+ }catch(e){content.textContent='Looks are temporarily unavailable. Please try again soon.'}
+})();
+</script></body></html>
