@@ -175,7 +175,7 @@
         <p class="section-label">누적 총계</p>
         <div class="kpis six">
             <article class="kpi emphasis">
-                <div class="label">총 다운로드</div>
+                <div class="label">앱 신고 설치</div>
                 <div class="value" id="kpi-downloads">—</div>
                 <div class="hint" id="kpi-installs">앱 신고 설치 —</div>
             </article>
@@ -209,7 +209,7 @@
         <p class="section-label">일간 · 리텐션</p>
         <div class="kpis">
             <article class="kpi">
-                <div class="label">오늘 다운로드</div>
+                <div class="label">오늘 앱 신고 설치</div>
                 <div class="value" id="kpi-today-dl">—</div>
                 <div class="hint" id="kpi-today-dl-delta">전일 대비 —</div>
             </article>
@@ -219,7 +219,7 @@
                 <div class="hint" id="kpi-today-rev">수익 —</div>
             </article>
             <article class="kpi">
-                <div class="label">최근 7일 다운로드</div>
+                <div class="label">최근 7일 앱 신고 설치</div>
                 <div class="value" id="kpi-7d-dl">—</div>
                 <div class="hint" id="kpi-7d-dl-delta">직전 7일 대비 —</div>
             </article>
@@ -347,7 +347,7 @@
                 <button type="button" class="tab" data-chart="funnel">퍼널 추이</button>
                 <button type="button" class="tab" data-chart="monthly">월간</button>
             </div>
-            <h2 id="chart-title">일간 다운로드 · 구매 · 수익</h2>
+            <h2 id="chart-title">일간 앱 신고 설치 · 구매 · 수익</h2>
             <div class="chart-wrap tall"><canvas id="chart"></canvas></div>
         </section>
 
@@ -358,7 +358,7 @@
                     <thead>
                         <tr>
                             <th>날짜</th>
-                            <th>다운로드</th>
+                            <th>앱 신고 설치</th>
                             <th>구매</th>
                             <th>수익</th>
                             <th>가입</th>
@@ -677,7 +677,7 @@
             const fs = data.funnel_summary || {};
             document.getElementById("funnel-window").textContent =
                 "최근 " + (fs.window_days || data.daily_days || 30)
-                + "일 · 실사용자 · 전환율=막대 기준";
+                + "일 · 막대는 기간별 활동자 · 아래는 기간 내 가입자 기준 (순서 미검증)";
             const steps = [
                 ["signup", "가입"],
                 ["session", "세션"],
@@ -699,15 +699,14 @@
                     '<div class="n">' + fmtInt(n) + "</div>";
                 bars.appendChild(row);
             });
-            // Primary rates must match bar volumes (e.g. paywall 9 → purchase 1 = 11.1%).
-            const rates = fs.volume_rates || fs.rates || {};
+            // Only compare actions with the same signup cohort denominator.
+            // These are window-level overlaps, not an ordered funnel.
+            const rates = fs.cohort_rates || {};
             const rateItems = [
-                ["signup_to_session", "가입→세션"],
-                ["session_to_generated", "세션→생성"],
-                ["generated_to_paywall", "생성→페이월"],
-                ["paywall_to_purchase", "페이월→구매"],
-                ["generated_to_purchase", "생성→구매"],
-                ["signup_to_purchase", "가입→구매"]
+                ["signup_to_session", "가입자 중 세션"],
+                ["signup_to_generated", "가입자 중 생성"],
+                ["signup_to_paywall", "가입자 중 페이월"],
+                ["signup_to_purchase", "가입자 중 구매"]
             ];
             const rg = document.getElementById("funnel-rates");
             rg.innerHTML = "";
@@ -715,7 +714,7 @@
                 const card = document.createElement("div");
                 card.className = "rate-card";
                 card.innerHTML =
-                    '<div class="k">' + item[1] + ' (막대)</div><div class="v">' + fmtPct(rates[item[0]]) + "</div>";
+                    '<div class="k">' + item[1] + '</div><div class="v">' + fmtPct(rates[item[0]]) + "</div>";
                 rg.appendChild(card);
             });
         }
@@ -731,13 +730,12 @@
             const title = document.getElementById("chart-title");
 
             if (chartMode === "monthly") {
-                title.textContent = "월간 다운로드 · 수익 · 광고비";
+                title.textContent = "월간 앱 신고 설치 · 수익 · 광고비";
                 labels = monthly.map(function (r) { return r.month; });
                 datasets = [
-                    { type: "bar", label: "iOS downloads", data: monthly.map(function (r) { return Number((r.platforms && r.platforms.ios || {}).downloads) || 0; }), yAxisID: "y", backgroundColor: "rgba(126,182,255,0.55)", borderRadius: 5, stack: "dl" },
-                    { type: "bar", label: "Android downloads", data: monthly.map(function (r) { return Number((r.platforms && r.platforms.android || {}).downloads) || 0; }), yAxisID: "y", backgroundColor: "rgba(143,214,181,0.55)", borderRadius: 5, stack: "dl" },
+                    { type: "bar", label: "App-reported installs", data: monthly.map(function (r) { return Number(r.app_reported_installs) || 0; }), yAxisID: "y", backgroundColor: "rgba(126,182,255,0.55)", borderRadius: 5 },
                     { type: "line", label: "Revenue", data: monthly.map(function (r) { return Number(r.revenue_usd) || 0; }), yAxisID: "y1", borderColor: "#F3C7BE", tension: 0.25, backgroundColor: "transparent" },
-                    { type: "line", label: "Ad spend", data: monthly.map(function (r) { return Number(r.ad_spend_usd) || 0; }), yAxisID: "y1", borderColor: "#e8c07a", borderDash: [5, 4], tension: 0.25, backgroundColor: "transparent" }
+                    { type: "line", label: "Ad spend (manual)", data: monthly.map(function (r) { return (data.sources || {}).ad_spend === "override" ? Number(r.ad_spend_usd) || 0 : null; }), yAxisID: "y1", borderColor: "#e8c07a", borderDash: [5, 4], tension: 0.25, backgroundColor: "transparent" }
                 ];
             } else if (chartMode === "funnel") {
                 title.textContent = "일간 퍼널 (가입 · 세션 · 생성 · 페이월 · 구매)";
@@ -750,10 +748,10 @@
                     { type: "bar", label: "Purchase", data: daily.map(function (r) { return Number(r.purchases) || 0; }), yAxisID: "y1", backgroundColor: "rgba(243,199,190,0.45)", borderRadius: 4 }
                 ];
             } else {
-                title.textContent = "일간 다운로드 · 구매 · 수익";
+                title.textContent = "일간 앱 신고 설치 · 구매 · 수익";
                 labels = daily.map(function (r) { return String(r.day).slice(5); });
                 datasets = [
-                    { type: "bar", label: "Downloads", data: daily.map(function (r) { return Number(r.downloads) || 0; }), yAxisID: "y", backgroundColor: "rgba(126,182,255,0.5)", borderRadius: 4 },
+                    { type: "bar", label: "App-reported installs", data: daily.map(function (r) { return Number(r.app_reported_installs) || 0; }), yAxisID: "y", backgroundColor: "rgba(126,182,255,0.5)", borderRadius: 4 },
                     { type: "bar", label: "Purchases", data: daily.map(function (r) { return Number(r.purchases) || 0; }), yAxisID: "y", backgroundColor: "rgba(243,199,190,0.55)", borderRadius: 4 },
                     { type: "line", label: "Revenue USD", data: daily.map(function (r) { return Number(r.revenue_usd) || 0; }), yAxisID: "y1", borderColor: "#8fd6b5", tension: 0.25, backgroundColor: "transparent" }
                 ];
@@ -781,6 +779,10 @@
             lastData = data;
             const totals = data.totals || {};
             const sources = data.sources || {};
+            const hasIosDownloads = ["asc_analytics", "override"].includes(sources.ios_downloads);
+            const hasAndroidDownloads = sources.android_downloads === "override";
+            const hasAdRevenue = String(sources.ad_revenue || "").startsWith("admob_network:") || sources.ad_revenue === "override";
+            const hasAdSpend = sources.ad_spend === "override";
             const recent = data.recent || {};
             const today = recent.today || {};
             const yday = recent.yesterday || {};
@@ -795,9 +797,9 @@
             const totalRevenue = Number(totals.revenue_usd) || 0;
             const arppu = totalPurchases > 0 ? totalRevenue / totalPurchases : null;
 
-            document.getElementById("kpi-downloads").textContent = fmtInt(totals.downloads);
+            document.getElementById("kpi-downloads").textContent = fmtInt(totals.app_reported_installs);
             document.getElementById("kpi-installs").textContent =
-                "앱 신고 설치 " + fmtInt(totals.app_reported_installs || totals.downloads);
+                "앱 첫 실행 신고 기준 · 스토어 다운로드와 다름";
             const storeNet = Number(totals.store_net_revenue != null ? totals.store_net_revenue : totalRevenue) || 0;
             const feeRate = Number(totals.store_fee_rate);
             document.getElementById("kpi-revenue").textContent = fmtMoney(totalRevenue);
@@ -806,10 +808,10 @@
             document.getElementById("kpi-purchases-value").textContent = fmtInt(totalPurchases);
             document.getElementById("kpi-arppu").textContent =
                 "ARPPU " + (arppu === null ? "—" : fmtMoney(arppu));
-            document.getElementById("kpi-ads").textContent = fmtMoney(totals.ad_spend_usd);
+            document.getElementById("kpi-ads").textContent = hasAdSpend ? fmtMoney(totals.ad_spend_usd) : "미연결";
             document.getElementById("kpi-net").textContent =
-                "순(스토어순−광고비) " + fmtMoney(totals.net_after_ads_usd);
-            document.getElementById("kpi-ad-rev").textContent = fmtMoney(totals.ad_revenue_usd);
+                hasAdSpend ? "순(스토어순−입력 광고비) " + fmtMoney(totals.net_after_ads_usd) + " · 입력 범위 확인" : "순이익 계산 불가 · 광고비 미연결";
+            document.getElementById("kpi-ad-rev").textContent = hasAdRevenue ? fmtMoney(totals.ad_revenue_usd) : "미연결";
             document.getElementById("kpi-ad-rev-src").textContent =
                 "AdMob · " + (sources.ad_revenue || "none");
             const aiCost = totals.actual_ai_cost != null ? totals.actual_ai_cost : totals.openai_cost_usd;
@@ -819,7 +821,7 @@
                 || "";
             document.getElementById("kpi-openai-src").textContent =
                 (oaiSrc === "openai_admin" ? "OpenAI 청구 실적" : "추정 API 비용")
-                + " · 순(−AI) " + fmtMoney(totals.net_after_ads_and_openai_usd);
+                + (hasAdSpend ? " · 순(−AI) " + fmtMoney(totals.net_after_ads_and_openai_usd) + " · 입력 범위 확인" : " · 순이익 계산 불가");
 
             const prof = data.profitability || {};
             document.getElementById("kpi-api-calls").textContent = fmtInt(
@@ -847,28 +849,33 @@
             renderApiSpend(data);
             renderGenerationCategories(data);
 
-            document.getElementById("kpi-today-dl").textContent = fmtInt(today.downloads);
-            document.getElementById("kpi-today-dl-delta").innerHTML = deltaHtml(today.downloads, yday.downloads, "전일 대비");
+            const todayInstalls = (daily[daily.length - 1] || {}).app_reported_installs;
+            const yesterdayInstalls = (daily[daily.length - 2] || {}).app_reported_installs;
+            const sumInstalls = function (rows) { return rows.reduce(function (n, row) { return n + (Number(row.app_reported_installs) || 0); }, 0); };
+            const weekInstalls = sumInstalls(daily.slice(-7));
+            const previousWeekInstalls = sumInstalls(daily.slice(-14, -7));
+            document.getElementById("kpi-today-dl").textContent = fmtInt(todayInstalls);
+            document.getElementById("kpi-today-dl-delta").innerHTML = deltaHtml(todayInstalls, yesterdayInstalls, "전일 대비");
             document.getElementById("kpi-today-buy").textContent = fmtInt(today.purchases);
             document.getElementById("kpi-today-rev").textContent = "수익 " + fmtMoney(today.revenue_usd);
-            document.getElementById("kpi-7d-dl").textContent = fmtInt(last7.downloads);
-            document.getElementById("kpi-7d-dl-delta").innerHTML = deltaHtml(last7.downloads, prev7.downloads, "직전 7일 대비");
+            document.getElementById("kpi-7d-dl").textContent = fmtInt(weekInstalls);
+            document.getElementById("kpi-7d-dl-delta").innerHTML = deltaHtml(weekInstalls, previousWeekInstalls, "직전 7일 대비");
             document.getElementById("kpi-d1").textContent = fmtPct(retention.d1);
             document.getElementById("kpi-d7").textContent = "D7 " + fmtPct(retention.d7) + " · D30 " + fmtPct(retention.d30);
 
             const ios = plat(totals, "ios");
             const and = plat(totals, "android");
-            document.getElementById("ios-dl").textContent = fmtInt(ios.downloads);
+            document.getElementById("ios-dl").textContent = hasIosDownloads ? fmtInt(ios.downloads) : "미연결";
             document.getElementById("ios-buy").textContent = fmtInt(ios.purchases);
             document.getElementById("ios-rev").textContent = fmtMoney(ios.revenue_usd);
-            document.getElementById("ios-ad-rev").textContent = fmtMoney(ios.ad_revenue_usd);
-            document.getElementById("ios-ads").textContent = fmtMoney(ios.ad_spend_usd);
-            document.getElementById("android-dl").textContent = fmtInt(and.downloads);
+            document.getElementById("ios-ad-rev").textContent = hasAdRevenue ? fmtMoney(ios.ad_revenue_usd) : "미연결";
+            document.getElementById("ios-ads").textContent = hasAdSpend ? fmtMoney(ios.ad_spend_usd) : "미연결";
+            document.getElementById("android-dl").textContent = hasAndroidDownloads ? fmtInt(and.downloads) : "미연결";
             document.getElementById("android-buy").textContent = fmtInt(and.purchases);
             document.getElementById("android-rev").textContent = fmtMoney(and.revenue_usd);
-            document.getElementById("android-ad-rev").textContent = fmtMoney(and.ad_revenue_usd);
-            document.getElementById("android-ads").textContent = fmtMoney(and.ad_spend_usd);
-            document.getElementById("ios-src").textContent = sources.ios_downloads || "payments";
+            document.getElementById("android-ad-rev").textContent = hasAdRevenue ? fmtMoney(and.ad_revenue_usd) : "미연결";
+            document.getElementById("android-ads").textContent = hasAdSpend ? fmtMoney(and.ad_spend_usd) : "미연결";
+            document.getElementById("ios-src").textContent = (sources.ios_downloads || "미연결") + (sources.ios_downloads_latest_day ? " · 마지막 기록 " + sources.ios_downloads_latest_day : "");
             document.getElementById("android-src").textContent = sources.android_downloads || "payments";
 
             document.getElementById("updated-at").textContent = data.updated_at || "—";
@@ -896,7 +903,7 @@
                 const tr = document.createElement("tr");
                 tr.innerHTML =
                     "<td>" + row.day + "</td>" +
-                    "<td class='num'>" + fmtInt(row.downloads) + "</td>" +
+                    "<td class='num'>" + fmtInt(row.app_reported_installs) + "</td>" +
                     "<td class='num'>" + fmtInt(row.purchases) + "</td>" +
                     "<td class='num'>" + fmtMoney(row.revenue_usd) + "</td>" +
                     "<td class='num'>" + fmtInt(f.signup) + "</td>" +
@@ -933,8 +940,8 @@
                 head.innerHTML =
                     "<td colspan='7'>" + row.month +
                     " · 합계 수익 " + fmtMoney(row.revenue_usd) +
-                    " / 광고수익 " + fmtMoney(row.ad_revenue_usd) +
-                    " / 광고비 " + fmtMoney(row.ad_spend_usd) +
+                    " / 광고수익 " + (hasAdRevenue ? fmtMoney(row.ad_revenue_usd) : "미연결") +
+                    " / 광고비 " + (hasAdSpend ? fmtMoney(row.ad_spend_usd) : "미연결") +
                     " / OpenAI " + fmtMoney(row.openai_cost_usd) + "</td>";
                 tbody.appendChild(head);
                 ["ios", "android", "unknown"].forEach(function (p) {
@@ -944,11 +951,11 @@
                     const tr = document.createElement("tr");
                     tr.innerHTML =
                         "<td>" + label + "</td>" +
-                        "<td class='num'>" + fmtInt(cell.downloads) + "</td>" +
+                        "<td class='num'>" + (p === "unknown" ? "—" : ((p === "ios" && !hasIosDownloads) || (p === "android" && !hasAndroidDownloads) ? "미연결" : fmtInt(cell.downloads))) + "</td>" +
                         "<td class='num'>" + fmtInt(cell.purchases) + "</td>" +
                         "<td class='num'>" + fmtMoney(cell.revenue_usd) + "</td>" +
-                        "<td class='num'>" + fmtMoney(cell.ad_revenue_usd) + "</td>" +
-                        "<td class='num'>" + fmtMoney(cell.ad_spend_usd) + "</td>" +
+                        "<td class='num'>" + (hasAdRevenue ? fmtMoney(cell.ad_revenue_usd) : "미연결") + "</td>" +
+                        "<td class='num'>" + (hasAdSpend ? fmtMoney(cell.ad_spend_usd) : "미연결") + "</td>" +
                         "<td class='num'>" + (p === "ios" ? fmtMoney(row.openai_cost_usd) : "—") + "</td>";
                     tbody.appendChild(tr);
                 });
