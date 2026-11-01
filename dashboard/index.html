@@ -363,7 +363,7 @@
                             <th>수익</th>
                             <th>가입</th>
                             <th>세션</th>
-                            <th>생성</th>
+                            <th>과금 확인</th>
                             <th>스타일카드$</th>
                             <th>고객생성$</th>
                             <th>페이월</th>
@@ -677,11 +677,12 @@
             const fs = data.funnel_summary || {};
             document.getElementById("funnel-window").textContent =
                 "최근 " + (fs.window_days || data.daily_days || 30)
-                + "일 · 막대는 기간별 활동자 · 아래는 기간 내 가입자 기준 (순서 미검증)";
+                + "일 · 기간별 활동자 · A컷 완료는 요청일 기준 · 아래는 기간 내 가입자 기준 (순서 미검증)";
             const steps = [
                 ["signup", "가입"],
                 ["session", "세션"],
-                ["generated", "생성"],
+                ["generated", "과금 확인"],
+                ["completed_acut_users", "A컷 완료"],
                 ["unlock", "언락"],
                 ["paywall", "페이월"],
                 ["purchase", "구매"]
@@ -690,13 +691,13 @@
             const bars = document.getElementById("funnel-bars");
             bars.innerHTML = "";
             steps.forEach(function (s) {
-                const n = Number(fs[s[0]]) || 0;
+                const n = fs[s[0]] == null ? null : Number(fs[s[0]]) || 0;
                 const row = document.createElement("div");
                 row.className = "funnel-row";
                 row.innerHTML =
                     '<div class="name">' + s[1] + "</div>" +
                     '<div class="track"><div class="fill" style="width:' + Math.max(2, (n / max) * 100) + '%"></div></div>' +
-                    '<div class="n">' + fmtInt(n) + "</div>";
+                    '<div class="n">' + (n == null ? "—" : fmtInt(n)) + "</div>";
                 bars.appendChild(row);
             });
             // Only compare actions with the same signup cohort denominator.
@@ -704,7 +705,8 @@
             const rates = fs.cohort_rates || {};
             const rateItems = [
                 ["signup_to_session", "가입자 중 세션"],
-                ["signup_to_generated", "가입자 중 생성"],
+                ["signup_to_generated", "가입자 중 과금 확인"],
+                ["signup_to_result", "가입자 중 A컷 완료"],
                 ["signup_to_paywall", "가입자 중 페이월"],
                 ["signup_to_purchase", "가입자 중 구매"]
             ];
@@ -738,12 +740,12 @@
                     { type: "line", label: "Ad spend (manual)", data: monthly.map(function (r) { return (data.sources || {}).ad_spend === "override" ? Number(r.ad_spend_usd) || 0 : null; }), yAxisID: "y1", borderColor: "#e8c07a", borderDash: [5, 4], tension: 0.25, backgroundColor: "transparent" }
                 ];
             } else if (chartMode === "funnel") {
-                title.textContent = "일간 퍼널 (가입 · 세션 · 생성 · 페이월 · 구매)";
+                title.textContent = "일간 활동 (가입 · 세션 · 과금 확인 · 페이월 · 구매)";
                 labels = daily.map(function (r) { return String(r.day).slice(5); });
                 datasets = [
                     { type: "line", label: "Signup", data: daily.map(function (r) { return Number((r.funnel || {}).signup) || 0; }), yAxisID: "y", borderColor: "#F3C7BE", tension: 0.25, backgroundColor: "transparent" },
                     { type: "line", label: "Session", data: daily.map(function (r) { return Number((r.funnel || {}).session) || 0; }), yAxisID: "y", borderColor: "#7eb6ff", tension: 0.25, backgroundColor: "transparent" },
-                    { type: "line", label: "Generated", data: daily.map(function (r) { return Number((r.funnel || {}).generated) || 0; }), yAxisID: "y", borderColor: "#8fd6b5", tension: 0.25, backgroundColor: "transparent" },
+                    { type: "line", label: "Billing confirmed", data: daily.map(function (r) { return Number((r.funnel || {}).generated) || 0; }), yAxisID: "y", borderColor: "#8fd6b5", tension: 0.25, backgroundColor: "transparent" },
                     { type: "line", label: "Paywall", data: daily.map(function (r) { return Number((r.funnel || {}).paywall) || 0; }), yAxisID: "y", borderColor: "#e8c07a", tension: 0.25, backgroundColor: "transparent" },
                     { type: "bar", label: "Purchase", data: daily.map(function (r) { return Number(r.purchases) || 0; }), yAxisID: "y1", backgroundColor: "rgba(243,199,190,0.45)", borderRadius: 4 }
                 ];
