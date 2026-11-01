@@ -250,7 +250,7 @@
                     <span class="badge" id="android-src">—</span>
                 </div>
                 <div class="plat-stats">
-                    <div><div class="k">다운로드</div><div class="v" id="android-dl">—</div></div>
+                    <div><div class="k">기기 설치 · 스냅샷</div><div class="v" id="android-dl">—</div></div>
                     <div><div class="k">구매</div><div class="v" id="android-buy">—</div></div>
                     <div><div class="k">수익(그로스)</div><div class="v" id="android-rev">—</div></div>
                     <div><div class="k">광고 수익</div><div class="v" id="android-ad-rev">—</div></div>
@@ -394,12 +394,13 @@
 
         <section class="panel">
             <h2>월별 상세 (플랫폼)</h2>
+            <p class="hint">* iOS는 App Store 다운로드, Android는 Play 기기 설치 스냅샷입니다. 기간과 집계 기준이 다릅니다.</p>
             <div style="overflow-x:auto">
                 <table>
                     <thead>
                         <tr>
                             <th>구분</th>
-                            <th>다운로드</th>
+                            <th>스토어 수치*</th>
                             <th>구매</th>
                             <th>수익</th>
                             <th>광고 수익</th>
@@ -782,7 +783,7 @@
             const totals = data.totals || {};
             const sources = data.sources || {};
             const hasIosDownloads = ["asc_analytics", "override"].includes(sources.ios_downloads);
-            const hasAndroidDownloads = sources.android_downloads === "override";
+            const hasAndroidDownloads = ["override", "play_report_snapshot"].includes(sources.android_downloads);
             const hasAdRevenue = String(sources.ad_revenue || "").startsWith("admob_network:") || sources.ad_revenue === "override";
             const hasAdSpend = sources.ad_spend === "override";
             const recent = data.recent || {};
@@ -878,7 +879,7 @@
             document.getElementById("android-ad-rev").textContent = hasAdRevenue ? fmtMoney(and.ad_revenue_usd) : "미연결";
             document.getElementById("android-ads").textContent = hasAdSpend ? fmtMoney(and.ad_spend_usd) : "미연결";
             document.getElementById("ios-src").textContent = (sources.ios_downloads || "미연결") + (sources.ios_downloads_latest_day ? " · 마지막 기록 " + sources.ios_downloads_latest_day : "");
-            document.getElementById("android-src").textContent = sources.android_downloads || "payments";
+            document.getElementById("android-src").textContent = (sources.android_downloads || "미연결") + (sources.android_downloads_latest_day ? " · 수동 · " + sources.android_downloads_latest_day + "까지" : "");
 
             document.getElementById("updated-at").textContent = data.updated_at || "—";
             let srcLabel = "Local snapshot (임시)";
@@ -953,7 +954,7 @@
                     const tr = document.createElement("tr");
                     tr.innerHTML =
                         "<td>" + label + "</td>" +
-                        "<td class='num'>" + (p === "unknown" ? "—" : ((p === "ios" && !hasIosDownloads) || (p === "android" && !hasAndroidDownloads) ? "미연결" : fmtInt(cell.downloads))) + "</td>" +
+                        "<td class='num'>" + (p === "unknown" ? "—" : ((p === "ios" && !hasIosDownloads) || (p === "android" && !hasAndroidDownloads) ? "미연결" : ((p === "ios" && sources.ios_downloads_latest_day && row.month > sources.ios_downloads_latest_day.slice(0, 7)) || (p === "android" && sources.android_downloads_latest_day && (row.month > sources.android_downloads_latest_day.slice(0, 7) || (sources.android_downloads_first_day && row.month < sources.android_downloads_first_day.slice(0, 7)))) ? "미집계" : fmtInt(cell.downloads)))) + "</td>" +
                         "<td class='num'>" + fmtInt(cell.purchases) + "</td>" +
                         "<td class='num'>" + fmtMoney(cell.revenue_usd) + "</td>" +
                         "<td class='num'>" + (hasAdRevenue ? fmtMoney(cell.ad_revenue_usd) : "미연결") + "</td>" +
